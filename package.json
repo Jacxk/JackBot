@@ -1,7 +1,7 @@
 {
   "name": "testbot",
   "version": "1.0.0",
-  "description": "just a test bot",
+  "description": "An awesome bot",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
@@ -9,7 +9,7 @@
   "author": "Jacxk",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^11.3.0",
+    "discord.js": "^11.3.2",
     "request": "^2.83.0",
     "valid-url": "^1.0.9"
   }
