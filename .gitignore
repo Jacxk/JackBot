@@ -1,0 +1,7 @@
+data.json
+node
+package.json
+package-lock.json
+tokenConfig.json
+node_modules/
+.idea/
