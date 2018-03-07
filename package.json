@@ -4,14 +4,13 @@
   "description": "just a test bot",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "author": "Jacxk",
   "license": "ISC",
   "dependencies": {
     "discord.js": "^11.3.0",
     "request": "^2.83.0",
-    "spotify-web-api-node": "^2.5.0",
     "valid-url": "^1.0.9"
   }
 }
