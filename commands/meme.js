@@ -7,7 +7,7 @@ module.exports.run = (message, args) => {
 };
 
 function generateMeme(message) {
-    request("https://www.reddit.com/r/PewdiepieSubmissions/.json", (a, b, data) => {
+    request("https://www.reddit.com/r/PewdiepieSubmissions/.json", (err, req, data) => {
         let jsonData = JSON.parse(data);
         let meme = jsonData.data.children;
 

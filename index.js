@@ -37,7 +37,7 @@ fs.readdir("./commands/", (error, files) => {
 
     let commands = files.filter(file => file.split(".").pop() === 'js');
 
-    commands.forEach((commandFile, i) => {
+    commands.forEach((commandFile) => {
         let props = require(`./commands/${commandFile}`);
         bot.commands.set(props.command.name, props);
     });
