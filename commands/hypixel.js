@@ -1,8 +1,8 @@
 const Discord = require('discord.js');
 const request = require('request');
-const tokenConfig = require('../tokenConfig.json');
+//const tokenConfig = require('../tokenConfig.json');
 const config = require('../config.json');
-const apiKey = tokenConfig.hypixelToken;
+//const apiKey = tokenConfig.hypixelToken;
 const prefix = config.prefix;
 
 module.exports.run = (message, args) => {
@@ -11,7 +11,7 @@ module.exports.run = (message, args) => {
 
 function getHypixelData(args, channel) {
     let playerName = args[1];
-    request.get("https://api.hypixel.net/player?key=" + apiKey + "&name=" + playerName, function (e, res, data) {
+    request.get("https://api.hypixel.net/player?key=" + process.env.hypixelToken + "&name=" + playerName, function (e, res, data) {
         let embed = new Discord.RichEmbed();
         if (args.length !== 3 || args.length === 2 && args[1].toLowerCase() === "help") {
             embed.setDescription("These are all the available gamemodes and its description:\n" +

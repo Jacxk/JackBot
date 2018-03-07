@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const request = require('request');
 const config = require('../config.json');
-const tokenConfig = require('../tokenConfig.json');
+//const tokenConfig = require('../tokenConfig.json');
 const prefix = config.prefix;
 
 module.exports.run = (message, args) => {
@@ -22,7 +22,7 @@ function getFortniteStats(channel, platform, username, mode) {
         url: `https://api.fortnitetracker.com/v1/profile/${platform.toLowerCase()}/${username}`,
         headers: {
             'User-Agent': 'nodejs request',
-            'TRN-Api-Key': tokenConfig.fortniteApiKey
+            'TRN-Api-Key': process.env.fortniteApiKey
         }
     };
     request(options, (error, response, data) => {
