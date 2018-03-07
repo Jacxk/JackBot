@@ -12,14 +12,10 @@ let user = JSON.parse(file);
 
 let cooldownArray = [];
 
-bot.on('guildMemberAdd', member => {
-    member.channel.send('A new member has spawned: ' + member.toString());
-});
-
 bot.on('ready', () => {
     setGameStatus();
     console.log('bot ready');
-    bot.user.setStatus("dnd").catch(err => console.log(err));
+    bot.user.setStatus("dnd").catch(console.error);
 });
 
 function setGameStatus() {
