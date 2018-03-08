@@ -1,11 +1,12 @@
 const Discord = require('discord.js');
 const config = require('../config.json');
+const messageUtil = require('../utilities/messageUtil.js');
 const validUrl = require('valid-url');
 const prefix = config.prefix;
 
 module.exports.run = (message, args) => {
     if (message.channel.type === "dm") return message.channel.send('You need to use this command inside the guild.');
-    if (!message.member.hasPermission("ADMINISTRATOR")) return noPermString(message);
+    if (!message.member.hasPermission("ADMINISTRATOR")) return messageUtil.noPermissionMessage(message);
 
     let embed = new Discord.RichEmbed();
 
@@ -36,13 +37,6 @@ module.exports.run = (message, args) => {
     message.delete(1000 * 10);
 };
 
-function noPermString(message) {
-    let embed = new Discord.RichEmbed();
-    embed.setTitle('❌ ERROR ❌').setDescription("***You don't have permission to use this command***").setColor("RED");
-    message.channel.send(embed).then(m => m.delete(1000 * 10));
-    message.react('❌').catch(err => console.log(err));
-    message.delete(1000 * 10);
-}
 module.exports.command = {
     name: 'addemote'
 };

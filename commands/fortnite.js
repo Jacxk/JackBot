@@ -25,8 +25,8 @@ function getFortniteStats(channel, platform, username, mode) {
             'TRN-Api-Key': process.env.fortniteApiKey
         }
     };
-    request(options, (error, response, data) => {
-
+    request(options, (err, resp, data) => {
+        if (err) return console.log(err);
         if (!data) {
             embed.setDescription('Please try again later...');
             channel.send(embed);

@@ -11,7 +11,8 @@ module.exports.run = (message, args) => {
 
 function getHypixelData(args, channel) {
     let playerName = args[1];
-    request.get("https://api.hypixel.net/player?key=" + process.env.hypixelToken + "&name=" + playerName, function (e, res, data) {
+    request.get("https://api.hypixel.net/player?key=" + process.env.hypixelToken + "&name=" + playerName, function (err, res, data) {
+        if (err) return console.log(err);
         let embed = new Discord.RichEmbed();
         if (args.length !== 3 || args.length === 2 && args[1].toLowerCase() === "help") {
             embed.setDescription("These are all the available gamemodes and its description:\n" +

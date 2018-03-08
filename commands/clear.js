@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const messageUtil = require('../utilities/messageUtil.js');
 
 module.exports.run = (message, args) => {
     if (message.channel.type === "dm") return message.channel.send('You need to use this command inside the guild.');
@@ -19,7 +20,7 @@ module.exports.run = (message, args) => {
 };
 
 async function clearMessages(message, args) {
-    if (!message.member.hasPermission("ADMINISTRATOR")) return noPermString(message);
+    if (!message.member.hasPermission("MANAGE_MESSAGES")) return messageUtil.noPermissionMessage(message);
     message.delete();
     let embed = new Discord.RichEmbed();
 
@@ -39,14 +40,6 @@ async function clearMessages(message, args) {
         .setColor("BLUE")).then(sent => {
         sent.delete(1000 * 10);
     });
-}
-
-function noPermString(message) {
-    let embed = new Discord.RichEmbed();
-    embed.setTitle('❌ ERROR ❌').setDescription("***You don't have permission to use this command***").setColor("RED");
-    message.channel.send(embed).then(m => m.delete(1000 * 10));
-    message.react('❌').catch(err => console.log(err));
-    message.delete(1000 * 10).catch(err => console.log(err));
 }
 
 module.exports.command = {

@@ -39,6 +39,12 @@ fs.readdir("./commands/", (error, files) => {
     });
 });
 
+bot.on('channelCreate', channel => {
+    let props = require('./utilities/muteUtils');
+    let role = channel.guild.roles.find("name", "Muted");
+    props.createMutedRole(channel.guild, channel, role, false);
+});
+
 bot.on('message', message => {
     if (message.author.bot) return;
     if (!message.content.startsWith(prefix) && message.channel.type !== "dm") return rankSystem(message.author.id);

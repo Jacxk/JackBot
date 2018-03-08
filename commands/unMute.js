@@ -1,5 +1,5 @@
-const muteUtils = require('../utilities/muteUtils.js');
 const messageUtil = require('../utilities/messageUtil.js');
+const muteUtils = require('../utilities/muteUtils.js');
 
 module.exports.run = (message, args) => {
     if (message.channel.type === "dm") return message.channel.send('You need to use this command inside the guild.');
@@ -11,9 +11,9 @@ module.exports.run = (message, args) => {
     let muteRole = message.member.guild.roles.find("name", "Muted");
 
     if (!muteUtils.createMutedRole(message.guild, message.channel, muteRole, true)) return;
-    muteUtils.mute(memberToMute, muteRole, message, args);
+    muteUtils.unMute(memberToMute, muteRole, message);
 };
 
 module.exports.command = {
-    name: 'mute'
+    name: 'unmute'
 };
