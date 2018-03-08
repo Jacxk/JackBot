@@ -4,28 +4,32 @@ const config = require('../config.json');
 
 module.exports.run = (message, args) => {
     let embed = new Discord.RichEmbed();
-    if (args.length === 1) return message.channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌')
-        .setDescription('You need to enter a language and the text to translate')
-        .setFooter(`Usage: ${config.prefix}translate [lang] [text]`)).then(m => m.delete(5000));
-    if (args.length === 2) return message.channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌')
-        .setDescription('You need to enter the text you want to translate')
-        .setFooter(`Usage: ${config.prefix}translate [lang] [text]`)).then(m => m.delete(5000));
-
     message.delete();
 
-    let toTranslate = args.join(' ').substring(args[0].length + args[1].length + 1);
-    translate(toTranslate, {to: args[1]}).then(res => {
+    if (args.length === 1) return message.channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌')
+        .setDescription('You need to enter a language and the text to translate')
+        .setFooter(`Usage: ${config.prefix}translate [lang] [text]`)).then(m => m.delete(10000));
+    if (args.length === 2) return message.channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌')
+        .setDescription('You need to enter the text you want to translate')
+        .setFooter(`Usage: ${config.prefix}translate [lang] [text]`)).then(m => m.delete(10000));
+
+    let translateTo = args[1].split('_').join(' ');
+    if (translateTo.toLowerCase().includes('chinese')) translateTo = 'Chinese Simplified';
+    let toTranslate = args.join(' ').substring(args[0].length + translateTo.length + 1);
+
+    translate(toTranslate, {to: translateTo}).then(res => {
 
         embed.setColor("AQUA");
         embed.setAuthor(message.author.username, message.author.avatarURL);
         embed.addField('Message to Translate', toTranslate);
         embed.addField('Translated Message', res.text);
         embed.addField('Translated From', langs[res.from.language.iso], true);
-        embed.addField('Translated To', args[1], true);
-        embed.setFooter('Translated by: Google Translate', 'https://is1-ssl.mzstatic.com/image/thumb/Purple128/v4/88/86/0c/88860cd7-5d79-7bfc-59bd-d544b37ed967/logo_translate_color-1x_U007emarketing-85-220-0-5.png/246x0w.jpg');
-
+        embed.addField('Translated To', translateTo, true);
+        embed.setFooter('Translated by: Google Translate', 'https://cdn.dribbble.com/users/1341307/screenshots/3641494/google_translate.gif');
         message.channel.send(embed);
-    }).catch(err => console.error(err));
+    }).catch(err => message.channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌')
+        .setDescription(err.replace('Error: ')).setFooter(`Usage: ${config.prefix}translate [lang] [text]`))
+        .then(m => m.delete(10000)));
 };
 
 
