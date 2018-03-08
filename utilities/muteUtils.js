@@ -34,7 +34,6 @@ module.exports.createMutedRole = function (guild, channel, mutedRole, sendMessag
 
 module.exports.mute = function (memberToMute, role, message, args) {
     let embed = new Discord.RichEmbed();
-    message.delete().catch(err => console.log(err));
     if (memberToMute.roles.get(role.id)) {
         message.channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌')
             .setDescription(`The member ${memberToMute.displayName} is already muted`))
@@ -51,7 +50,6 @@ module.exports.mute = function (memberToMute, role, message, args) {
 
 module.exports.unMute = function (memberToMute, role, message) {
     let embed = new Discord.RichEmbed();
-    message.delete().catch(err => console.log(err));
     if (memberToMute.roles.get(role.id)) {
         memberToMute.removeRole(role.id).catch(err => embed.setColor("RED").setTitle('❌ ERROR ❌').setDescription(err));
         message.channel.send(embed.setColor("GREEN").setTitle('🔇 MUTE REPORT 🔇')
