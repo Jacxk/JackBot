@@ -23,7 +23,7 @@ function generateMeme(message) {
         embed.setColor("RANDOM");
         embed.setImage(url);
         embed.setTitle(imageData.title);
-        embed.setFooter("Powered by: www.reddit.com/r/memes");
+        embed.setFooter("Powered by: www.reddit.com/r/PewdiepieSubmissions");
 
         message.channel.send(embed);
 
