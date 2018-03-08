@@ -1,11 +1,20 @@
 const Discord = require('discord.js');
 const translate = require('google-translate-api');
+const config = require('../config.json');
 
 module.exports.run = (message, args) => {
+    let embed = new Discord.RichEmbed();
+    if (args.length === 1) return message.channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌')
+        .setDescription('You need to enter a language and the text to translate')
+        .setFooter(`Usage: ${config.prefix}translate [lang] [text]`).then(m => m.delete(5000)));
+    if (args.length === 2) return message.channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌')
+        .setDescription('You need to enter the text you want to translate')
+        .setFooter(`Usage: ${config.prefix}translate [lang] [text]`).then(m => m.delete(5000)));
+
     message.delete();
+
     let toTranslate = args.join(' ').substring(args[0].length + args[1].length + 1);
     translate(toTranslate, {to: args[1]}).then(res => {
-        let embed = new Discord.RichEmbed();
 
         embed.setColor("AQUA");
         embed.setAuthor(message.author.username, message.author.avatarURL);
