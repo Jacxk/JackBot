@@ -7,3 +7,15 @@ module.exports.noPermissionMessage = function (message) {
     message.react('❌').catch(err => embed.setColor("RED").setTitle('❌ ERROR ❌').setDescription(err));
     message.delete(1000 * 10).catch(err => console.log(err));
 };
+
+module.exports.specifyUser = function (channel) {
+    let embed = new Discord.RichEmbed();
+    channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌')
+        .setDescription('Please specify a @user')).then(m => m.delete(5000));
+};
+
+module.exports.noSelfPunishment = function (channel) {
+    let embed = new Discord.RichEmbed();
+    channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌')
+        .setDescription('You can\'t don this to your self...')).then(m => m.delete(5000));
+};

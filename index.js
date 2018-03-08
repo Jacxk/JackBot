@@ -8,7 +8,7 @@ bot.commands = new Discord.Collection();
 const prefix = config.prefix;
 
 let file = fs.readFileSync("./data.json", "utf8");
-let user = JSON.parse(file);
+let userData = JSON.parse(file);
 
 let cooldownArray = [];
 
@@ -56,11 +56,6 @@ bot.on('message', message => {
     if (command) command.run(message, args, bot);
 
     switch (args[0].toLowerCase()) {
-        case 'rank':
-            message.channel.send(getExpString(member.id));
-            break;
-        case 'mute':
-            break;
         case 'rankup':
             if (!member.hasPermission("ADMINISTRATOR")) return noPermString(message);
             rankUpUser(message, args[2], args);
@@ -76,39 +71,39 @@ function rankSystem(id) {
             cooldownArray.splice(cooldownArray.indexOf(id), 1);
         }, 1000 * 60);
     }
-    if (!user[id]) user[id] = {
+    if (!userData[id]) userData[id] = {
         level: 1,
         exp: 0
     };
 
     giveExp(Math.floor(Math.random() * 15 + 10), id);
 
-    fs.writeFile('./data.json', JSON.stringify(user, null, 2), (err) => {
+    fs.writeFile('./data.json', JSON.stringify(userData, null, 2), (err) => {
         if (err) console.log(err)
     });
 }
 
 function giveExp(exp, id) {
 
-    user[id].exp += exp;
+    userData[id].exp += exp;
 
     if (getNeededExp(id) <= 0) {
-        user[id].level++;
+        userData[id].level++;
     }
-    console.log(getNeededExp(id) + '/' + getTotalExpForLevel(user[id].level));
+    console.log(getNeededExp(id) + '/' + getTotalExpForLevel(userData[id].level));
 }
 
 function getExpString(id) {
     let embed = new Discord.RichEmbed();
 
-    let nextLevelTotal = getTotalExpForLevel(user[id].level);
+    let nextLevelTotal = getTotalExpForLevel(userData[id].level);
 
 
-    return embed.setDescription(getNeededExp(id) + '/' + nextLevelTotal + '\nTotal Exp: ' + user[id].exp + '\nCurrent level: ' + user[id].level).setColor("AQUA");
+    return embed.setDescription(getNeededExp(id) + '/' + nextLevelTotal + '\nTotal Exp: ' + userData[id].exp + '\nCurrent level: ' + userData[id].level).setColor("AQUA");
 }
 
 function getNeededExp(id) {
-    return getTotalExpForLevel(user[id].level) - (user[id].exp - getTotalExpForLevel(user[id].level - 1));
+    return getTotalExpForLevel(userData[id].level) - (userData[id].exp - getTotalExpForLevel(userData[id].level - 1));
 }
 
 function getTotalExpForLevel(level) {

@@ -6,7 +6,9 @@ module.exports.run = (message, args) => {
     if (!message.member.hasPermission("MANAGE_MESSAGES")) return messageUtil.noPermissionMessage(message);
 
     let memberToMute = message.mentions.members.first();
-    if (!memberToMute) return message.channel.send('Please specify an @user').then(m => m.delete(5000));
+
+    if (memberToMute === message.member) return messageUtil.noSelfPunishment(message.channel);
+    if (!memberToMute) return messageUtil.specifyUser(message.channel);
 
     let muteRole = message.member.guild.roles.find("name", "Muted");
 
