@@ -6,10 +6,10 @@ module.exports.run = (message, args) => {
     let embed = new Discord.RichEmbed();
     if (args.length === 1) return message.channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌')
         .setDescription('You need to enter a language and the text to translate')
-        .setFooter(`Usage: ${config.prefix}translate [lang] [text]`).then(m => m.delete(5000)));
+        .setFooter(`Usage: ${config.prefix}translate [lang] [text]`)).then(m => m.delete(5000));
     if (args.length === 2) return message.channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌')
         .setDescription('You need to enter the text you want to translate')
-        .setFooter(`Usage: ${config.prefix}translate [lang] [text]`).then(m => m.delete(5000)));
+        .setFooter(`Usage: ${config.prefix}translate [lang] [text]`)).then(m => m.delete(5000));
 
     message.delete();
 
