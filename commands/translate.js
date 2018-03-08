@@ -28,7 +28,7 @@ module.exports.run = (message, args) => {
         embed.setFooter('Translated by: Google Translate', 'https://cdn.dribbble.com/users/1341307/screenshots/3641494/google_translate.gif');
         message.channel.send(embed);
     }).catch(err => message.channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌')
-        .setDescription(err.replace('Error: ')).setFooter(`Usage: ${config.prefix}translate [lang] [text]`))
+        .setDescription(err.toString().replace('Error: ', '')).setFooter(`Usage: ${config.prefix}translate [lang] [text]`))
         .then(m => m.delete(10000)));
 };
 
