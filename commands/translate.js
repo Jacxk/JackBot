@@ -32,7 +32,6 @@ module.exports.run = (message, args) => {
         .then(m => m.delete(10000)));
 };
 
-
 module.exports.command = {
     name: 'translate'
 };
