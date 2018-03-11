@@ -1,20 +1,27 @@
 const Discord = require('discord.js');
+const config = require('../config.json');
 
-module.exports.noPermissionMessage = function (message) {
+module.exports.noPermissionMessage = (message) => {
     let embed = new Discord.RichEmbed();
     embed.setTitle('❌ ERROR ❌').setDescription("***You don't have permission to use this command***").setColor("RED");
-    message.channel.send(embed).then(m => m.delete(1000 * 10));
+    message.channel.send(embed).then(m => m.delete(10000));
     message.react('❌').catch(err => embed.setColor("RED").setTitle('❌ ERROR ❌').setDescription(err));
 };
 
-module.exports.specifyUser = function (channel) {
+module.exports.specifyUser = (channel) => {
     let embed = new Discord.RichEmbed();
     channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌')
-        .setDescription('Please specify a @user')).then(m => m.delete(5000));
+        .setDescription('Please specify a @user')).then(m => m.delete(10000));
 };
 
-module.exports.noSelfPunishment = function (channel) {
+module.exports.noSelfPunishment = (channel) => {
     let embed = new Discord.RichEmbed();
     channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌')
-        .setDescription('You can\'t don this to your self...')).then(m => m.delete(5000));
+        .setDescription('You can\'t don this to your self...')).then(m => m.delete(10000));
+};
+
+module.exports.wrongUsage = (channel, usage, example) => {
+    let embed = new Discord.RichEmbed();
+    channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌')
+        .setDescription('Usage: ' + config.prefix + usage).setFooter(config.prefix + example)).then(m => m.delete(10000));
 };

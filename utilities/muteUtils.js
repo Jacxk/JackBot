@@ -1,6 +1,15 @@
 const Discord = require('discord.js');
+const ms = require('ms');
 
-module.exports.createMutedRole = function (guild, channel, mutedRole, sendMessage) {
+let timeOut;
+const tempMute = module.exports.tempMute = (args, memberToMute, role, message) => {
+    mute(memberToMute, role, message, args, true, args[1]);
+    timeOut = setTimeout(() => {
+        unMute(memberToMute, role, message, args);
+    }, ms(args[1]))
+};
+
+module.exports.createMutedRole = (guild, channel, mutedRole, sendMessage) => {
     if (!mutedRole) {
         guild.createRole({
             name: 'Muted',
@@ -32,7 +41,7 @@ module.exports.createMutedRole = function (guild, channel, mutedRole, sendMessag
     return true;
 };
 
-module.exports.mute = function (memberToMute, role, message, args) {
+const mute = module.exports.mute = (memberToMute, role, message, args, isTemp, duration) => {
     let embed = new Discord.RichEmbed();
     if (memberToMute.roles.get(role.id)) {
         message.channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌')
@@ -43,43 +52,43 @@ module.exports.mute = function (memberToMute, role, message, args) {
         message.channel.send(embed.setColor("GREEN").setTitle('🔇 MUTE REPORT 🔇')
             .setDescription(`The member ${memberToMute.user.tag} has been muted.`))
             .then(msg => msg.delete(10 * 1000));
-        sendMuteEmbed(args, message.guild, message.member, memberToMute, "http://pluspng.com/img-png/mute-png-noun-project-200.png")
-            .catch(err => embed.setColor("RED").setTitle('❌ ERROR ❌').setDescription(err));
+        sendMuteEmbed(args, message.guild, message.member, memberToMute,
+            "http://pluspng.com/img-png/mute-png-noun-project-200.png", duration, isTemp);
     }
 };
 
-module.exports.unMute = function (memberToMute, role, message) {
+const unMute = module.exports.unMute = (memberToMute, role, message) => {
     let embed = new Discord.RichEmbed();
     if (memberToMute.roles.get(role.id)) {
         memberToMute.removeRole(role.id).catch(err => embed.setColor("RED").setTitle('❌ ERROR ❌').setDescription(err));
         message.channel.send(embed.setColor("GREEN").setTitle('🔇 MUTE REPORT 🔇')
-            .setDescription(`The member ${memberToMute.user.tag} has been unMuted.`))
-            .then(msg => msg.delete(10 * 1000));
+            .setDescription(`The member ${memberToMute.user.tag} has been unMuted.`)).then(msg => msg.delete(10 * 1000));
+        if (!timeOut) clearTimeout(timeOut);
     } else {
         message.channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌').setDescription(`The member ${memberToMute.displayName} is not muted`))
             .then(msg => msg.delete(10 * 1000));
     }
 };
 
-async function sendMuteEmbed(args, guild, staffMember, mutedMember, url) {
+function sendMuteEmbed(args, guild, staffMember, mutedMember, url, duration, isTemp) {
     if (args.length < 2) return;
 
     let reason = [];
-    for (let i = 2; i < args.length; i++) {
+    for (let i = (isTemp ? 3 : 2); i < args.length; i++) {
         reason.push(args[i]);
     }
 
     const embed = new Discord.RichEmbed().setColor("AQUA")
-        .setTitle('📃 NEW REPORT 📃').addField("Staff Member Tag", staffMember.user.tag, true)
+        .setTitle('📃 MUTE REPORT 📃').addField("Staff Member Tag", staffMember.user.tag, true)
         .addField("Staff Member ID", staffMember.id, true).addField("Muted User Tag", mutedMember.user.tag, true)
         .addField("Muted User ID", mutedMember.id, true).addField("Issue Date", new Date().toDateString(), true)
-        .addField("Mute Duration", "COMING SOON™", true)
-        .addField("Reason", (reason) ? `**${reason.join(' ')}**` : "Not Specified")
+        .addField("Mute Duration", duration, true)
+        .addField("Reason", reason ? `**${reason.join(' ')}**` : "Not Specified")
         .setThumbnail(url);
 
     let channel = guild.channels.find('name', "incidents");
     if (!channel) {
-        await guild.createChannel("incidents", "text").then(channel.send(embed))
+        guild.createChannel("incidents", "text").then(channel.send(embed))
             .catch(err => embed.setColor("RED").setTitle('❌ ERROR ❌').setDescription(err));
     } else channel.send(embed);
 }
