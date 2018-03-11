@@ -10,8 +10,9 @@ module.exports.run = (message, args) => {
 
     let memberToMute = message.mentions.members.first();
 
-    if (memberToMute === message.member) return messageUtil.noSelfPunishment(message.channel);
     if (!memberToMute) return messageUtil.specifyUser(message.channel);
+    if (memberToMute === message.member) return messageUtil.noSelfPunishment(message.channel);
+    if (memberToMute.highestRole.position >= message.member.highestRole.position) return messageUtil.noSelfPunishment(message.channel);
 
     let muteRole = message.member.guild.roles.find("name", "Muted");
 

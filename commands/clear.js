@@ -21,7 +21,6 @@ module.exports.run = (message, args) => {
 
 async function clearMessages(message, args) {
     if (!message.member.hasPermission("MANAGE_MESSAGES")) return messageUtil.noPermissionMessage(message);
-    message.delete();
     let embed = new Discord.RichEmbed();
 
     if (isNaN(args[1])) {
@@ -32,7 +31,7 @@ async function clearMessages(message, args) {
         return;
     }
 
-    let messages = await message.channel.fetchMessages({limit: args[1]});
+    let messages = await message.channel.fetchMessages({limit: parseInt(args[1]) + 1});
 
     message.channel.bulkDelete(messages).catch(error => message.channel.send(`Error: ${error}`));
 

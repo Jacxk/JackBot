@@ -17,7 +17,13 @@ module.exports.specifyUser = (channel) => {
 module.exports.noSelfPunishment = (channel) => {
     let embed = new Discord.RichEmbed();
     channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌')
-        .setDescription('You can\'t don this to your self...')).then(m => m.delete(10000));
+        .setDescription('You can\'t do this to your self...')).then(m => m.delete(10000));
+};
+
+module.exports.sameRankOrHigher = (channel) => {
+    let embed = new Discord.RichEmbed();
+    channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌')
+        .setDescription('You can\'t do this to a user with same rank or higher...')).then(m => m.delete(10000));
 };
 
 module.exports.wrongUsage = (channel, usage, example) => {

@@ -9,7 +9,7 @@ module.exports.run = (message, args) => {
 function helpMessages(message, args) {
     let embed = new Discord.RichEmbed();
     let channel = message.channel;
-    if (channel.type !== "dm") channel.send('**Sending help... Check your PM**');
+    if (channel.type !== "dm") channel.send(embed.setDescription('✅ Sending help... Check your PM ✅').setColor('GREEN'));
     if (args.length === 2) {
         switch (args[1].toLowerCase()) {
             case 'profile':
@@ -89,19 +89,47 @@ function helpMessages(message, args) {
         return;
     }
     embed.setTitle('These are all the available commands')
-        .addField(prefix + 'help [command]', 'Shows help for a command')
-        .addField(prefix + 'mute [@user] [reason]', 'Mute/UnMute an user (reason optional)')
-        .addField(prefix + 'rank', 'Shows your current level/rank')
-        .addField(prefix + 'profile', 'Shows your profile info')
-        .addField(prefix + 'clear [number]', 'Deletes the amount said of messages')
-        .addField(prefix + 'say [text]', 'Display a text message like this')
-        .addField(prefix + '8ball [text]', 'She knows the future')
-        .addField(prefix + 'addEmote [image url] [name]', 'Adds a new emote to the guild')
-        .addField(prefix + 'delEmote [name]', 'Remove an existing emote from the guild')
-        .addField(prefix + 'rankUp [@user] [roleName]', 'Adds a role to an user and show a nice rankUp message')
+        .setDescription('Use ' + prefix + 'help [commandName] to get more information about the command')
+        .addField('Moderation Commands', moderation(), true)
+        .addField('Admin Commands', admins(), true)
+        .addField('Stats Commands', stats(), true)
+        .addField('Misc Commands', misc(), true)
         .setColor("AQUA");
     message.author.send(embed);
 }
+
+const moderation = () => {
+    const commands = ['mute', 'unMute', 'tempMute', 'clear'];
+    let stringCmd = [];
+    for (let i = 0; i < commands.length; i++)
+        stringCmd.push(prefix + commands[i]);
+    return stringCmd.join('\n');
+};
+
+const misc = () => {
+    const commands = ['8ball', 'meme', 'define', 'weather', 'profile', 'guildInfo',  'botInfo', 'translate'];
+    let stringCmd = [];
+    for (let i = 0; i < commands.length; i++)
+        stringCmd.push(prefix + commands[i]);
+    return stringCmd.join('\n');
+};
+
+const admins = () => {
+    const commands = ['addEmote', 'delEmote', 'say'];
+    let stringCmd = [];
+    for (let i = 0; i < commands.length; i++)
+        stringCmd.push(prefix + commands[i]);
+    return stringCmd.join('\n');
+};
+
+
+const stats = () => {
+    const commands = ['hypixel', 'fortnite'];
+    let stringCmd = [];
+    for (let i = 0; i < commands.length; i++)
+        stringCmd.push(prefix + commands[i]);
+    return stringCmd.join('\n');
+};
 
 module.exports.command = {
     name: 'help'

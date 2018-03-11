@@ -19,13 +19,11 @@ bot.on('ready', () => {
 });
 
 function setGameStatus() {
-    let gameStatus = config.game.split(';');
-    let game = gameStatus[Math.floor(Math.random() * (gameStatus.length - 1))];
-    bot.user.setActivity(game, {type: "LISTENING"}).catch(err => console.log(err));
+    let gameStatus = config.games;
+    let game = gameStatus[Math.floor(Math.random() * gameStatus.length)];
+    bot.user.setActivity(game.replace('%randomUser%', bot.users.random().username), {type: "WATCHING"}).catch(err => console.log(err));
     console.log('game changed to ' + game);
-    setTimeout(() => {
-        setGameStatus();
-    }, 60 * 60000);
+    setTimeout(() => setGameStatus(), 60 * 60000);
 }
 
 fs.readdir("./commands/", (error, files) => {
@@ -40,6 +38,7 @@ fs.readdir("./commands/", (error, files) => {
 });
 
 bot.on('channelCreate', channel => {
+    if (channel.type === 'dm') return;
     let props = require('./utilities/muteUtils');
     let role = channel.guild.roles.find("name", "Muted");
     props.createMutedRole(channel.guild, channel, role, false);
