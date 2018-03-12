@@ -19,11 +19,12 @@ bot.on('ready', () => {
 });
 
 function setGameStatus() {
-    let gameStatus = config.games;
-    let game = gameStatus[Math.floor(Math.random() * gameStatus.length)];
-    bot.user.setActivity(game.replace('%randomUser%', bot.users.random().username), {type: "WATCHING"}).catch(err => console.log(err));
-    console.log('game changed to ' + game);
-    setTimeout(() => setGameStatus(), 60 * 60000);
+    setInterval(() => {
+        let gameStatus = config.games;
+        let game = gameStatus[Math.floor(Math.random() * gameStatus.length)];
+        bot.user.setActivity(game.replace('%randomUser%', bot.users.random().username), {type: "WATCHING"}).catch(err => console.log(err));
+        console.log('game changed to ' + game);
+    }, 60 * 60000);
 }
 
 fs.readdir("./commands/", (error, files) => {
