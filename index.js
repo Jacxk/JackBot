@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 const config = require('./config.json');
-//const tokenConfig = require('./tokenConfig.json');
+const tokenConfig = require('./tokenConfig.json');
 const bot = new Discord.Client();
 bot.commands = new Discord.Collection();
 
@@ -132,5 +132,5 @@ function rankUpUser(message, roleName, args) {
 
 }
 
-//bot.login(tokenConfig.token).catch(err => console.log(err));
-bot.login(process.env.botToken).catch(err => console.log(err));
+bot.login(tokenConfig.token).catch(err => console.log(err));
+//bot.login(process.env.botToken).catch(err => console.log(err));
