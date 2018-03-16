@@ -63,7 +63,7 @@ const unMute = module.exports.unMute = (memberToMute, role, message) => {
         memberToMute.removeRole(role.id).catch(err => embed.setColor("RED").setTitle('❌ ERROR ❌').setDescription(err));
         message.channel.send(embed.setColor("GREEN").setTitle('🔇 MUTE REPORT 🔇')
             .setDescription(`The member ${memberToMute.user.tag} has been unMuted.`)).then(msg => msg.delete(10 * 1000));
-        if (!timeOut) clearTimeout(timeOut);
+        if (timeOut) clearTimeout(timeOut);
     } else {
         message.channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌').setDescription(`The member ${memberToMute.displayName} is not muted`))
             .then(msg => msg.delete(10 * 1000));

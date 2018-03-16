@@ -7,7 +7,7 @@ module.exports.run = (message, args) => {
     if (args.length < 2) return message.channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌')
         .setDescription('Please specify a city')).then(m => m.delete(5000));
 
-    let city = args.join('%20').substring(args[0].length + 3);
+    let city = args.slice(1).join('%20');
     request('https://www.metaweather.com/api/location/search/?query=' + city, (err, resp, data) => {
         if (err) return message.channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌').setDescription(err));
 

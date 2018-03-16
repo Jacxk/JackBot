@@ -1,5 +1,4 @@
 {
-  "prefix": "++",
   "fortune": [
     "no",
     "yes",
@@ -11,12 +10,11 @@
     "u rite"
   ],
   "games": [
-    "Type ++help",
-    "Memes [++meme]",
+    "Memes",
     "Fortnite",
-    "You...",
-    "The 8ball [++8ball]",
-    "The owner...",
-    "%randomUser%..."
+    "You",
+    "The Future with 8ball",
+    "The owner",
+    "%randomUser%"
   ]
 }

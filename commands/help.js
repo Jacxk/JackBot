@@ -1,12 +1,12 @@
 const Discord = require('discord.js');
-const config = require('../config.json');
-const prefix = config.prefix;
+const prefixUtil = require('../utilities/prefixUtil.js');
 
 module.exports.run = (message, args) => {
-    helpMessages(message, args);
+    const prefix = prefixUtil.getPrefix(message.guild.id);
+    helpMessages(message, args, prefix);
 };
 
-function helpMessages(message, args) {
+function helpMessages(message, args, prefix) {
     let embed = new Discord.RichEmbed();
     let channel = message.channel;
     if (channel.type !== "dm") channel.send(embed.setDescription('✅ Sending help... Check your PM ✅').setColor('GREEN'));
@@ -90,15 +90,15 @@ function helpMessages(message, args) {
     }
     embed.setTitle('These are all the available commands')
         .setDescription('Use ' + prefix + 'help [commandName] to get more information about the command')
-        .addField('Moderation Commands', moderation(), true)
-        .addField('Admin Commands', admins(), true)
-        .addField('Stats Commands', stats(), true)
-        .addField('Misc Commands', misc(), true)
+        .addField('Moderation Commands', moderation(prefix), true)
+        .addField('Admin Commands', admins(prefix), true)
+        .addField('Stats Commands', stats(prefix), true)
+        .addField('Misc Commands', misc(prefix), true)
         .setColor("AQUA");
     message.author.send(embed);
 }
 
-const moderation = () => {
+const moderation = (prefix) => {
     const commands = ['mute', 'unMute', 'tempMute', 'clear'];
     let stringCmd = [];
     for (let i = 0; i < commands.length; i++)
@@ -106,7 +106,7 @@ const moderation = () => {
     return stringCmd.join('\n');
 };
 
-const misc = () => {
+const misc = (prefix) => {
     const commands = ['8ball', 'meme', 'define', 'weather', 'profile', 'guildInfo',  'botInfo', 'translate'];
     let stringCmd = [];
     for (let i = 0; i < commands.length; i++)
@@ -114,7 +114,7 @@ const misc = () => {
     return stringCmd.join('\n');
 };
 
-const admins = () => {
+const admins = (prefix) => {
     const commands = ['addEmote', 'delEmote', 'say'];
     let stringCmd = [];
     for (let i = 0; i < commands.length; i++)
@@ -123,7 +123,7 @@ const admins = () => {
 };
 
 
-const stats = () => {
+const stats = (prefix) => {
     const commands = ['hypixel', 'fortnite'];
     let stringCmd = [];
     for (let i = 0; i < commands.length; i++)

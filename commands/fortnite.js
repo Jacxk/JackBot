@@ -1,12 +1,10 @@
 const Discord = require('discord.js');
+const messageUtil = require('../utilities/messageUtil.js');
 const request = require('request');
-const config = require('../config.json');
-//const tokenConfig = require('../tokenConfig.json');
-const prefix = config.prefix;
 
 module.exports.run = (message, args) => {
-    if (args.length < 3) return message.channel.send(new Discord.RichEmbed()
-        .setColor('RED').setDescription(`Usage: ${prefix}fortnite [platform] [username] {gamemode}`));
+    if (args.length < 3) return messageUtil.wrongUsage(message.channel, 'fortnite [platform] [username] <<gamemode>>',
+        'fortnite pc exranger [solo, duo, squad]');
     getFortniteStats(message.channel, args[1], args[2], args[3]);
 };
 

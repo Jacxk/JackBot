@@ -33,16 +33,19 @@ const unBan = module.exports.unBan = (memberToBan, message) => {
     let embed = new Discord.RichEmbed();
     let guild = message.guild;
     guild.fetchBans().then(bans => {
-        if (bans.get(memberToBan)) {
-            guild.unBan(memberToBan).catch(err => embed.setColor("RED").setTitle('❌ ERROR ❌').setDescription(err));
-            message.channel.send(embed.setColor("GREEN").setTitle('🔇 BAN REPORT 🔇')
-                .setDescription(`The member ${memberToBan.user.tag} has been unBanned.`)).then(msg => msg.delete(10 * 1000));
-            if (!timeOut) clearTimeout(timeOut);
+        const bannedUser = bans.get(memberToBan);
+        if (bannedUser) {
+            guild.unBan(bannedUser).then(unBanned => {
+                message.channel.send(embed.setColor("GREEN").setTitle('🔇 BAN REPORT 🔇')
+                    .setDescription(`The member ${unBanned.user.tag} has been unBanned.`)).then(msg => msg.delete(10 * 1000));
+            }).catch(err => embed.setColor("RED").setTitle('❌ ERROR ❌').setDescription(err));
+            if (timeOut) clearTimeout(timeOut);
         } else {
             message.channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌').setDescription(`The member ${memberToBan} is not banned`))
                 .then(msg => msg.delete(10 * 1000));
         }
-    }).catch(err => message.channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌').setDescription('Could not find the user ' + memberToBan)));
+    }).catch(err => message.channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌')
+        .setDescription('Could not find the user ' + memberToBan)).then(msg => msg.delete(10 * 1000)));
 };
 
 function sendBanEmbed(args, guild, staffMember, bannedMember, url, duration, isTemp) {

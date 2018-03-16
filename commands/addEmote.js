@@ -1,8 +1,6 @@
 const Discord = require('discord.js');
-const config = require('../config.json');
 const messageUtil = require('../utilities/messageUtil.js');
 const validUrl = require('valid-url');
-const prefix = config.prefix;
 
 module.exports.run = (message, args) => {
     if (message.channel.type === "dm") return message.channel.send('You need to use this command inside the guild.');
@@ -11,8 +9,7 @@ module.exports.run = (message, args) => {
     let embed = new Discord.RichEmbed();
 
     if (args.length < 3) {
-        embed.setTitle('❌ ERROR ❌').setDescription('**Wrong Usage, you need to specify a link of an image and the name of the emote.**'
-            + `\n**Usage: ${prefix}addEmote [image url] [name_with_no_space]**`).setColor("RED");
+        messageUtil.wrongUsage(message.channel, 'addEmote [image url] [name_with_no_space]', 'addEmote https://www.google.com/ wat');
         message.channel.send(embed).then(m => m.delete(1000 * 10));
         message.react('❌').catch(err => console.log(err));
         message.delete(1000 * 10);

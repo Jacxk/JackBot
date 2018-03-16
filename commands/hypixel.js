@@ -1,15 +1,12 @@
 const Discord = require('discord.js');
 const request = require('request');
-//const tokenConfig = require('../tokenConfig.json');
-const config = require('../config.json');
-//const apiKey = tokenConfig.hypixelToken;
-const prefix = config.prefix;
+const prefixUtil = require('../utilities/prefixUtil.js');
 
 module.exports.run = (message, args) => {
-    getHypixelData(args, message.channel);
+    getHypixelData(args, message.channel, prefixUtil.getPrefix(message.guild.id));
 };
 
-function getHypixelData(args, channel) {
+function getHypixelData(args, channel, prefix) {
     let playerName = args[1];
     request.get("https://api.hypixel.net/player?key=" + process.env.hypixelToken + "&name=" + playerName, function (err, res, data) {
         if (err) return console.log(err);

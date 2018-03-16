@@ -4,8 +4,7 @@ const config = require('./config.json');
 const tokenConfig = require('./tokenConfig.json');
 const bot = new Discord.Client();
 bot.commands = new Discord.Collection();
-
-const prefix = config.prefix;
+const prefixUtil = require('./utilities/prefixUtil.js');
 
 let file = fs.readFileSync("./data.json", "utf8");
 let userData = JSON.parse(file);
@@ -13,6 +12,7 @@ let userData = JSON.parse(file);
 let cooldownArray = [];
 
 bot.on('ready', () => {
+    bot.guilds.forEach(guild => prefixUtil.setPrefixGuild(guild).catch(err => console.error(err)));
     setGameStatus();
     console.log('bot ready');
     bot.user.setStatus("dnd").catch(console.error);
@@ -47,6 +47,7 @@ bot.on('channelCreate', channel => {
 
 bot.on('message', message => {
     if (message.author.bot) return;
+    const prefix = prefixUtil.getPrefix(message.guild.id);
     if (!message.content.startsWith(prefix) && message.channel.type !== "dm") return rankSystem(message.author.id);
 
     let member = message.member;

@@ -1,17 +1,13 @@
 const Discord = require('discord.js');
 const translate = require('google-translate-api');
-const config = require('../config.json');
+const messageUtil = require('../utilities/messageUtil.js');
 
 module.exports.run = (message, args) => {
     let embed = new Discord.RichEmbed();
     message.delete();
 
-    if (args.length === 1) return message.channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌')
-        .setDescription('You need to enter a language and the text to translate')
-        .setFooter(`Usage: ${config.prefix}translate [lang] [text]`)).then(m => m.delete(10000));
-    if (args.length === 2) return message.channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌')
-        .setDescription('You need to enter the text you want to translate')
-        .setFooter(`Usage: ${config.prefix}translate [lang] [text]`)).then(m => m.delete(10000));
+    if (args.length <= 2)
+        return messageUtil.wrongUsage(message.channel, 'translate [lang] [text]', 'translate spanish You are so stupid');
 
     let translateTo = args[1].split('_').join(' ');
     if (translateTo.toLowerCase().includes('chinese')) translateTo = 'Chinese Simplified';
@@ -27,9 +23,7 @@ module.exports.run = (message, args) => {
         embed.addField('Translated To', translateTo, true);
         embed.setFooter('Translated by: Google Translate', 'https://cdn.dribbble.com/users/1341307/screenshots/3641494/google_translate.gif');
         message.channel.send(embed);
-    }).catch(err => message.channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌')
-        .setDescription(err.toString().replace('Error: ', '')).setFooter(`Usage: ${config.prefix}translate [lang] [text]`))
-        .then(m => m.delete(10000)));
+    }).catch(err => messageUtil.sendError(message.channel, err.toString()));
 };
 
 module.exports.command = {

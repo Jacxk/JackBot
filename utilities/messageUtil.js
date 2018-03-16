@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const config = require('../config.json');
+const prefixUtil = require('../utilities/prefixUtil.js');
 
 module.exports.noPermissionMessage = (message) => {
     let embed = new Discord.RichEmbed();
@@ -27,7 +27,13 @@ module.exports.sameRankOrHigher = (channel) => {
 };
 
 module.exports.wrongUsage = (channel, usage, example) => {
+    const prefix = prefixUtil.getPrefix(channel.guild.id);
     let embed = new Discord.RichEmbed();
     channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌')
-        .setDescription('Usage: ' + config.prefix + usage).setFooter(config.prefix + example)).then(m => m.delete(10000));
+        .setDescription('Usage: ' + prefix + usage).setFooter(prefix + example)).then(m => m.delete(10000));
+};
+
+module.exports.sendError = (channel, error) => {
+    let embed = new Discord.RichEmbed();
+    channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌').setDescription(error)).then(m => m.delete(10000));
 };
