@@ -3,3 +3,4 @@ package-lock.json
 tokenConfig.json
 .idea/
 node_modules/
+mysqlConfig.json

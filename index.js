@@ -12,7 +12,8 @@ let userData = JSON.parse(file);
 let cooldownArray = [];
 
 bot.on('ready', () => {
-    bot.guilds.forEach(guild => prefixUtil.setPrefixGuild(guild).catch(err => console.error(err)));
+    prefixUtil.createTable();
+    bot.guilds.forEach(guild => prefixUtil.setPrefix(guild).catch(err => console.error(err)));
     setGameStatus();
     console.log('bot ready');
     bot.user.setStatus("dnd").catch(console.error);
