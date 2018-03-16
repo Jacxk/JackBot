@@ -4,3 +4,4 @@ tokenConfig.json
 .idea/
 node_modules/
 mysqlConfig.json
+data.json

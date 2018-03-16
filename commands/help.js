@@ -115,7 +115,7 @@ const misc = (prefix) => {
 };
 
 const admins = (prefix) => {
-    const commands = ['addEmote', 'delEmote', 'say'];
+    const commands = ['addEmote', 'delEmote', 'say', 'setPrefix'];
     let stringCmd = [];
     for (let i = 0; i < commands.length; i++)
         stringCmd.push(prefix + commands[i]);
