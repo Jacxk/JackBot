@@ -10,15 +10,15 @@ module.exports.connect = (channel, guild, prefix) => {
 };
 
 const connection = mysql.createConnection({
-    /*host: process.env.host,
+    host: process.env.host,
     user: process.env.user,
     database: process.env.database,
-    password: process.env.password*/
+    password: process.env.password
 
-    host: sqlConfig.host,
+    /*host: sqlConfig.host,
     user: sqlConfig.user,
     database: sqlConfig.database,
-    password: sqlConfig.password
+    password: sqlConfig.password*/
 });
 
 const createTable = module.exports.createTable = () => {
