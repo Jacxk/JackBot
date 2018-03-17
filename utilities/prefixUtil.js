@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const mysql = require('mysql');
 const messageUtil = require('../utilities/messageUtil.js');
-const sqlConfig = require('../mysqlConfig');
+//const sqlConfig = require('../mysqlConfig');
 const prefixes = module.exports.prefixeMap = new Map();
 
 module.exports.connect = (channel, guild, prefix) => {
