@@ -16,5 +16,6 @@ module.exports.run = (message, args) => {
 };
 
 module.exports.command = {
-    name: 'guildinfo'
+    name: 'guildinfo',
+    aliases: ['ginfo', 'guildi']
 };

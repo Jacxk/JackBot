@@ -19,5 +19,6 @@ module.exports.run = (message, args) => {
 };
 
 module.exports.command = {
-    name: 'unmute'
+    name: 'unmute',
+    aliases: ['umute', 'unm']
 };

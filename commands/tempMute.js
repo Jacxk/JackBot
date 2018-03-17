@@ -21,5 +21,6 @@ module.exports.run = (message, args) => {
 };
 
 module.exports.command = {
-    name: 'tempmute'
+    name: 'tempmute',
+    aliases: ['tempm', 'tmute', 'tm']
 };

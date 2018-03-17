@@ -17,5 +17,6 @@ module.exports.run = (message, args) => {
 };
 
 module.exports.command = {
-    name: '8ball'
+    name: '8ball',
+    aliases: ['fortune']
 };

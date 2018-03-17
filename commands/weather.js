@@ -48,5 +48,6 @@ module.exports.run = (message, args) => {
 };
 
 module.exports.command = {
-    name: 'weather'
+    name: 'weather',
+    aliases: ['climate', 'wea']
 };

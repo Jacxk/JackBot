@@ -27,5 +27,6 @@ async function clearMessages(message, args) {
 }
 
 module.exports.command = {
-    name: 'clear'
+    name: 'clear',
+    aliases: ['cc', 'c']
 };

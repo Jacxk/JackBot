@@ -4,10 +4,8 @@ const messageUtil = require('../utilities/messageUtil.js');
 module.exports.run = (message, args) => {
     let channel = message.channel;
     if (channel.type !== "dm" && !message.member.hasPermission("ADMINISTRATOR")) return messageUtil.noPermissionMessage(message);
-    if (args.length < 2) {
-        channel.send('You need to enter a text after that. \nExample: `+say --title:A_Title A Simple Text`');
-        return;
-    }
+    if (args.length < 2) return messageUtil.wrongUsage(message.channel, 'say [text]', 'say --title:A_Title A Simple Text --color:red');
+
     let embed = new Discord.RichEmbed();
 
     let list = [];
@@ -38,5 +36,6 @@ module.exports.run = (message, args) => {
 };
 
 module.exports.command = {
-    name: 'say'
+    name: 'say',
+    aliases: ['broadcast', 'bc']
 };

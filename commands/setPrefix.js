@@ -14,5 +14,6 @@ module.exports.run = (message, args) => {
 };
 
 module.exports.command = {
-    name: 'setprefix'
+    name: 'setprefix',
+    aliases: ['sprefix', 'setp']
 };

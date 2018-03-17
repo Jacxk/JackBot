@@ -25,5 +25,6 @@ module.exports.run = (message, args) => {
 };
 
 module.exports.command = {
-    name: "profile"
+    name: "profile",
+    aliases: ['p', 'prof']
 };

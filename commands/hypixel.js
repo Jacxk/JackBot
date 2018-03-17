@@ -98,5 +98,6 @@ function getHypixelData(args, channel, prefix) {
 }
 
 module.exports.command = {
-    name: 'hypixel'
+    name: 'hypixel',
+    aliases: ['hyp', 'hpxl']
 };

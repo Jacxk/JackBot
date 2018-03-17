@@ -1,9 +1,10 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 const config = require('./config.json');
-//const tokenConfig = require('./tokenConfig.json');
+const tokenConfig = require('./tokenConfig.json');
 const bot = new Discord.Client();
 bot.commands = new Discord.Collection();
+const aliases = new Map();
 const prefixUtil = require('./utilities/prefixUtil.js');
 
 let file = fs.readFileSync("./data.json", "utf8");
@@ -36,6 +37,7 @@ fs.readdir("./commands/", (error, files) => {
     commands.forEach((commandFile) => {
         let props = require(`./commands/${commandFile}`);
         bot.commands.set(props.command.name, props);
+        if (props.command.aliases) aliases.set(props.command.aliases, props);
     });
 });
 
@@ -48,13 +50,21 @@ bot.on('channelCreate', channel => {
 
 bot.on('message', message => {
     if (message.author.bot) return;
-    const prefix = prefixUtil.getPrefix(message.guild.id);
+    const prefix = message.channel.type !== "dm" ? prefixUtil.getPrefix(message.guild.id) : '-';
     if (!message.content.startsWith(prefix) && message.channel.type !== "dm") return rankSystem(message.author.id);
 
-    let member = message.member;
-    let args = message.content.substring(prefix.length).split(' ');
+    const member = message.member;
+    const args = message.content.substring(prefix.length).split(' ');
 
-    let command = bot.commands.get(args[0].toLowerCase());
+    const command = bot.commands.get(args[0].toLowerCase());
+    aliases.forEach((value, key) => {
+        key.forEach(alias => {
+            if (alias === args[0].toLowerCase()) {
+                const commandFile = aliases.get(key);
+                commandFile.run(message, args, bot);
+            }
+        });
+    });
     if (command) command.run(message, args, bot);
 
     switch (args[0].toLowerCase()) {
@@ -134,5 +144,5 @@ function rankUpUser(message, roleName, args) {
 
 }
 
-//bot.login(tokenConfig.token).catch(err => console.log(err));
-bot.login(process.env.botToken).catch(err => console.log(err));
+bot.login(tokenConfig.token).catch(err => console.log(err));
+//bot.login(process.env.botToken).catch(err => console.log(err));

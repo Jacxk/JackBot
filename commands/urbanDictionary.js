@@ -5,9 +5,7 @@ const messageUtil = require('../utilities/messageUtil.js');
 module.exports.run = (message, args) => {
     let embed = new Discord.RichEmbed();
 
-    if (args.length < 2) return messageUtil.wrongUsage(message.channel, 'define [word] {some number}', 'define gtg');
-    message.channel.send(embed.setColor('RED')
-        .setTitle('❌ ERROR ❌').setDescription(`Usage: ${prefix}define [word] {some number}`));
+    if (args.length < 2) return messageUtil.wrongUsage(message.channel, 'define [word] (some number)', 'define gtg');
 
     request('http://api.urbandictionary.com/v0/define?term=' + args[1], (err, req, data) => {
         let jsonData = JSON.parse(data);
@@ -46,5 +44,6 @@ module.exports.run = (message, args) => {
 };
 
 module.exports.command = {
-    name: 'define'
+    name: 'define',
+    aliases: ['def', 'urbandictionary', 'ud', 'urbandef', 'urband', 'udef']
 };

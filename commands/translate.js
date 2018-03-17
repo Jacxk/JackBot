@@ -27,7 +27,8 @@ module.exports.run = (message, args) => {
 };
 
 module.exports.command = {
-    name: 'translate'
+    name: 'translate',
+    aliases: ['trans']
 };
 
 const langs = {
