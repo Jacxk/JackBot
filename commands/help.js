@@ -1,12 +1,11 @@
 const Discord = require('discord.js');
 const prefixUtil = require('../utilities/prefixUtil.js');
-const fs = require('fs');
 
-module.exports.run = (message, args) => {
-    helpMessages(message, args);
+module.exports.run = (message, args, bot) => {
+    helpMessages(message, args, bot);
 };
 
-function helpMessages(message, args) {
+function helpMessages(message, args, bot) {
     const prefix = message.channel.type !== "dm" ? prefixUtil.getPrefix(message.guild.id) : '-';
     let embed = new Discord.RichEmbed();
     let channel = message.channel;
@@ -20,28 +19,28 @@ function helpMessages(message, args) {
                         + '\n*Tip: You can also write the name of a user after the command to check his/her profile.*\n'
                         + '\n**Permission Needed:** *None*'
                         + `\n**Usage:** *${prefix}profile*`
-                        + `\n**Aliases**: ${aliases('profile')}`).setColor("AQUA");
+                        + `\n**Aliases**: ${aliases('profile', bot)}`).setColor("AQUA");
                 message.author.send(embed);
                 break;
             case 'mute':
                 embed.setTitle('Mute Command').setDescription('You can mute/un-mute an user if he is not behaving.\n'
                     + '\n**Permission Needed:** *Manage Messages*'
                     + `\n**Usage:** *${prefix}mute [@user] [reason]*`
-                    + `\n**Aliases**: ${aliases('mute')}`).setColor("AQUA");
+                    + `\n**Aliases**: ${aliases('mute', bot)}`).setColor("AQUA");
                 message.author.send(embed);
                 break;
             case 'unmute':
                 embed.setTitle('UnMute Command').setDescription('You can un-mute an user that was muted for some reason.\n'
                     + '\n**Permission Needed:** *Manage Messages*'
                     + `\n**Usage:** *${prefix}unMute [@user]*`
-                    + `\n**Aliases**: ${aliases('unmute')}`).setColor("AQUA");
+                    + `\n**Aliases**: ${aliases('unmute', bot)}`).setColor("AQUA");
                 message.author.send(embed);
                 break;
             case 'tempmute':
                 embed.setTitle('TempMute Command').setDescription('You can mute a user if he is not behaving for an specific period of time.\n'
                     + '\n**Permission Needed:** *Manage Messages*'
                     + `\n**Usage:** *${prefix}tempMute [time S|M|H] [@user] [reason]*`
-                    + `\n**Aliases**: ${aliases('tempmute')}`).setColor("AQUA");
+                    + `\n**Aliases**: ${aliases('tempmute', bot)}`).setColor("AQUA");
                 message.author.send(embed);
                 break;
             case 'rank':
@@ -50,7 +49,7 @@ function helpMessages(message, args) {
                     + '\n**Permission Needed:** *None*'
                     + '\nNOTE: You only gain XP every 1 minute to avoid the spam of messages.\n'
                     + `\n**Usage:** *${prefix}rank*`
-                    + `\n**Aliases**: ${aliases('rank')}`).setColor("AQUA");
+                    + `\n**Aliases**: ${aliases('rank', bot)}`).setColor("AQUA");
                 message.author.send(embed);
                 break;
             case 'clear':
@@ -58,29 +57,29 @@ function helpMessages(message, args) {
                     + 'Only admins have access to this command.\n'
                     + '\n**Permission Needed:** *Administrator*'
                     + `\n**Usage:** *${prefix}clear [number]*`
-                    + `\n**Aliases**: ${aliases('clear')}`).setColor("AQUA");
+                    + `\n**Aliases**: ${aliases('clear', bot)}`).setColor("AQUA");
                 message.author.send(embed);
                 break;
             case 'say':
                 embed.setTitle('Say Command').setDescription('This command lets you display a message as an embed message, just like this message.'
-                    + '\n\n**Placeholders:** *--title:[Message_With_Space]* :heavy_minus_sign:  *--color:[COLOR]*'
+                    + '\n\n**Placeholders:** *--title:[Message_With_Space]* **|** *--color:[COLOR]* **|** \n*--channel:[#CHANNEL]* **|** *--newLine*'
                     + '\n**Permission Needed:** *Administrator*'
                     + `\n**Usage:** *${prefix}say [text (placeholders)]*`
-                    + `\n**Aliases**: ${aliases('say')}`).setColor("AQUA");
+                    + `\n**Aliases**: ${aliases('say', bot)}`).setColor("AQUA");
                 message.author.send(embed);
                 break;
             case '8ball':
                 embed.setTitle('8ball Command').setDescription('Do you wanna know your future? Then ask to the ball.\n'
                     + '\n**Permission Needed:** *None*'
                     + `\n**Usage:** *${prefix}8ball [question]*`
-                    + `\n**Aliases**: ${aliases('8ball')}`).setColor("AQUA");
+                    + `\n**Aliases**: ${aliases('8ball', bot)}`).setColor("AQUA");
                 message.author.send(embed);
                 break;
             case 'addemote':
                 embed.setTitle('addEmote Command').setDescription('If you wanna add a new emote to your guild without navigating through the setting use this command.\n'
                     + '\n**Permission Needed:** *Administrator*'
                     + `\n**Usage:** *${prefix}addEmote [image irl] [name]*`
-                    + `\n**Aliases**: ${aliases('addemote')}`).setColor("AQUA");
+                    + `\n**Aliases**: ${aliases('addemote', bot)}`).setColor("AQUA");
                 message.author.send(embed);
                 break;
             case 'delemote':
@@ -88,49 +87,49 @@ function helpMessages(message, args) {
                     + 'your guild without navigating through the setting use this command.\n'
                     + '\n**Permission Needed:** *Administrator*'
                     + `\n**Usage:** *${prefix}delEmote [name]*`
-                    + `\n**Aliases**: ${aliases('delemote')}`).setColor("AQUA");
+                    + `\n**Aliases**: ${aliases('delemote', bot)}`).setColor("AQUA");
                 message.author.send(embed);
                 break;
             case 'define':
                 embed.setTitle('Define Command').setDescription('Define a word that you don\'t know. Using Urban Dictionary.'
                     + '\n**Permission Needed:** *None*'
                     + `\n**Usage:** *${prefix}define [word] (page number)*`
-                    + `\n**Aliases**: ${aliases('define')}`).setColor("AQUA");
+                    + `\n**Aliases**: ${aliases('define', bot)}`).setColor("AQUA");
                 message.author.send(embed);
                 break;
             case 'weather':
                 embed.setTitle('Weather Command').setDescription('Check the weather from the specified city.'
                     + '\n**Permission Needed:** *None*'
                     + `\n**Usage:** *${prefix}weather [city]*`
-                    + `\n**Aliases**: ${aliases('weather')}`).setColor("AQUA");
+                    + `\n**Aliases**: ${aliases('weather', bot)}`).setColor("AQUA");
                 message.author.send(embed);
                 break;
             case 'translate':
                 embed.setTitle('Translate Command').setDescription('Translate some text to a desire language.'
                     + '\n**Permission Needed:** *None*'
                     + `\n**Usage:** *${prefix}translate [lang] [text]*`
-                    + `\n**Aliases**: ${aliases('translate')}`).setColor("AQUA");
+                    + `\n**Aliases**: ${aliases('translate', bot)}`).setColor("AQUA");
                 message.author.send(embed);
                 break;
             case 'guildinfo':
                 embed.setTitle('GuildInfo Command').setDescription('Check some information about the guild'
                     + '\n**Permission Needed:** *None*'
                     + `\n**Usage:** *${prefix}guildInfo*`
-                    + `\n**Aliases**: ${aliases('guildinfo')}`).setColor("AQUA");
+                    + `\n**Aliases**: ${aliases('guildinfo', bot)}`).setColor("AQUA");
                 message.author.send(embed);
                 break;
             case 'botinfo':
                 embed.setTitle('BotInfo Command').setDescription('Check some information about the bot'
                     + '\n**Permission Needed:** *None*'
                     + `\n**Usage:** *${prefix}botInfo*`
-                    + `\n**Aliases**: ${aliases('botinfo')}`).setColor("AQUA");
+                    + `\n**Aliases**: ${aliases('botinfo', bot)}`).setColor("AQUA");
                 message.author.send(embed);
                 break;
             case 'setprefix':
                 embed.setTitle('SetPrefix Command').setDescription('Set the prefix of the commands from the bot'
                     + '\n**Permission Needed:** *Administrator*'
                     + `\n**Usage:** *${prefix}botInfo*`
-                    + `\n**Aliases**: ${aliases('setprefix')}`).setColor("AQUA");
+                    + `\n**Aliases**: ${aliases('setprefix', bot)}`).setColor("AQUA");
                 message.author.send(embed);
                 break;
             case 'hypixel':
@@ -138,7 +137,7 @@ function helpMessages(message, args) {
                     + 'friend or yourself from hypixel'
                     + '\n**Permission Needed:** *None*'
                     + `\n**Usage:** *${prefix}hypixel [playerName] [gameMode]*`
-                    + `\n**Aliases**: ${aliases('hypixel')}`).setColor("AQUA");
+                    + `\n**Aliases**: ${aliases('hypixel', bot)}`).setColor("AQUA");
                 message.author.send(embed);
                 break;
             case 'fortnite':
@@ -146,7 +145,7 @@ function helpMessages(message, args) {
                     + 'friend or yourself from fortnite'
                     + '\n**Permission Needed:** *None*'
                     + `\n**Usage:** *${prefix}fortnite [platform] [username] (gameMode)*`
-                    + `\n**Aliases**: ${aliases('fortnite')}`).setColor("AQUA");
+                    + `\n**Aliases**: ${aliases('fortnite', bot)}`).setColor("AQUA");
                 message.author.send(embed);
                 break;
             default:
@@ -198,22 +197,11 @@ const stats = (prefix) => {
     return stringCmd.join('\n');
 };
 
-const aliases = (command) => {
-    let aliases = [];
-    fs.readdir("./commands/", (error, files) => {
-        if (error) return console.log(error);
-
-        let commands = files.filter(file => file.split(".").pop() === 'js');
-
-        commands.forEach((commandFile) => {
-            let file = require(`./${commandFile}`);
-            if (command === file.command.name)
-                if (file.command.aliases === undefined) {
-                    return aliases.push('None');
-                } else return file.command.aliases.forEach(key => aliases.push(key))
-        });
-    });
-    return aliases.join(', ').trim();
+const aliases = (command, bot) => {
+    const file = bot.commands.get(command);
+    if (file.command.aliases === undefined) {
+        return 'None';
+    } else return file.command.aliases.join(', ').trim();
 };
 
 module.exports.command = {

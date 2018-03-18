@@ -27,7 +27,10 @@ module.exports.sameRankOrHigher = (channel) => {
 };
 
 module.exports.wrongUsage = (channel, usage, example) => {
-    const prefix = prefixUtil.getPrefix(channel.guild.id);
+    let prefix;
+    if (channel.type === 'dm') prefix = '-';
+    else prefixUtil.getPrefix(channel.guild.id);
+
     let embed = new Discord.RichEmbed();
     channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌')
         .setDescription('Usage: ' + prefix + usage).setFooter(prefix + example)).then(m => m.delete(10000));
