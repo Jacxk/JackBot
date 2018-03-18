@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const mysql = require('mysql');
 const messageUtil = require('../utilities/messageUtil.js');
-const sqlConfig = require('../mysqlConfig');
+//const sqlConfig = require('../mysqlConfig');
 const prefixes = module.exports.prefixeMap = new Map();
 
 module.exports.connect = (channel, guild, prefix) => {
@@ -10,15 +10,15 @@ module.exports.connect = (channel, guild, prefix) => {
 };
 
 const connection = mysql.createConnection({
-    /*host: process.env.host,
+    host: process.env.host,
     user: process.env.user,
     database: process.env.database,
-    password: process.env.password*/
+    password: process.env.password
 
-    host: sqlConfig.host,
+    /*host: sqlConfig.host,
     user: sqlConfig.user,
     database: sqlConfig.database,
-    password: sqlConfig.password
+    password: sqlConfig.password*/
 });
 
 const createTable = module.exports.createTable = () => {
