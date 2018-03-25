@@ -4,7 +4,7 @@ const config = require('./config.json');
 //const tokenConfig = require('./tokenConfig.json');
 const bot = new Discord.Client();
 bot.commands = new Discord.Collection();
-const prefixUtil = require('./utilities/prefixUtil.js');
+const mysqlUtil = require('./utilities/mysqlUtil.js');
 
 let file = fs.readFileSync("./data.json", "utf8");
 let userData = JSON.parse(file);
@@ -12,8 +12,11 @@ let userData = JSON.parse(file);
 let cooldownArray = [];
 
 bot.on('ready', () => {
-    prefixUtil.createTable();
-    bot.guilds.forEach(guild => prefixUtil.setPrefix(guild).catch(err => console.error(err)));
+    mysqlUtil.connect();
+    bot.guilds.forEach(guild => {
+        mysqlUtil.setPrefix(guild).catch(err => console.error(err));
+        mysqlUtil.setCommandChannel(guild).catch(err => console.error(err));
+    });
     setGameStatus();
     console.log('bot ready');
     bot.user.setStatus("dnd").catch(console.error);
@@ -49,8 +52,15 @@ bot.on('channelCreate', channel => {
 
 bot.on('message', message => {
     if (message.author.bot) return;
-    const prefix = message.channel.type !== "dm" ? prefixUtil.getPrefix(message.guild.id) : '-';
-    if (!message.content.startsWith(prefix) && message.channel.type !== "dm") return rankSystem(message.author.id);
+
+    const prefix = message.channel.type !== "dm" ? mysqlUtil.getPrefix(message.guild.id) : '-';
+    let commandChannel = mysqlUtil.getCommandChannel(message.guild.id);
+
+    if (!message.content.startsWith(prefix) && message.channel.type !== "dm") return; //rankSystem(message.author.id);
+    if (commandChannel !== 'ALL' && commandChannel !== undefined) {
+        const channel = message.guild.channels.get(commandChannel);
+        if (message.channel.id !== channel.id && !message.member.hasPermission("ADMINISTRATOR")) return console.log('ay');
+    }
 
     const member = message.member;
     const args = message.content.substring(prefix.length).split(' ');

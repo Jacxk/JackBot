@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const prefixUtil = require('../utilities/prefixUtil.js');
+const mysqlUtil = require('./mysqlUtil.js');
 
 module.exports.noPermissionMessage = (message) => {
     let embed = new Discord.RichEmbed();
@@ -27,9 +27,7 @@ module.exports.sameRankOrHigher = (channel) => {
 };
 
 module.exports.wrongUsage = (channel, usage, example) => {
-    let prefix;
-    if (channel.type === 'dm') prefix = '-';
-    else prefixUtil.getPrefix(channel.guild.id);
+    const prefix = channel.type !== "dm" ? mysqlUtil.getPrefix(channel.guild.id) : '-';
 
     let embed = new Discord.RichEmbed();
     channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌')

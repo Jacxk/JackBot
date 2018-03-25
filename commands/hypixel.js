@@ -1,9 +1,9 @@
 const Discord = require('discord.js');
 const request = require('request');
-const prefixUtil = require('../utilities/prefixUtil.js');
+const mysqlUtil = require('../utilities/mysqlUtil.js');
 
 module.exports.run = (message, args) => {
-    getHypixelData(args, message.channel, prefixUtil.getPrefix(message.guild.id));
+    getHypixelData(args, message.channel, mysqlUtil.getPrefix(message.guild.id));
 };
 
 function getHypixelData(args, channel, prefix) {

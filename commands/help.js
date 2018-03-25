@@ -1,12 +1,12 @@
 const Discord = require('discord.js');
-const prefixUtil = require('../utilities/prefixUtil.js');
+const mysqlUtil = require('../utilities/mysqlUtil.js');
 
 module.exports.run = (message, args, bot) => {
     helpMessages(message, args, bot);
 };
 
 function helpMessages(message, args, bot) {
-    const prefix = message.channel.type !== "dm" ? prefixUtil.getPrefix(message.guild.id) : '-';
+    const prefix = message.channel.type !== "dm" ? mysqlUtil.getPrefix(message.guild.id) : '-';
     let embed = new Discord.RichEmbed();
     let channel = message.channel;
     if (channel.type !== "dm") channel.send(embed.setDescription('✅ Sending help... Check your PM ✅').setColor('GREEN'));
