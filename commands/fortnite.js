@@ -81,7 +81,6 @@ function getFortniteStats(channel, platform, username, mode) {
                 let soloTop5 = soloData.top5;
                 let soloTop10 = soloData.top10;
                 let soloTop25 = soloData.top25;
-                let soloKpm = soloData.kpm;
                 let soloKpg = soloData.kpg;
 
                 soloEmbed.addField(soloWins.label, soloWins.displayValue, true);
@@ -90,7 +89,6 @@ function getFortniteStats(channel, platform, username, mode) {
                 soloEmbed.addField(soloTop5.label, soloTop5.displayValue, true);
                 soloEmbed.addField(soloTop10.label, soloTop10.displayValue, true);
                 soloEmbed.addField(soloTop25.label, soloTop25.displayValue, true);
-                soloEmbed.addField(soloKpm.label, soloKpm.displayValue, true);
                 soloEmbed.addField(soloKpg.label, soloKpg.displayValue, true);
 
                 channel.send(soloEmbed);
@@ -108,7 +106,6 @@ function getFortniteStats(channel, platform, username, mode) {
                 let duoTop5 = duoData.top5;
                 let duoTop10 = duoData.top10;
                 let duoTop25 = duoData.top25;
-                let duoKpm = duoData.kpm;
                 let duoKpg = duoData.kpg;
                 
                 duoEmbed.addField(duoWins.label, duoWins.displayValue, true);
@@ -117,7 +114,6 @@ function getFortniteStats(channel, platform, username, mode) {
                 duoEmbed.addField(duoTop5.label, duoTop5.displayValue, true);
                 duoEmbed.addField(duoTop10.label, duoTop10.displayValue, true);
                 duoEmbed.addField(duoTop25.label, duoTop25.displayValue, true);
-                duoEmbed.addField(duoKpm.label, duoKpm.displayValue, true);
                 duoEmbed.addField(duoKpg.label, duoKpg.displayValue, true);
 
                 channel.send(duoEmbed);
@@ -135,7 +131,6 @@ function getFortniteStats(channel, platform, username, mode) {
                 let squadTop5 = squadData.top5;
                 let squadTop10 = squadData.top10;
                 let squadTop25 = squadData.top25;
-                let squadKpm = squadData.kpm;
                 let squadKpg = squadData.kpg;
 
                 squadEmbed.addField(squadWins.label, squadWins.displayValue, true);
@@ -144,7 +139,6 @@ function getFortniteStats(channel, platform, username, mode) {
                 squadEmbed.addField(squadTop5.label, squadTop5.displayValue, true);
                 squadEmbed.addField(squadTop10.label, squadTop10.displayValue, true);
                 squadEmbed.addField(squadTop25.label, squadTop25.displayValue, true);
-                squadEmbed.addField(squadKpm.label, squadKpm.displayValue, true);
                 squadEmbed.addField(squadKpg.label, squadKpg.displayValue, true);
 
                 channel.send(squadEmbed);
