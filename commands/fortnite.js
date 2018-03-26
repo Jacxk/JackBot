@@ -45,7 +45,7 @@ function getFortniteStats(channel, platform, username, mode) {
             return;
         }
 
-        console.log(data);
+        //console.log(data);
         let liteTimeEmbed = new Discord.RichEmbed().setColor('GOLD')
             .setFooter('Powered By Fortnite Tracker').setTitle(`${username}'s LifeTime Stats`);
 
