@@ -45,9 +45,9 @@ fs.readdir("./commands/", (error, files) => {
 
 bot.on('channelCreate', channel => {
     if (channel.type === 'dm') return;
-    let props = require('./utilities/muteUtils');
+    let muteUtils = require('./utilities/muteUtils');
     let role = channel.guild.roles.find("name", "Muted");
-    props.createMutedRole(channel.guild, channel, role, false);
+    muteUtils.createMutedRole(channel.guild, channel, role, false);
 });
 
 bot.on('message', message => {
