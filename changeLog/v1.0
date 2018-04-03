@@ -1,0 +1,12 @@
+Version: 1.0
+State: Testing
+
+- Added changelog command
+- Added kick command
+- Added warn command
+
+- Changed setCommandChannel file to setup to add sub commands to it and set up all the server's configuration.
+- Changed member count to only count real members and not bots.
+- Changed the commands collection naming.
+
+- Removed unused code on the fornite command.

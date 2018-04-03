@@ -52,7 +52,7 @@ const mute = module.exports.mute = (memberToMute, role, message, args, isTemp, d
         message.channel.send(embed.setColor("GREEN").setTitle('🔇 MUTE REPORT 🔇')
             .setDescription(`The member ${memberToMute.user.tag} has been muted.`))
             .then(msg => msg.delete(10 * 1000));
-        sendMuteEmbed(args, message.guild, message.member, memberToMute,
+        sendMuteEmbed(message, args, message.guild, message.member, memberToMute,
             "http://pluspng.com/img-png/mute-png-noun-project-200.png", duration, isTemp);
     }
 };
@@ -70,25 +70,21 @@ const unMute = module.exports.unMute = (memberToMute, role, message) => {
     }
 };
 
-function sendMuteEmbed(args, guild, staffMember, mutedMember, url, duration, isTemp) {
+function sendMuteEmbed(message, args, guild, staffMember, mutedMember, url, duration, isTemp) {
     if (args.length < 2) return;
 
-    let reason = [];
-    for (let i = (isTemp ? 3 : 2); i < args.length; i++) {
-        reason.push(args[i]);
-    }
+    let reason = args.slice(1).join(" ");
 
     const embed = new Discord.RichEmbed().setColor("AQUA")
         .setTitle('📃 MUTE REPORT 📃').addField("Staff Member Tag", staffMember.user.tag, true)
         .addField("Staff Member ID", staffMember.id, true).addField("Muted User Tag", mutedMember.user.tag, true)
         .addField("Muted User ID", mutedMember.id, true).addField("Issue Date", new Date().toDateString(), true)
         .addField("Mute Duration", duration, true)
-        .addField("Reason", reason ? `**${reason.join(' ')}**` : "Not Specified")
+        .addField("Reason", reason)
         .setThumbnail(url);
 
     let channel = guild.channels.find('name', "incidents");
-    if (!channel) {
-        guild.createChannel("incidents", "text").then(channel.send(embed))
-            .catch(err => embed.setColor("RED").setTitle('❌ ERROR ❌').setDescription(err));
-    } else channel.send(embed);
+    if (!channel) return message.channel.send("Please create a text channel called `incidents`");
+
+    channel.send(embed);
 }

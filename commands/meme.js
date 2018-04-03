@@ -1,33 +1,35 @@
 const Discord = require('discord.js');
 const request = require('request');
-let watchedMemes = [];
+const messageUtil = require('../utilities/messageUtil.js');
 
 module.exports.run = (message, args) => {
-    generateMeme(message);
+    generateMeme(message, args);
 };
 
-function generateMeme(message) {
-    request("https://www.reddit.com/r/PewdiepieSubmissions/.json", (err, resp, data) => {
+function generateMeme(message, args) {
+    request(`https://www.reddit.com/r/${args.length === 2 ? args[1] : "PewdiepieSubmissions"}/.json`, (err, resp, data) => {
         if (err) return console.log(err);
         let jsonData = JSON.parse(data);
+
+        if (jsonData.message) return messageUtil.sendError(message.channel, jsonData.message);
+
         let meme = jsonData.data.children;
 
         let randomNumber = Math.floor(Math.random() * meme.length);
 
-        if (watchedMemes.includes(randomNumber)) return generateMeme(message);
-
         let imageData = meme[randomNumber].data;
         let url = imageData.url;
+
+        if (!url.endsWith(".jpg")) return console.log(".jpg");//generateMeme(message, args);
+        if (!url.endsWith(".png")) return console.log(".png");//generateMeme(message, args);
 
         let embed = new Discord.RichEmbed();
         embed.setColor("RANDOM");
         embed.setImage(url);
         embed.setTitle(imageData.title);
-        embed.setFooter("Powered by: www.reddit.com/r/PewdiepieSubmissions");
+        embed.setFooter("Powered by: www.reddit.com/r/" + (args.length === 2 ? args[1] : "PewdiepieSubmissions"));
 
         message.channel.send(embed);
-
-        watchedMemes.push(randomNumber);
     });
 }
 

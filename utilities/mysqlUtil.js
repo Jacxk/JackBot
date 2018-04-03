@@ -23,7 +23,7 @@ const connection = mysql.createConnection({
 
 const createTable = module.exports.createTable = () => {
     const statement = 'CREATE TABLE IF NOT EXISTS GuildSettings (ID int NOT NULL AUTO_INCREMENT, GuildId text, ' +
-        'GuildName text, Prefix text, CommandChannel text, PRIMARY KEY (ID));';
+        'GuildName text, Prefix text, CommandChannel text, IncidentsChannel text, PRIMARY KEY (ID));';
     connection.query(statement, (err, result) => {
         if (err) return console.error(err);
     });

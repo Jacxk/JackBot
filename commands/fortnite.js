@@ -9,12 +9,9 @@ module.exports.run = (message, args) => {
 };
 
 function getFortniteStats(channel, platform, username, mode) {
-    let embed = new Discord.RichEmbed().setColor('RED').setTitle('❌ ERROR ❌');
-    if (platform.toLowerCase() !== 'psn' && platform.toLowerCase() !== 'pc' && platform.toLowerCase() !== 'xb1') {
-        embed.setDescription('Valid platforms are [PSN, PC, XB1]');
-        channel.send(embed);
-        return;
-    }
+    if (platform.toLowerCase() !== 'psn' && platform.toLowerCase() !== 'pc' && platform.toLowerCase() !== 'xb1')
+        return messageUtil.sendError(channel, 'Valid platforms are [PSN, PC, XB1]');
+
     let options = {
         method: 'GET',
         url: `https://api.fortnitetracker.com/v1/profile/${platform.toLowerCase()}/${username}`,
@@ -25,25 +22,15 @@ function getFortniteStats(channel, platform, username, mode) {
     };
     request(options, (err, resp, data) => {
         if (err) return console.log(err);
-        if (!data) {
-            embed.setDescription('Please try again later...');
-            channel.send(embed);
-            return;
-        }
+        if (!data) return messageUtil.sendError(channel, 'Please try again later...');
 
         let jsonData = JSON.parse(data);
 
         if (jsonData.error) {
-            embed.setDescription(jsonData.error);
-            channel.send(embed);
-            return;
+            return messageUtil.sendError(channel, jsonData.error);
         }
 
-        if (jsonData.message) {
-            embed.setDescription(jsonData.message);
-            channel.send(embed);
-            return;
-        }
+        if (jsonData.message) return messageUtil.sendError(channel, jsonData.message);
 
         //console.log(data);
         let liteTimeEmbed = new Discord.RichEmbed().setColor('GOLD')
@@ -73,7 +60,7 @@ function getFortniteStats(channel, platform, username, mode) {
                     .setFooter('Powered By Fortnite Tracker').setTitle(`${username}'s Solo Stats`);
 
                 let soloData = jsonData.stats.p2;
-                if (!soloData) return channel.send(embed.setDescription("No data was found..."));
+                if (!soloData) return messageUtil.sendError(channel, "No data was found...");
 
                 let soloWins = soloData.top1;
                 let soloScore = soloData.score;
@@ -98,8 +85,8 @@ function getFortniteStats(channel, platform, username, mode) {
                     .setFooter('Powered By Fortnite Tracker').setTitle(`${username}'s Duo Stats`);
 
                 let duoData = jsonData.stats.p10;
-                if (!duoData) return channel.send(embed.setDescription("No data was found..."));
-                
+                if (!duoData) return messageUtil.sendError(channel, "No data was found...");
+
                 let duoWins = duoData.top1;
                 let duoScore = duoData.score;
                 let duoKills = duoData.kills;
@@ -107,7 +94,7 @@ function getFortniteStats(channel, platform, username, mode) {
                 let duoTop10 = duoData.top10;
                 let duoTop25 = duoData.top25;
                 let duoKpg = duoData.kpg;
-                
+
                 duoEmbed.addField(duoWins.label, duoWins.displayValue, true);
                 duoEmbed.addField(duoScore.label, duoScore.displayValue, true);
                 duoEmbed.addField(duoKills.label, duoKills.displayValue, true);
@@ -123,7 +110,7 @@ function getFortniteStats(channel, platform, username, mode) {
                     .setFooter('Powered By Fortnite Tracker').setTitle(`${username}'s Squad Stats`);
 
                 let squadData = jsonData.stats.p9;
-                if (!squadData) return channel.send(embed.setDescription("No data was found..."));
+                if (!squadData) return messageUtil.sendError(channel, "No data was found...");
 
                 let squadWins = squadData.top1;
                 let squadScore = squadData.score;
@@ -144,13 +131,12 @@ function getFortniteStats(channel, platform, username, mode) {
                 channel.send(squadEmbed);
                 break;
             default:
-                embed.setDescription('An Error has occurred... Valid GameModes are [SOLO, DUO, SQUAD]');
-                channel.send(embed);
-                break;
+                return messageUtil.sendError(channel, "Valid GameModes are [SOLO, DUO, SQUAD]");
         }
     })
 }
 
 module.exports.command = {
-    name: 'fortnite'
+    name: 'fortnite',
+    aliases: ["fortn", "fnite", "fnt"]
 };

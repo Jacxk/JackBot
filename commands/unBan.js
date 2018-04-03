@@ -10,7 +10,6 @@ module.exports.run = (message, args) => {
     let memberToBan = args[1];
 
     if (!memberToBan) return messageUtil.specifyUser(message.channel);
-    //if (memberToBan.highestRole.position >= message.member.highestRole.position) return messageUtil.sameRankOrHigher(message.channel);
 
     muteUtils.unBan(memberToBan, message);
 };

@@ -3,7 +3,8 @@ const fs = require('fs');
 const config = require('./config.json');
 //const tokenConfig = require('./tokenConfig.json');
 const bot = new Discord.Client();
-bot.commands = new Discord.Collection();
+const messageUtil = require('./utilities/messageUtil.js');
+const commandsCollection = new Discord.Collection();
 const mysqlUtil = require('./utilities/mysqlUtil.js');
 
 let file = fs.readFileSync("./data.json", "utf8");
@@ -38,8 +39,8 @@ fs.readdir("./commands/", (error, files) => {
 
     commands.forEach((commandFile) => {
         let props = require(`./commands/${commandFile}`);
-        bot.commands.set(props.command.name, props);
-        if (props.command.aliases) props.command.aliases.forEach(alias => bot.commands.set(alias, props));
+        commandsCollection.set(props.command.name, props);
+        if (props.command.aliases) props.command.aliases.forEach(alias => commandsCollection.set(alias, props));
     });
 });
 
@@ -59,13 +60,14 @@ bot.on('message', message => {
     if (!message.content.startsWith(prefix) && message.channel.type !== "dm") return; //rankSystem(message.author.id);
     if (commandChannel !== 'ALL' && commandChannel !== undefined) {
         const channel = message.guild.channels.get(commandChannel);
-        if (message.channel.id !== channel.id && !message.member.hasPermission("ADMINISTRATOR")) return console.log('ay');
+        if (message.channel.id !== channel.id && !message.member.hasPermission("ADMINISTRATOR"))
+            return messageUtil.sendError(message.channel, `You can only use this command in ${channel}`)
     }
 
     const member = message.member;
     const args = message.content.substring(prefix.length).split(' ');
 
-    const command = bot.commands.get(args[0].toLowerCase());
+    const command = commandsCollection.get(args[0].toLowerCase());
     if (command) command.run(message, args, bot);
 
     switch (args[0].toLowerCase()) {

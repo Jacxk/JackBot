@@ -12,7 +12,7 @@ module.exports.run = (message, args) => {
 
     if (!memberToBan) return messageUtil.specifyUser(message.channel);
     if (memberToBan === message.member) return messageUtil.noSelfPunishment(message.channel);
-    //if (memberToBan.highestRole.position >= message.member.highestRole.position) return messageUtil.sameRankOrHigher(message.channel);
+    if (memberToBan.highestRole.position >= message.member.highestRole.position) return messageUtil.sameRankOrHigher(message.channel);
 
     muteUtils.ban(memberToBan, message, args, false, 'Permanent');
 };

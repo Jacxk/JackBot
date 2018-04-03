@@ -10,7 +10,7 @@ module.exports.run = (message, args, bot) => {
     embed.addField('My Ping', '🔌 ' + Math.round(bot.ping) + 'ms', true);
 
     embed.addField('My Uptime', '🕙 ' + millisToTimeString(bot.uptime), true);
-    embed.addField('I\'m Watching', '👀 ' + bot.users.size + ' members', true);
+    embed.addField('I\'m Watching', '👀 ' + bot.users.filter(f => !f.bot).size + ' members', true);
 
     message.channel.send(embed);
 };
