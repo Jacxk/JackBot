@@ -11,7 +11,7 @@ module.exports.run = (message, args) => {
 
     let translateTo = args[1].split('_').join(' ');
     if (translateTo.toLowerCase().includes('chinese')) translateTo = 'Chinese Simplified';
-    let toTranslate = args.join(' ').substring(args[0].length + translateTo.length + 1);
+    let toTranslate = args.slice(3).join(" ");
 
     translate(toTranslate, {to: translateTo}).then(res => {
 
