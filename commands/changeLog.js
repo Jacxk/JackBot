@@ -1,4 +1,5 @@
 const fs = require("fs");
+const messageUtil = require('../utilities/messageUtil.js');
 const versions = new Map();
 
 module.exports.run = (message, args) => {
@@ -15,7 +16,10 @@ module.exports.run = (message, args) => {
 
         if (args.length === 1) return message.channel.send(versions.get("v1.0"));
 
-        message.channel.send(versions.get(args[1])).catch(err => message.channel.send(err.toString()))
+        const changes = versions.get(args[1]);
+        if (!changes) return messageUtil.sendError(message.channel, 'Invalid version string... Try using: ' + versions);
+
+        message.channel.send().catch(err => console.log(err.toString()))
     });
 };
 

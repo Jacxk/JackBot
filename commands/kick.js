@@ -1,12 +1,11 @@
 const Discord = require('discord.js');
 const messageUtil = require('../utilities/messageUtil.js');
-const muteUtils = require('../utilities/muteUtils.js');
 
 module.exports.run = (message, args) => {
     if (message.channel.type === "dm") return message.channel.send('You need to use this command inside the guild.');
     message.delete().catch(err => console.log(err.toString()));
 
-    //if (!message.member.hasPermission("KICK_MEMBERS")) return messageUtil.noPermissionMessage(message);
+    if (!message.member.hasPermission("KICK_MEMBERS")) return messageUtil.noPermissionMessage(message);
 
     if (args.length === 1 || args.length === 2)
         return messageUtil.wrongUsage(message.channel, 'kick [@User] [reason]', 'kick @By_Jack#0047 Swearing in the chat');

@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 const messageUtil = require('../utilities/messageUtil.js');
-const muteUtils = require('../utilities/muteUtils.js');
 
 module.exports.run = (message, args) => {
     if (message.channel.type === "dm") return message.channel.send('You need to use this command inside the guild.');
