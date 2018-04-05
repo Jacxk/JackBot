@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 const fs = require('fs');
-const http = require('http');
 const config = require('./config.json');
 //const tokenConfig = require('./tokenConfig.json');
 const bot = new Discord.Client();
@@ -13,10 +12,18 @@ let userData = JSON.parse(file);
 
 let cooldownArray = [];
 
-const server = http.createServer((req, res) => {
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    const myReadStream = fs.createReadStream(__dirname + '/website/index.html', 'utf8');
-    myReadStream.pipe(res);
+const PORT = process.env.PORT || 8080;
+const express = require('express');
+const app = express();
+
+app.use(express.static('public'));
+
+app.get("/", function (request, response) {
+    response.sendFile(__dirname + '/website/index.html');
+});
+
+const listener = app.listen(PORT, function () {
+    console.log('Your app is listening on port ' + listener.address().port);
 });
 
 bot.on('ready', () => {
@@ -24,7 +31,7 @@ bot.on('ready', () => {
     bot.guilds.forEach(guild => {
         mysqlUtil.setPrefix(guild).catch(err => console.error(err));
         mysqlUtil.setCommandChannel(guild).catch(err => console.error(err));
-    });
+    })
     setGameStatus();
     console.log('bot ready');
     bot.user.setStatus("dnd").catch(console.error);
@@ -75,7 +82,7 @@ bot.on('message', message => {
 
     const command = commandsCollection.get(args[0].toLowerCase());
     if (command) {
-        if (!command.command.enabled)
+        if (message.author.id !== "266315409735548928" && !command.command.enabled)
             return messageUtil.commandDisabled(message);
         if (message.author.id !== "266315409735548928" && command.command.permission !== 'none' && !message.member.hasPermission(command.command.permission))
             return messageUtil.noPermissionMessage(message);
@@ -133,5 +140,3 @@ function getTotalExpForLevel(level) {
 
 //bot.login(tokenConfig.token).catch(err => console.log(err));
 bot.login(process.env.botToken).catch(err => console.log(err));
-const PORT = process.env.PORT || 8080;
-server.listen(PORT);
