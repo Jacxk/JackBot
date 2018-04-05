@@ -35,5 +35,5 @@ module.exports.run = (message, args) => {
 
 module.exports.command = {
     name: 'kick',
-    aliases: ["k"]
+    aliases: ["k", "kck"]
 };

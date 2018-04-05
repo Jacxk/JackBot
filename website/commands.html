@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JackBot</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        #panel {
+            color: #E0E0E0;
+            text-align: center;
+            font-family: 'Arial Black';
+            font-size: 60px;
+        }
+
+        .text {
+            text-align: center;
+            font-family: 'Arial Black';
+            color: #455A64;
+            font-size: 20px;
+            padding-top: 20px;
+        }
+
+        .heading {
+            font-family: 'Arial Black';
+            font-size: 42px;
+            text-decoration: none;
+        }
+
+        table, th, td {
+            color: #E0E0E0;
+            border: 1px solid silver;
+            padding: 15px;
+        }
+
+        td {
+            font-size: 18px;
+        }
+
+        th {
+            text-align: center;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body style="background-color: #263238">
+<div class="jumbotron text-center"
+     style="background-color: #455A64; box-shadow: 2px 20px 123px -13px rgba(0,0,0,0.58);">
+    <h1 class="heading">
+        <a href="https://material.io/guidelines/style/color.html#color-color-palette"
+        style="text-decoration: none;background-color: transparent;color: #263238">JackBot's Website
+        </a>
+    </h1>
+</div>
+<div class="container">
+    <h1 id="panel">Commands</h1>
+    <br>
+    <table class="table" style="margin: auto; box-shadow: 0 0 75px 3px rgba(0,0,0,0.30);">
+        <tr style="background-color: #424242">
+            <th>Command</th>
+            <th>Description</th>
+            <th>Permission</th>
+            <th>Usage</th>
+            <th>Aliases</th>
+        </tr>
+        <tr style="background-color: #455A64">
+            <td>Help</td>
+            <td>Sends you a DM with all the commands</td>
+            <td>None</td>
+            <td>-help</td>
+            <td>None</td>
+        </tr>
+        <tr style="background-color: #607D8B">
+            <td>8Ball</td>
+            <td>This command can predict the future</td>
+            <td>None</td>
+            <td>-8Ball [Question]</td>
+            <td>fortune</td>
+        </tr>
+        <tr style="background-color: #455A64">
+            <td>Ban</td>
+            <td>Bans a user permanently</td>
+            <td>Administrator</td>
+            <td>-ban [@user] [reason]</td>
+            <td>None</td>
+        </tr>
+        <tr style="background-color: #607D8B">
+            <td>Bot Info</td>
+            <td>Checks for the bot's stats/information</td>
+            <td>None</td>
+            <td>-botInfo</td>
+            <td>binfo, boti</td>
+        </tr>
+        <tr style="background-color: #455A64">
+            <td>Change Log</td>
+            <td>Checks for the bot's changes</td>
+            <td>None</td>
+            <td>-changeLog</td>
+            <td>chlog, clog</td>
+        </tr>
+        <tr style="background-color: #607D8B">
+            <td>Clear</td>
+            <td>Clears a certain amount of messages from the chat</td>
+            <td>Manage Messages</td>
+            <td>-clear [Messages (Number)]</td>
+            <td>cc, c</td>
+        </tr>
+        <tr style="background-color: #455A64">
+            <td>Fortnite</td>
+            <td>Checks a user stats from Fornite's database</td>
+            <td>None</td>
+            <td>-fortnite [PlatForm] [Username] &lt;GameModes&gt;</td>
+            <td>fortn, fnite, fnt</td>
+        </tr>
+        <tr style="background-color: #607D8B">
+            <td>Guild Info</td>
+            <td>Gets some relevant information about the guild</td>
+            <td>None</td>
+            <td>-guildInfo</td>
+            <td>ginfo, guildi</td>
+        </tr>
+        <tr style="background-color: #455A64">
+            <td>Hypixel</td>
+            <td>Checks a user stats from Hypixel's database</td>
+            <td>None</td>
+            <td>-hypixel [PlayerName] [GameMode]</td>
+            <td>hyp, hpxl</td>
+        </tr>
+        <tr style="background-color: #607D8B">
+            <td>Kick</td>
+            <td>Kicks a user from the guild</td>
+            <td>Kick Members</td>
+            <td>-kick [@User] [Reason]</td>
+            <td>k, kck</td>
+        </tr>
+        <tr style="background-color: #455A64">
+            <td>Meme</td>
+            <td>Uses the reddit api to get pictures from subreddits</td>
+            <td>None</td>
+            <td>-meme &lt;SubReddit&gt;</td>
+            <td>None</td>
+        </tr>
+        <tr style="background-color: #607D8B">
+            <td>Mute</td>
+            <td>Mute an user permanently, until un muted</td>
+            <td>Administrator</td>
+            <td>-mute [@user] [reason]</td>
+            <td>None</td>
+        </tr>
+        <tr style="background-color: #455A64">
+            <td>Profile</td>
+            <td>Checks a member's profile if specified</td>
+            <td>None</td>
+            <td>-profile &lt;@user&gt;</td>
+            <td>p, prof</td>
+        </tr>
+        <tr style="background-color: #607D8B">
+            <td>Say</td>
+            <td>Sends a beautiful embedded message to a channel</td>
+            <td>Administrator</td>
+            <td>-say [message] --color:&lt;color&gt;</td>
+            <td>broadcast, bc</td>
+        </tr>
+        <tr style="background-color: #455A64">
+            <td>Prefix</td>
+            <td>Changes the default prefix to the one specified</td>
+            <td>Administrator</td>
+            <td>-setPrefix [prefix]</td>
+            <td>sprefix, setp</td>
+        </tr>
+        <tr style="background-color: #607D8B">
+            <td>Setup</td>
+            <td>WIP</td>
+            <td>Administrator</td>
+            <td>WIP</td>
+            <td>WIP</td>
+        </tr>
+        <tr style="background-color: #455A64">
+            <td>Temp Mute</td>
+            <td>Get a DM with all the commands</td>
+            <td>Manage Messages</td>
+            <td>-tempMute [@user] [reason]</td>
+            <td>tmute, tempm</td>
+        </tr>
+        <tr style="background-color: #607D8B">
+            <td>Translate</td>
+            <td>Translates a message to the specified language</td>
+            <td>None</td>
+            <td>-translate [language] [message]</td>
+            <td>trans</td>
+        </tr>
+        <tr style="background-color: #455A64">
+            <td>Un Ban (Not Working)</td>
+            <td>UnBans a user from the guild</td>
+            <td>Administrator</td>
+            <td>-unBan [@user]</td>
+            <td>None</td>
+        </tr>
+        <tr style="background-color: #607D8B">
+            <td>Un Mute</td>
+            <td>UnMutes a user that was currently muted</td>
+            <td>Manage Messages</td>
+            <td>-unMute [@user]</td>
+            <td>umute, unm</td>
+        </tr>
+        <tr style="background-color: #455A64">
+            <td>Urban Dictionary</td>
+            <td>Checks definitions of a word on the urban dictionary page</td>
+            <td>None</td>
+            <td>-define [word] &lt;Number&gt;</td>
+            <td>def, urbandictionary, ud, urbandef, urband, udef</td>
+        </tr>
+        <tr style="background-color: #607D8B">
+            <td>Warn</td>
+            <td>Warns a user</td>
+            <td>Manage Messages</td>
+            <td>-warn [@user] [warning message]</td>
+            <td>wn, w</td>
+        </tr>
+        <tr style="background-color: #455A64">
+            <td>Weather</td>
+            <td>Checks the weather of the specified city, if found</td>
+            <td>Manage Messages</td>
+            <td>-weather [city]</td>
+            <td>climate, wea</td>
+        </tr>
+    </table>
+</div>
+
+<div>
+    <br>
+    <p class="text">
+        Note: If the text is surrounded in [ ] means that its required,
+        else if the text is surrounded in < > means that its optional.
+    </p>
+    <br>
+</div>
+<footer style="background-color: #455A64;alignment: bottom"><br><br><br><br></footer>
+</body>
+</html>

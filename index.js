@@ -1,7 +1,8 @@
 const Discord = require('discord.js');
 const fs = require('fs');
+const http = require('http');
 const config = require('./config.json');
-//const tokenConfig = require('./tokenConfig.json');
+const tokenConfig = require('./tokenConfig.json');
 const bot = new Discord.Client();
 const messageUtil = require('./utilities/messageUtil.js');
 const commandsCollection = new Discord.Collection();
@@ -12,12 +13,18 @@ let userData = JSON.parse(file);
 
 let cooldownArray = [];
 
+const server = http.createServer((req, res) => {
+   res.writeHead(200, {'Content-Type': 'text/html'});
+   const myReadStream = fs.createReadStream(__dirname + '/website/index.html', 'utf8');
+   myReadStream.pipe(res);
+});
+
 bot.on('ready', () => {
-    mysqlUtil.connect();
+    /*mysqlUtil.connect();
     bot.guilds.forEach(guild => {
         mysqlUtil.setPrefix(guild).catch(err => console.error(err));
         mysqlUtil.setCommandChannel(guild).catch(err => console.error(err));
-    });
+    });*/
     setGameStatus();
     console.log('bot ready');
     bot.user.setStatus("dnd").catch(console.error);
@@ -147,5 +154,6 @@ function rankUpUser(message, roleName, args) {
 
 }
 
-//bot.login(tokenConfig.token).catch(err => console.log(err));
-bot.login(process.env.botToken).catch(err => console.log(err));
+bot.login(tokenConfig.token).catch(err => console.log(err));
+//bot.login(process.env.botToken).catch(err => console.log(err));
+server.listen(3000, '127.0.0.1');
