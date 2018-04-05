@@ -18,7 +18,7 @@ const app = express();
 
 app.use(express.static('public'));
 
-app.get("/", function (request, response) {
+app.get("/website/", function (request, response) {
     response.sendFile(__dirname + '/website/index.html');
 });
 
