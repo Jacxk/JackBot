@@ -4,7 +4,7 @@ const messageUtil = require('../utilities/messageUtil.js');
 module.exports.run = (message, args) => {
     if (message.channel.type === "dm") return message.channel.send('You need to use this command inside the guild.');
     message.delete().catch(err => console.log(err));
-    if (!message.member.hasPermission("MANAGE_MESSAGES")) return messageUtil.noPermissionMessage(message);
+    
     if (args.length === 1 || args.length === 2 || args.length === 3)
         return messageUtil.wrongUsage(message.channel, 'tempMute [time|s|m|h|d] [@User] [reason]', 'tempMute 1h @By_Jack#0047 Swearing in the chat');
 
@@ -22,5 +22,7 @@ module.exports.run = (message, args) => {
 
 module.exports.command = {
     name: 'tempmute',
-    aliases: ['tempm', 'tmute', 'tm']
+    aliases: ['tempm', 'tmute', 'tm'],
+    permission: "MANAGE_MESSAGES",
+    enabled: true
 };

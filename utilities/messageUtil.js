@@ -5,7 +5,12 @@ module.exports.noPermissionMessage = (message) => {
     let embed = new Discord.RichEmbed();
     embed.setTitle('❌ ERROR ❌').setDescription("***You don't have permission to use this command***").setColor("RED");
     message.channel.send(embed).then(m => m.delete(10000));
-    message.react('❌').catch(err => embed.setColor("RED").setTitle('❌ ERROR ❌').setDescription(err));
+};
+
+module.exports.commandDisabled = (message) => {
+    let embed = new Discord.RichEmbed();
+    embed.setTitle('🙊 OOPS 🙊').setDescription("This command is disabled. There has been an error and we are trying to fix it.").setColor("RED");
+    message.channel.send(embed).then(m => m.delete(10000));
 };
 
 module.exports.specifyUser = (channel) => {

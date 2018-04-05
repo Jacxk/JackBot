@@ -31,5 +31,7 @@ function millisToTimeString(ms) {
 
 module.exports.command = {
     name: 'botinfo',
-    aliases: ['binfo', 'boti']
+    aliases: ['binfo', 'boti'],
+    permission: "none",
+    enabled: true
 };

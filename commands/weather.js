@@ -49,5 +49,7 @@ module.exports.run = (message, args) => {
 
 module.exports.command = {
     name: 'weather',
-    aliases: ['climate', 'wea']
+    aliases: ['climate', 'wea'],
+    permission: "none",
+    enabled: true
 };

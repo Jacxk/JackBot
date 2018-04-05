@@ -7,5 +7,7 @@ module.exports.run = (message) => {
 };
 
 module.exports.command = {
-    name: 'invite'
+    name: 'invite',
+    permission: "none",
+    enabled: true
 };

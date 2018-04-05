@@ -31,5 +31,7 @@ function generateMeme(message, args) {
 }
 
 module.exports.command = {
-    name: 'meme'
+    name: 'meme',
+    permission: "none",
+    enabled: true
 };

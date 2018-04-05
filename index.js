@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const fs = require('fs');
 const http = require('http');
 const config = require('./config.json');
-//const tokenConfig = require('./tokenConfig.json');
+const tokenConfig = require('./tokenConfig.json');
 const bot = new Discord.Client();
 const messageUtil = require('./utilities/messageUtil.js');
 const commandsCollection = new Discord.Collection();
@@ -14,17 +14,17 @@ let userData = JSON.parse(file);
 let cooldownArray = [];
 
 const server = http.createServer((req, res) => {
-   res.writeHead(200, {'Content-Type': 'text/html'});
-   const myReadStream = fs.createReadStream(__dirname + '/website/index.html', 'utf8');
-   myReadStream.pipe(res);
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    const myReadStream = fs.createReadStream(__dirname + '/website/index.html', 'utf8');
+    myReadStream.pipe(res);
 });
 
 bot.on('ready', () => {
-    mysqlUtil.connect();
+    /*mysqlUtil.connect();
     bot.guilds.forEach(guild => {
         mysqlUtil.setPrefix(guild).catch(err => console.error(err));
         mysqlUtil.setCommandChannel(guild).catch(err => console.error(err));
-    });
+    });*/
     setGameStatus();
     console.log('bot ready');
     bot.user.setStatus("dnd").catch(console.error);
@@ -62,7 +62,7 @@ bot.on('message', message => {
     if (message.author.bot) return;
 
     const prefix = message.channel.type !== "dm" ? mysqlUtil.getPrefix(message.guild.id) : '-';
-    let commandChannel = mysqlUtil.getCommandChannel(message.guild.id);
+    let commandChannel = message.channel.type !== "dm" ? mysqlUtil.getCommandChannel(message.guild.id) : "ALL";
 
     if (!message.content.startsWith(prefix) && message.channel.type !== "dm") return; //rankSystem(message.author.id);
     if (commandChannel !== 'ALL' && commandChannel !== undefined) {
@@ -71,18 +71,17 @@ bot.on('message', message => {
             return messageUtil.sendError(message.channel, `You can only use this command in ${channel}`)
     }
 
-    const member = message.member;
     const args = message.content.substring(prefix.length).split(' ');
 
     const command = commandsCollection.get(args[0].toLowerCase());
-    if (command) command.run(message, args, commandsCollection);
-
-    switch (args[0].toLowerCase()) {
-        case 'rankup':
-            if (!member.hasPermission("ADMINISTRATOR")) return noPermString(message);
-            rankUpUser(message, args[2], args);
-            break;
+    if (command) {
+        if (!command.command.enabled)
+            return messageUtil.commandDisabled(message);
+        if (message.author.id !== "266315409735548928" && command.command.permission !== 'none' && !message.member.hasPermission(command.command.permission))
+            return messageUtil.noPermissionMessage(message);
+        command.run(message, args, commandsCollection);
     }
+
 });
 
 function rankSystem(id) {
@@ -132,28 +131,6 @@ function getTotalExpForLevel(level) {
     return Math.floor(450 * (level * 1.35));
 }
 
-function noPermString(message) {
-    let embed = new Discord.RichEmbed();
-    embed.setTitle('❌ ERROR ❌').setDescription("***You don't have permission to use this command***").setColor("RED");
-    message.channel.send(embed).then(m => m.delete(1000 * 10));
-    message.react('❌').catch(err => embed.setColor("RED").setTitle('❌ ERROR ❌').setDescription(err));
-    message.delete(1000 * 10);
-}
-
-function rankUpUser(message, roleName, args) {
-    message.delete();
-    let embed = new Discord.RichEmbed();
-    if (args.length < 3) return message.channel.send(embed.setDescription(`Usage: ${prefix}rankUp [@user] [roleName]`).setColor("AQUA")).then(msg => msg.delete(5000));
-
-    let user = message.mentions.members.first();
-    let role = message.member.guild.roles.find("name", roleName.split('_').join(' '));
-
-    if (!role) return message.channel.send(embed.setDescription("That role does not exist. Please try again...").setColor("AQUA")).then(msg => msg.delete(3000));
-
-    message.channel.send(embed.setColor("AQUA").setDescription(`Everybody welcome ${user} to ${role}. Congratulations on your rankUp.`)).then(user.addRole(role.id));
-
-}
-
-//bot.login(tokenConfig.token).catch(err => console.log(err));
-bot.login(process.env.botToken).catch(err => console.log(err));
+bot.login(tokenConfig.token).catch(err => console.log(err));
+//bot.login(process.env.botToken).catch(err => console.log(err));
 server.listen(3000, '127.0.0.1');

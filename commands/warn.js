@@ -5,8 +5,6 @@ module.exports.run = (message, args) => {
     if (message.channel.type === "dm") return message.channel.send('You need to use this command inside the guild.');
     message.delete().catch(err => console.log(err.toString()));
 
-    if (!message.member.hasPermission("MANAGE_MESSAGES")) return messageUtil.noPermissionMessage(message);
-
     if (args.length === 1 || args.length === 2)
         return messageUtil.wrongUsage(message.channel, 'warn [@User] [reason]', 'warn @By_Jack#0047 Stop doing that...');
 
@@ -31,5 +29,7 @@ module.exports.run = (message, args) => {
 
 module.exports.command = {
     name: 'warn',
-    aliases: ["wn", "w"]
+    aliases: ["wn", "w"],
+    permission: "MANAGE_MESSAGES",
+    enabled: true
 };

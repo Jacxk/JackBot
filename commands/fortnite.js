@@ -138,5 +138,7 @@ function getFortniteStats(channel, platform, username, mode) {
 
 module.exports.command = {
     name: 'fortnite',
-    aliases: ["fortn", "fnite", "fnt"]
+    aliases: ["fortn", "fnite", "fnt"],
+    permission: "none",
+    enabled: true
 };

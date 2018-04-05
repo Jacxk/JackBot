@@ -17,5 +17,7 @@ module.exports.run = (message, args) => {
 
 module.exports.command = {
     name: 'guildinfo',
-    aliases: ['ginfo', 'guildi']
+    aliases: ['ginfo', 'guildi'],
+    permission: "none",
+    enabled: true
 };

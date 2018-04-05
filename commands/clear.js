@@ -12,7 +12,6 @@ module.exports.run = (message, args) => {
 };
 
 async function clearMessages(message, args) {
-    if (!message.member.hasPermission("MANAGE_MESSAGES")) return messageUtil.noPermissionMessage(message);
     let embed = new Discord.RichEmbed();
     let amount = args[args.length - 1];
 
@@ -28,5 +27,7 @@ async function clearMessages(message, args) {
 
 module.exports.command = {
     name: 'clear',
-    aliases: ['cc', 'c']
+    aliases: ['cc', 'c'],
+    permission: "MANAGE_MESSAGES",
+    enabled: true
 };

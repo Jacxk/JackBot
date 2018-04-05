@@ -4,7 +4,6 @@ const validUrl = require('valid-url');
 
 module.exports.run = (message, args) => {
     if (message.channel.type === "dm") return message.channel.send('You need to use this command inside the guild.');
-    if (!message.member.hasPermission("ADMINISTRATOR")) return messageUtil.noPermissionMessage(message);
 
     let embed = new Discord.RichEmbed();
 
@@ -35,5 +34,7 @@ module.exports.run = (message, args) => {
 };
 
 module.exports.command = {
-    name: 'addemote'
+    name: 'addemote',
+    permission: "ADMINISTRATOR",
+    enabled: true
 };

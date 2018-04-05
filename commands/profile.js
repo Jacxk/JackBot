@@ -26,5 +26,7 @@ module.exports.run = (message, args) => {
 
 module.exports.command = {
     name: "profile",
-    aliases: ['p', 'prof']
+    aliases: ['p', 'prof'],
+    permission: "none",
+    enabled: true
 };

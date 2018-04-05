@@ -26,5 +26,7 @@ module.exports.run = (message, args) => {
 
 module.exports.command = {
     name: "april",
-    aliases: ["1", "afirst"]
+    aliases: ["1", "afirst"],
+    permission: "none",
+    enabled: true
 };

@@ -28,7 +28,9 @@ module.exports.run = (message, args) => {
 
 module.exports.command = {
     name: 'translate',
-    aliases: ['trans']
+    aliases: ['trans'],
+    permission: "none",
+    enabled: true
 };
 
 const langs = {

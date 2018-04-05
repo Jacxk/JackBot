@@ -4,7 +4,7 @@ const muteUtils = require('../utilities/muteUtils.js');
 module.exports.run = (message, args) => {
     if (message.channel.type === "dm") return message.channel.send('You need to use this command inside the guild.');
     message.delete().catch(err => console.log(err));
-    if (!message.member.hasPermission("MANAGE_MESSAGES")) return messageUtil.noPermissionMessage(message);
+    
     if (args.length <= 1) return messageUtil.wrongUsage(message.channel, 'unMute [@User]', 'unMute @By_Jack#0047');
 
     let memberToMute = message.mentions.members.first();
@@ -20,5 +20,7 @@ module.exports.run = (message, args) => {
 
 module.exports.command = {
     name: 'unmute',
-    aliases: ['umute', 'unm']
+    aliases: ['umute', 'unm'],
+    permission: "MANAGE_MESSAGES",
+    enabled: true
 };
