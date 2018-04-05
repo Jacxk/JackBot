@@ -134,4 +134,4 @@ function getTotalExpForLevel(level) {
 //bot.login(tokenConfig.token).catch(err => console.log(err));
 bot.login(process.env.botToken).catch(err => console.log(err));
 const PORT = process.env.PORT || 8080;
-server.listen(PORT, '127.0.0.1');
+server.listen(PORT);
