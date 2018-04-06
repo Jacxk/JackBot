@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JackBot</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        p, h1, h2, h3, h4, h5, h6 {
+            font-family: 'Arial Black';
+        }
+
+        td {
+            font-size: 18px;
+        }
+
+        th {
+            text-align: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        .panel {
+            background-color: transparent;
+            color: #E0E0E0;
+            text-align: center;
+            font-family: 'Arial Black';
+            font-size: 60px;
+        }
+
+        .block {
+            font-size: 18px;
+            font-family: 'Arial Black';
+            text-align: center;
+            display: inline-block;
+            width: 150px;
+            height: 50px;
+            margin: 0 auto;
+            color: white;
+            border-color: transparent;
+        }
+
+        .heading {
+            margin: 0 auto;
+            font-family: 'Arial Black';
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .versionBox {
+            color: white;
+            border-color: transparent;
+            padding: 50px;
+            background-color: transparent;
+            font-size: 20px;
+        }
+
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body style="background-color: #424242">
+<script>
+    function getVersion(num) {
+        try {
+            $.get(`../changeLog/v${num}`, (data) => {
+                if (!data) return false;
+                document.getElementById(`version`).innerHTML = `Version ${num}`;
+                document.getElementById(`vBox`).innerHTML = data;
+            }, 'text').catch(err => {
+            });
+        } catch (e) {
+
+        }
+    }
+
+    function getVersionButton(left) {
+        const element = document.getElementById('version').textContent;
+        let currentV = element.slice('Version '.length).split('.');
+
+        if (left) {
+            if (currentV[0] === '1') getVersion('1.' + (parseInt(currentV[1]) + 1))
+        } else {
+            if (currentV[0] === '1') getVersion('1.' + (parseInt(currentV[1]) - 1))
+        }
+    }
+
+    getVersion('1.2');
+</script>
+<div class="heading" style="background-color: #455A64;"><br>
+    <a href="https://material.io/guidelines/style/color.html#color-color-palette"
+       style="text-decoration: none;background-color: transparent;color: #263238;font-size: 60px;">JackBot's Dashboard
+    </a>
+    <br><br><br><br>
+    <div class="btn-group" role="group" aria-label="Basic example" style="margin: 0 auto;">
+
+        <a role="button" class="btn btn-default, block" href="index.html" style="background-color: transparent;">
+            Home
+        </a>
+        <a role="button" class="btn btn-secondary, block" target="_blank" href="/invite"
+           style="background-color: transparent;">
+            Invite
+        </a>
+        <a role="button" class="btn btn-secondary, block" href="guilds.html" style="background-color: transparent;">
+            Guilds
+        </a>
+        <a role="button" class="btn btn-secondary, block" href="commands.html" style="background-color: transparent;">
+            Commands
+        </a>
+        <a role="button" class="btn btn-secondary, block" href="changelog.html"
+           style="background-color: #424242;box-shadow: inset 10px 78px 64px -64px rgba(0, 0, 0, 0.20);color: white;">
+            ChangeLog
+        </a>
+    </div>
+</div>
+<div class="container">
+    <h1 id="changelog" class="panel">Change Log</h1>
+    <br><br>
+    <div style="background-color: #282c34;margin: 0 auto;width: 100%;height: 100%;box-shadow: 2px 20px 123px -13px rgba(0,0,0,0.6);">
+        <br><h3 style="color: white;text-align: center" id="version"></h3><br>
+        <div style="background-color: #3a3f4b;margin: 0 auto;width: 80%;height: 80%;box-shadow: 2px 20px 123px -13px rgba(0,0,0,0.3);">
+            <pre id="vBox" class="versionBox"></pre>
+        </div>
+        <div class="block, panel">
+            <a role="button" class="btn btn-default" onclick="getVersionButton(true)"
+               style="background-color: #3a3f4b; border-color: transparent;width: 50px;color: white;">
+                <span class="glyphicon glyphicon-triangle-left"></span>
+            </a>
+            <a role="button" class="btn btn-default" onclick="getVersionButton(false)"
+               style="background-color: #3a3f4b; border-color: transparent;width: 50px;color: white;">
+                <span class="glyphicon glyphicon-triangle-right"></span>
+            </a>
+        </div>
+    </div>
+</div>
+<br><br><br><br>
+</body>
+</html>

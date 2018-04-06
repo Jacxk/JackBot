@@ -5,7 +5,8 @@
     <title>JackBot</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <style>
-        #panel {
+        .panel {
+            background-color: transparent;
             color: #E0E0E0;
             text-align: center;
             font-family: 'Arial Black';
@@ -15,15 +16,9 @@
         .text {
             text-align: center;
             font-family: 'Arial Black';
-            color: #455A64;
+            color: white;
             font-size: 20px;
             padding-top: 20px;
-        }
-
-        .heading {
-            font-family: 'Arial Black';
-            font-size: 42px;
-            text-decoration: none;
         }
 
         table, th, td {
@@ -40,22 +35,59 @@
             text-align: center;
             font-size: 24px;
         }
+        .block {
+            font-size: 18px;
+            font-family: 'Arial Black';
+            text-align: center;
+            display: inline-block;
+            width: 150px;
+            height: 50px;
+            margin: 0 auto;
+            color: white;
+            border-color: transparent;
+
+        }
+
+        .heading {
+            margin: 0 auto;
+            font-family: 'Arial Black';
+            text-decoration: none;
+            text-align: center;
+        }
     </style>
 </head>
-<body style="background-color: #263238">
-<div class="jumbotron text-center"
-     style="background-color: #455A64; box-shadow: 2px 20px 123px -13px rgba(0,0,0,0.58);">
-    <h1 class="heading">
-        <a href="https://material.io/guidelines/style/color.html#color-color-palette"
-        style="text-decoration: none;background-color: transparent;color: #263238">JackBot's Website
+<body style="background-color: #424242">
+<div class="heading" style="background-color: #455A64;"><br>
+    <a href="https://material.io/guidelines/style/color.html#color-color-palette"
+       style="text-decoration: none;background-color: transparent;color: #263238;font-size: 60px;">JackBot's Dashboard
+    </a>
+    <br><br><br><br>
+    <div class="btn-group" role="group" aria-label="Basic example" style="margin: 0 auto;">
+
+        <a role="button" class="btn btn-default, block" href="index.html" style="background-color: transparent;">
+            Home
         </a>
-    </h1>
+        <a role="button" class="btn btn-secondary, block" target="_blank" href="/invite"
+           style="background-color: transparent;">
+            Invite
+        </a>
+        <a role="button" class="btn btn-secondary, block" href="guilds.html" style="background-color: transparent;">
+            Guilds
+        </a>
+        <a role="button" class="btn btn-secondary, block" href="commands.html"
+           style="background-color: #424242;box-shadow: inset 10px 78px 64px -64px rgba(0, 0, 0, 0.20);color: white;">
+            Commands
+        </a>
+        <a role="button" class="btn btn-secondary, block" href="changelog.html" style="background-color: transparent;">
+            ChangeLog
+        </a>
+    </div>
 </div>
 <div class="container">
-    <h1 id="panel">Commands</h1>
+    <h1 class="panel">Commands</h1>
     <br>
     <table class="table" style="margin: auto; box-shadow: 0 0 75px 3px rgba(0,0,0,0.30);">
-        <tr style="background-color: #424242">
+        <tr style="background-color: transparent">
             <th>Command</th>
             <th>Description</th>
             <th>Permission</th>
@@ -125,35 +157,35 @@
             <td>-hypixel [PlayerName] [GameMode]</td>
             <td>hyp, hpxl</td>
         </tr>
-        <tr style="background-color: #455A64">
+        <tr style="background-color: #607D8B">
             <td>Invite</td>
             <td>Sends you an invite link to get the bot on your guild</td>
             <td>None</td>
             <td>-invite</td>
             <td>None</td>
         </tr>
-        <tr style="background-color: #607D8B">
+        <tr style="background-color: #455A64">
             <td>Kick</td>
             <td>Kicks a user from the guild</td>
             <td>Kick Members</td>
             <td>-kick [@User] [Reason]</td>
             <td>k, kck</td>
         </tr>
-        <tr style="background-color: #455A64">
+        <tr style="background-color: #607D8B">
             <td>Meme</td>
             <td>Uses the reddit api to get pictures from subreddits</td>
             <td>None</td>
             <td>-meme &lt;SubReddit&gt;</td>
             <td>None</td>
         </tr>
-        <tr style="background-color: #607D8B">
+        <tr style="background-color: #455A64">
             <td>Mute</td>
             <td>Mute an user permanently, until un muted</td>
             <td>Administrator</td>
             <td>-mute [@user] [reason]</td>
             <td>None</td>
         </tr>
-        <tr style="background-color: #455A64">
+        <tr style="background-color: #607D8B">
             <td>Profile</td>
             <td>Checks a member's profile if specified</td>
             <td>None</td>

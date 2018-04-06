@@ -1,6 +1,10 @@
 const Discord = require('discord.js');
 const mysqlUtil = require('./mysqlUtil.js');
 
+module.exports.a = () => {
+    console.log('b')
+}
+
 module.exports.noPermissionMessage = (message) => {
     let embed = new Discord.RichEmbed();
     embed.setTitle('❌ ERROR ❌').setDescription("***You don't have permission to use this command***").setColor("RED");

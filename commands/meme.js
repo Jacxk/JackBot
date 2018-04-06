@@ -19,6 +19,9 @@ function generateMeme(message, args) {
 
         let imageData = meme[randomNumber].data;
         let url = imageData.url;
+        let extArr = ['.png', '.jpg', '.gif'];
+
+        if (extArr.includes(url)) return generateMeme(message, args);
 
         let embed = new Discord.RichEmbed();
         embed.setColor("RANDOM");

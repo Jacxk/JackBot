@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 
-module.exports.run = (message, args, bot) => {
+module.exports.run = (message, args, a, bot) => {
     let embed = new Discord.RichEmbed().setColor("GOLD");
 
     embed.setAuthor(`${bot.user.username}'s Information`, bot.user.displayAvatarURL);

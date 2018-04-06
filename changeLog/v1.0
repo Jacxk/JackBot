@@ -1,5 +1,6 @@
 Version: 1.0
 State: Released
+Platform: Bot
 
 - Started to work on a basic website.
 
@@ -8,9 +9,11 @@ State: Released
 - Added warn command.
 - Added invite command.
 
-- Changed setCommandChannel file to setup to add sub commands to it and set up all the server's configuration.
+- Changed setCommandChannel file to setup to add sub commands
+  to it and set up all the server's configuration.
 - Changed member count to only count real members and not bots.
 - Changed the commands collection naming.
-- Changed the permission of the mute command from MANAGE_MESSAGES to ADMINISTRATOR.
+- Changed the permission of the mute command from MANAGE_MESSAGES
+  to ADMINISTRATOR.
 
 - Removed unused code on the fornite command.

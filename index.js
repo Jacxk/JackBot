@@ -6,36 +6,25 @@ const bot = new Discord.Client();
 const messageUtil = require('./utilities/messageUtil.js');
 const commandsCollection = new Discord.Collection();
 const mysqlUtil = require('./utilities/mysqlUtil.js');
+const website = require('./website.js');
 
 let file = fs.readFileSync("./data.json", "utf8");
 let userData = JSON.parse(file);
 
 let cooldownArray = [];
 
-const PORT = process.env.PORT || 8080;
-const express = require('express');
-const app = express();
-
-app.use(express.static('public'));
-
-app.get("/", function (request, response) {
-    response.sendFile(__dirname + '/website/index.html');
-});
-
-const listener = app.listen(PORT, function () {
-    console.log('Your app is listening on port ' + listener.address().port);
-});
-
+website.runWebsite();
 bot.on('ready', () => {
     mysqlUtil.connect();
     bot.guilds.forEach(guild => {
         mysqlUtil.setPrefix(guild).catch(err => console.error(err));
         mysqlUtil.setCommandChannel(guild).catch(err => console.error(err));
-    })
+    });
     setGameStatus();
     console.log('bot ready');
     bot.user.setStatus("dnd").catch(console.error);
 });
+
 
 function setGameStatus() {
     setInterval(() => {
@@ -86,7 +75,7 @@ bot.on('message', message => {
             return messageUtil.commandDisabled(message);
         if (message.author.id !== "266315409735548928" && command.command.permission !== 'none' && !message.member.hasPermission(command.command.permission))
             return messageUtil.noPermissionMessage(message);
-        command.run(message, args, commandsCollection);
+        command.run(message, args, commandsCollection, bot);
     }
 
 });
