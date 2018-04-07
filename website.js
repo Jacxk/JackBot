@@ -1,6 +1,5 @@
 const PORT = process.env.PORT || 8080;
 const express = require('express');
-const fs = require('fs');
 const app = express();
 
 module.exports.runWebsite = () => {
@@ -27,4 +26,12 @@ module.exports.runWebsite = () => {
         console.log('Your app is listening on port ' + listener.address().port);
     });
 
+    ping();
 };
+
+function ping() {
+    const http = require('http');
+    setInterval(() => {
+        http.get("http://jackbot-djs.herokuapp.com");
+    }, 300000);
+}
