@@ -16,11 +16,11 @@ let cooldownArray = [];
 
 website.runWebsite(bot);
 bot.on('ready', () => {
-    /*mysqlUtil.connect();
+    mysqlUtil.connect();
     bot.guilds.forEach(guild => {
         mysqlUtil.setPrefix(guild).catch(err => console.error(err));
         mysqlUtil.setCommandChannel(guild).catch(err => console.error(err));
-    });*/
+    });
     setInterval(() => {
         let gameStatus = config.games;
         let game = gameStatus[Math.floor(Math.random() * gameStatus.length)];
