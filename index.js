@@ -7,33 +7,37 @@ const messageUtil = require('./utilities/messageUtil.js');
 const commandsCollection = new Discord.Collection();
 const mysqlUtil = require('./utilities/mysqlUtil.js');
 const website = require('./website.js');
+const joinLeave = require("./utilities/joinLeave.js");
 
 let file = fs.readFileSync("./data.json", "utf8");
 let userData = JSON.parse(file);
 
 let cooldownArray = [];
 
-website.runWebsite();
+website.runWebsite(bot);
 bot.on('ready', () => {
-    mysqlUtil.connect();
+    /*mysqlUtil.connect();
     bot.guilds.forEach(guild => {
         mysqlUtil.setPrefix(guild).catch(err => console.error(err));
         mysqlUtil.setCommandChannel(guild).catch(err => console.error(err));
-    });
-    setGameStatus();
-    console.log('bot ready');
-    bot.user.setStatus("dnd").catch(console.error);
-});
-
-
-function setGameStatus() {
+    });*/
     setInterval(() => {
         let gameStatus = config.games;
         let game = gameStatus[Math.floor(Math.random() * gameStatus.length)];
         bot.user.setActivity(game.replace('%randomUser%', bot.users.random().username), {type: "WATCHING"}).catch(err => console.log(err));
         console.log('game changed to ' + game);
     }, 60 * 60000);
-}
+    console.log('bot ready');
+    bot.user.setStatus("dnd").catch(console.error);
+});
+
+bot.on('guildMemberAdd', member => {
+    joinLeave.imageOnJoin(member, bot.channels.get('408462950035357697'))
+});
+
+bot.on('guildMemberRemove', member => {
+    joinLeave.imageOnLeave(member, bot.channels.get('408462950035357697'))
+});
 
 fs.readdir("./commands/", (error, files) => {
     if (error) return console.log(error);

@@ -13,7 +13,7 @@ module.exports.noPermissionMessage = (message) => {
 
 module.exports.commandDisabled = (message) => {
     let embed = new Discord.RichEmbed();
-    embed.setTitle('🙊 OOPS 🙊').setDescription("This command is disabled. There has been an error and we are trying to fix it.").setColor("RED");
+    embed.setTitle('🙊 OOPS 🙊').setDescription("This command is disabled because is broken or its private.").setColor("RED");
     message.channel.send(embed).then(m => m.delete(10000));
 };
 

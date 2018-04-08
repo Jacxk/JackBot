@@ -2,7 +2,7 @@ const PORT = process.env.PORT || 8080;
 const express = require('express');
 const app = express();
 
-module.exports.runWebsite = () => {
+module.exports.runWebsite = (bot) => {
 
     app.use(express.static('/website'));
 
