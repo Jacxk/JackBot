@@ -1,9 +1,10 @@
 const Discord = require('discord.js');
 const mysql = require('mysql');
 const messageUtil = require('../utilities/messageUtil.js');
-//const sqlConfig = require('../mysqlConfig');
+const sqlConfig = require('../mysqlConfig');
 const prefixes = module.exports.prefixeMap = new Map();
 const commandChannels = module.exports.commandChannelMap = new Map();
+const joinLeaveChannels = module.exports.joinLeaveChannels = new Map();
 
 module.exports.connect = () => {
     createTable();
@@ -23,17 +24,45 @@ const connection = mysql.createConnection({
 
 const createTable = module.exports.createTable = () => {
     const statement = 'CREATE TABLE IF NOT EXISTS GuildSettings (ID int NOT NULL AUTO_INCREMENT, GuildId text, ' +
-        'GuildName text, Prefix text, CommandChannel text, IncidentsChannel text, PRIMARY KEY (ID));';
+        'GuildName text, Prefix text, CommandChannel text, IncidentsChannel text, JoinLeaveChannel text, MemesChannel text, PRIMARY KEY (ID));';
     connection.query(statement, (err, result) => {
         if (err) return console.error(err);
     });
+};
+
+module.exports.getJoinLeaveChannel = (guildID) => {
+    containsGuild(guildID).then(boolean => {
+        if (!boolean) return;
+        const select = `SELECT JoinLeaveChannel FROM GuildSettings WHERE GuildId = ?;`;
+
+        connection.query(select, [guildID], (err, result) => {
+            if (err) return console.error(err);
+            joinLeaveChannels.set(guildID, result[0].JoinLeaveChannel)
+        });
+    }).catch(err => console.error(err));
+};
+
+module.exports.setJoinLeaveChannel = (channel, guild, channelID) => {
+    const embed = new Discord.RichEmbed();
+    containsGuild(guild.id).then(boolean => {
+        if (!boolean) return;
+        const update = `UPDATE GuildSettings SET JoinLeaveChannel = ?, GuildName = ? WHERE GuildId = ?;`;
+
+        connection.query(update, [channelID, guild.name, guild.id], (err, result) => {
+            if (err) return console.error(err);
+            joinLeaveChannels.set(guild.id, channelID);
+            channel.send(embed.setColor("GOLD").setTitle('JoinLeave Channel Changed')
+                .setDescription('You have successfully changed the joinLeave channel to ' + channel.guild.channels.get(channelID)))
+                .then(msg => msg.delete(20 * 1000));
+        });
+    }).catch(err => console.error(err));
 };
 
 const changePrefix = module.exports.changePrefix = (channel, guild, prefix) => {
     const embed = new Discord.RichEmbed();
     const insertStatement = `INSERT INTO GuildSettings (GuildId, GuildName, Prefix) VALUES (?, ?, ?);`;
     const update = `UPDATE GuildSettings SET Prefix = ?, GuildName = ? WHERE GuildId = ?;`;
-    containsGuild(guild).then(boolean => {
+    containsGuild(guild.id).then(boolean => {
         if (!boolean) connection.query(insertStatement, [guild.id, guild.name, prefix], (err, result) => {
             console.log('Inserting prefix of ' + guild.id);
             if (err) return messageUtil.sendError(channel, 'Insert Error: ' + err.toString());
@@ -55,7 +84,7 @@ const changeCommandChannel = module.exports.changeCommandChannel = (channel, gui
     const embed = new Discord.RichEmbed();
     const insertStatement = `INSERT INTO GuildSettings (GuildId, GuildName, CommandChannel) VALUES (?, ?, ?);`;
     const update = `UPDATE GuildSettings SET CommandChannel = ?, GuildName = ? WHERE GuildId = ?;`;
-    containsGuild(guild).then(boolean => {
+    containsGuild(guild.id).then(boolean => {
         if (!boolean) connection.query(insertStatement, [guild.id, guild.name, ch.id ? ch.id : ch], (err, result) => {
             console.log('Inserting CommandChannel of ' + guild.id);
             if (err) return messageUtil.sendError(channel, 'Insert Error: ' + err.toString());
@@ -75,14 +104,14 @@ const changeCommandChannel = module.exports.changeCommandChannel = (channel, gui
 
 const containsGuild = (guild) => new Promise((resolve, reject) => {
     const select = `SELECT * FROM GuildSettings WHERE GuildId = ?;`;
-    connection.query(select, [guild.id], (err, result) => {
+    connection.query(select, [guild], (err, result) => {
         if (err) resolve(false);
         else resolve(!!result[0]);
     });
 });
 
 module.exports.setPrefix = (guild) => new Promise((resolve, reject) => {
-    containsGuild(guild).then(boolean => {
+    containsGuild(guild.id).then(boolean => {
         if (!boolean) return;
         const select = `SELECT Prefix FROM GuildSettings WHERE GuildId = ?;`;
         connection.query(select, [guild.id], (err, result) => {
@@ -93,7 +122,7 @@ module.exports.setPrefix = (guild) => new Promise((resolve, reject) => {
 });
 
 module.exports.setCommandChannel = (guild) => new Promise((resolve, reject) => {
-    containsGuild(guild).then(boolean => {
+    containsGuild(guild.id).then(boolean => {
         if (!boolean) return;
         const select = `SELECT CommandChannel FROM GuildSettings WHERE GuildId = ?;`;
         connection.query(select, [guild.id], (err, result) => {

@@ -20,6 +20,7 @@ bot.on('ready', () => {
     bot.guilds.forEach(guild => {
         mysqlUtil.setPrefix(guild).catch(err => console.error(err));
         mysqlUtil.setCommandChannel(guild).catch(err => console.error(err));
+        mysqlUtil.getJoinLeaveChannel(guild.id);
     });
     setInterval(() => {
         let gameStatus = config.games;
@@ -32,11 +33,17 @@ bot.on('ready', () => {
 });
 
 bot.on('guildMemberAdd', member => {
-    joinLeave.imageOnJoin(member, bot.channels.get('408462950035357697'))
+    const channelId = mysqlUtil.joinLeaveChannels.get(member.guild.id);
+    const channel = member.guild.channels.get(channelId);
+    if (!channel) return;
+    joinLeave.imageOnJoin(member, channel);
 });
 
 bot.on('guildMemberRemove', member => {
-    joinLeave.imageOnLeave(member, bot.channels.get('408462950035357697'))
+    const channelId = mysqlUtil.joinLeaveChannels.get(member.guild.id);
+    const channel = member.guild.channels.get(channelId);
+    if (!channel) return;
+    joinLeave.imageOnLeave(member, channel)
 });
 
 fs.readdir("./commands/", (error, files) => {
