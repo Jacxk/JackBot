@@ -5,7 +5,7 @@ module.exports.run = (message, args) => {
     if (message.channel.type === "dm") return message.channel.send('You need to use this command inside the guild.');
     message.delete();
 
-    if (args.length === 1) return messageUtil.wrongUsage(message.channel, 'setup [settings]', 'setup joinleave');
+    if (args.length === 1) return messageUtil.wrongUsage(message.channel, 'setup [type]', 'setup joinleave');
 
     switch (args[1].toLowerCase()) {
         case "commands":
@@ -21,7 +21,7 @@ module.exports.run = (message, args) => {
 };
 
 function incidentsChannel(message, args) {
-    if (args.length < 3) return messageUtil.wrongUsage(message.channel, 'TODO', 'TODO');
+    if (args.length < 3) return messageUtil.wrongUsage(message.channel, 'setup incidents #channel',  'setup incidents #incident-log');
 
 
 }

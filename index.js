@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 const config = require('./config.json');
-//const tokenConfig = require('./tokenConfig.json');
+const tokenConfig = require('./tokenConfig.json');
 const bot = new Discord.Client();
 const messageUtil = require('./utilities/messageUtil.js');
 const commandsCollection = new Discord.Collection();
@@ -16,12 +16,12 @@ let cooldownArray = [];
 
 website.runWebsite(bot);
 bot.on('ready', () => {
-    mysqlUtil.connect();
+    /*mysqlUtil.connect();
     bot.guilds.forEach(guild => {
         mysqlUtil.setPrefix(guild).catch(err => console.error(err));
         mysqlUtil.setCommandChannel(guild).catch(err => console.error(err));
         mysqlUtil.getJoinLeaveChannel(guild.id);
-    });
+    });*/
     setInterval(() => {
         let gameStatus = config.games;
         let game = gameStatus[Math.floor(Math.random() * gameStatus.length)];
@@ -138,5 +138,5 @@ function getTotalExpForLevel(level) {
     return Math.floor(450 * (level * 1.35));
 }
 
-//bot.login(tokenConfig.token).catch(err => console.log(err));
-bot.login(process.env.botToken).catch(err => console.log(err));
+bot.login(tokenConfig.token).catch(err => console.log(err));
+//bot.login(process.env.botToken).catch(err => console.log(err));
