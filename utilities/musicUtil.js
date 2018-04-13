@@ -1,6 +1,6 @@
 const YTDL = require('ytdl-core');
 const YouTubeAPI = require('simple-youtube-api');
-const youtube = new YouTubeAPI('AIzaSyAiFU85Y7koOG06xtHV0J03MTTr-0D3ut0');
+const youtube = new YouTubeAPI(process.env.youtube);
 const Discord = require('discord.js');
 const messageUtil = require('../utilities/messageUtil.js');
 
