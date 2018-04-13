@@ -13,12 +13,16 @@
     "convert-units": "^2.3.4",
     "discord.js": "^11.3.2",
     "express": "^4.16.3",
+    "ffmpeg-binaries": "^3.2.2-3",
     "google-translate-api": "^2.3.0",
     "jimp": "^0.2.28",
     "ms": "^2.1.1",
     "mysql": "^2.15.0",
+    "node-opus": "^0.2.7",
     "request": "^2.83.0",
+    "simple-youtube-api": "^5.0.1",
     "uws": "^9.14.0",
-    "valid-url": "^1.0.9"
+    "valid-url": "^1.0.9",
+    "ytdl-core": "^0.20.2"
   }
 }

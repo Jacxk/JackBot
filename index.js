@@ -1,13 +1,14 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 const config = require('./config.json');
-const tokenConfig = require('./tokenConfig.json');
-const bot = new Discord.Client();
+//const tokenConfig = require('./tokenConfig.json');
 const messageUtil = require('./utilities/messageUtil.js');
-const commandsCollection = new Discord.Collection();
 const mysqlUtil = require('./utilities/mysqlUtil.js');
 const website = require('./website.js');
 const joinLeave = require("./utilities/joinLeave.js");
+
+const bot = new Discord.Client();
+const commandsCollection = new Discord.Collection();
 
 let file = fs.readFileSync("./data.json", "utf8");
 let userData = JSON.parse(file);
@@ -16,12 +17,12 @@ let cooldownArray = [];
 
 website.runWebsite(bot);
 bot.on('ready', () => {
-    /*mysqlUtil.connect();
+    mysqlUtil.connect();
     bot.guilds.forEach(guild => {
         mysqlUtil.setPrefix(guild).catch(err => console.error(err));
         mysqlUtil.setCommandChannel(guild).catch(err => console.error(err));
         mysqlUtil.getJoinLeaveChannel(guild.id);
-    });*/
+    });
     setInterval(() => {
         let gameStatus = config.games;
         let game = gameStatus[Math.floor(Math.random() * gameStatus.length)];
@@ -54,7 +55,25 @@ fs.readdir("./commands/", (error, files) => {
     commands.forEach((commandFile) => {
         let props = require(`./commands/${commandFile}`);
         commandsCollection.set(props.command.name, props);
-        if (props.command.aliases) props.command.aliases.forEach(alias => commandsCollection.set(alias, props));
+        if (props.command.aliases) props.command.aliases.forEach(alias => {
+            if (commandsCollection.get(alias)) return console.log(`Conflict with alias: ${alias}`);
+            commandsCollection.set(alias, props)
+        });
+    });
+});
+
+fs.readdir("./commands/music/", (error, files) => {
+    if (error) return console.log(error);
+
+    let commands = files.filter(file => file.split(".").pop() === 'js');
+
+    commands.forEach((commandFile) => {
+        let props = require(`./commands/music/${commandFile}`);
+        commandsCollection.set(props.command.name, props);
+        if (props.command.aliases) props.command.aliases.forEach(alias => {
+            if (commandsCollection.get(alias)) return console.log(`Conflict with alias: ${alias}`);
+            commandsCollection.set(alias, props)
+        });
     });
 });
 
@@ -67,6 +86,7 @@ bot.on('channelCreate', channel => {
 
 bot.on('message', message => {
     if (message.author.bot) return;
+    if (message.channel.type === "dm") return;
 
     const prefix = message.channel.type !== "dm" ? mysqlUtil.getPrefix(message.guild.id) : '-';
     let commandChannel = message.channel.type !== "dm" ? mysqlUtil.getCommandChannel(message.guild.id) : "ALL";
@@ -138,5 +158,5 @@ function getTotalExpForLevel(level) {
     return Math.floor(450 * (level * 1.35));
 }
 
-bot.login(tokenConfig.token).catch(err => console.log(err));
-//bot.login(process.env.botToken).catch(err => console.log(err));
+//bot.login(tokenConfig.token).catch(err => console.log(err));
+bot.login(process.env.botToken).catch(err => console.log(err));

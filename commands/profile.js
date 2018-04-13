@@ -3,9 +3,7 @@ const fs = require('fs');
 let file = fs.readFileSync("./data.json", "utf8");
 let user = JSON.parse(file);
 
-module.exports.run = (message, args) => {
-    if (message.channel.type === "dm") return message.channel.send('You need to use this command inside the guild.');
-
+module.exports.run = (message) => {
     let embed = new Discord.RichEmbed();
     let member = message.mentions.members.first() || message.member;
 
@@ -26,7 +24,7 @@ module.exports.run = (message, args) => {
 
 module.exports.command = {
     name: "profile",
-    aliases: ['p', 'prof'],
+    aliases: ['pr', 'prof'],
     permission: "none",
     enabled: true
 };

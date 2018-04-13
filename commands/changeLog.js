@@ -1,6 +1,7 @@
+const Discord = require('discord.js');
 const fs = require("fs");
 const messageUtil = require('../utilities/messageUtil.js');
-const versions = new Map();
+const versions = new Discord.Collection();
 
 fs.readdir("./changeLog/", (err, files) => {
     if (err) return console.error(err);
@@ -14,7 +15,7 @@ fs.readdir("./changeLog/", (err, files) => {
 });
 
 module.exports.run = (message, args) => {
-    if (args.length === 1) return message.channel.send(`\`\`\`${versions.get("v1.1")}\`\`\``);
+    if (args.length === 1) return message.channel.send(`\`\`\`${versions.get('v1.3')}\`\`\``);
 
     const changes = versions.get(args[1]);
     if (!changes) {

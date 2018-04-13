@@ -22,10 +22,10 @@ module.exports.imageOnJoin = (member, channel) => {
         });
 
         Jimp.read(member.user.avatarURL).then(avatar => {
-            avatar.cover(260, 260, Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE);
+            avatar.cover(280, 280, Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE);
 
             Jimp.read('https://cloud.githubusercontent.com/assets/414918/11165709/051d10b0-8b0f-11e5-864a-20ef0bada8d6.png').then(mask => {
-                mask.cover(260, 260, Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE);
+                mask.cover(280, 280, Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE);
                 avatar.mask(mask, 0, 0);
 
                 image.composite(avatar, Math.floor((image.bitmap.width / 2) - (avatar.bitmap.width / 2)), Jimp.HORIZONTAL_ALIGN_CENTER)
@@ -64,10 +64,10 @@ module.exports.imageOnLeave = (member, channel) => {
         });
 
         Jimp.read(member.user.avatarURL).then(avatar => {
-            avatar.cover(260, 260, Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE);
+            avatar.cover(280, 280, Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE);
 
             Jimp.read('https://cloud.githubusercontent.com/assets/414918/11165709/051d10b0-8b0f-11e5-864a-20ef0bada8d6.png').then(mask => {
-                mask.cover(260, 260, Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE);
+                mask.cover(280, 280, Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE);
                 avatar.mask(mask, 0, 0);
 
                 image.composite(avatar, Math.floor((image.bitmap.width / 2) - (avatar.bitmap.width / 2)), Jimp.HORIZONTAL_ALIGN_CENTER)
