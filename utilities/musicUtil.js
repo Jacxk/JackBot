@@ -1,13 +1,14 @@
 const YTDL = require('ytdl-core');
 const YouTubeAPI = require('simple-youtube-api');
 const youtube = new YouTubeAPI(process.env.youtube);
+//const youtube = new YouTubeAPI(require('../tokenConfig.json').googleapi);
 const Discord = require('discord.js');
 const messageUtil = require('../utilities/messageUtil.js');
 
 let servers = {};
 let currentSongEmbed;
 
-module.exports.play = (message, args,) => {
+module.exports.play = (message, args) => {
     if (args.length <= 1) return messageUtil.wrongUsage(message.channel, 'play [song name/url]', 'play Drake - Gods Plan');
 
     if (!servers[message.guild.id]) servers[message.guild.id] = {
@@ -47,6 +48,7 @@ module.exports.skip = (message) => {
     const server = servers[message.guild.id];
 
     if (!server) return messageUtil.sendError(message.channel, 'There are no songs in the queue.');
+    if (!server.queue[0]) return messageUtil.sendError(message.channel, 'There are no songs in the queue.');
 
     const embed = new Discord.RichEmbed();
     embed.setColor("BLUE").setDescription(`The song: **${server.queue[0].song}** has been skipped`);
@@ -112,13 +114,21 @@ function play(message, results) {
 
 function addTOQueue(connection, id, url) {
 
-    const server = servers[id];
+    servers[id] = {
+        dispatcher: connection.playStream(YTDL(url, {filter: 'audioonly'}))
+    };
 
-    server.dispatcher = connection.playStream(YTDL(url, {filter: 'audioonly'}));
+    const server = servers[id];
 
     server.dispatcher.on('end', () => {
         server.queue.shift();
-        if (server.queue.length > 0) addTOQueue(connection, id, server.queue[0].url);
+        if (server.queue.length > 0) setTimeout(() => addTOQueue(connection, id, server.queue[0].url), 1000);
         else connection.disconnect();
     });
+}
+
+//ytdl.getInfo(url)
+function progressBar(current, full) {
+    const percentage = Math.floor(((100 / full) * current) / 3);
+    return "▬".repeat(percentage) + "🔘" + "▬".repeat(33 - percentage);
 }
