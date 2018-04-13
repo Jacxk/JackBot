@@ -80,6 +80,7 @@ module.exports.currentSong = (message) => {
 };
 
 function play(message, results) {
+    if (!message.member.voiceChannel) return messageUtil.sendError(message.channel, 'Please join a voice channel first...');
     const server = servers[message.guild.id];
 
     let video;
@@ -101,12 +102,9 @@ function play(message, results) {
 
     currentSongEmbed = embed;
 
-    if (!message.guild.voiceConnection) {
-        if (!message.member.voiceChannel) return messageUtil.sendError(message.channel, 'Please join a voice channel first...');
-        else message.member.voiceChannel.join().then(connection => {
-            addTOQueue(connection, message.guild.id, video.url)
-        }).catch(err => messageUtil.sendError(message.channel, err.toString()));
-    }
+    if (!message.guild.voiceConnection) message.member.voiceChannel.join().then(connection => {
+        addTOQueue(connection, message.guild.id, video.url)
+    }).catch(err => messageUtil.sendError(message.channel, err.toString()));
 
     message.channel.send(embed);
 }

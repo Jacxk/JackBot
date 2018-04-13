@@ -175,6 +175,7 @@ function helpMessages(message, args, commandsCollection) {
         .addField('Admin Commands', admins(prefix), true)
         .addField('Stats Commands', stats(prefix), true)
         .addField('Misc Commands', misc(prefix), true)
+        .addField('Music Commands', music(prefix), true)
         .setColor("AQUA");
     message.author.send(embed);
 }
@@ -206,6 +207,14 @@ const admins = (prefix) => {
 
 const stats = (prefix) => {
     const commands = ['hypixel', 'fortnite'];
+    let stringCmd = [];
+    for (let i = 0; i < commands.length; i++)
+        stringCmd.push(prefix + commands[i]);
+    return stringCmd.join('\n');
+};
+
+const music = (prefix) => {
+    const commands = ['play', 'skip', 'volume', 'currentsong', 'queue'];
     let stringCmd = [];
     for (let i = 0; i < commands.length; i++)
         stringCmd.push(prefix + commands[i]);
