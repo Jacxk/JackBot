@@ -26,6 +26,7 @@ module.exports.play = (message, args,) => {
 module.exports.getQueue = (message) => {
     const server = servers[message.guild.id];
     if (!server) return messageUtil.sendError(message.channel, 'There are no songs in the queue');
+    if (!server.queue[0]) return messageUtil.sendError(message.channel, 'There are no songs in the queue');
 
     const embed = new Discord.RichEmbed();
     let description = '';
