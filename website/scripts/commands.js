@@ -90,7 +90,7 @@ const commands = [
     {
         name: "hypixel",
         description: "Check your stats from Hypixel's database.",
-        usage: "-hypixel",
+        usage: "-hypixel [player name] [gamemode]",
         permission: "None",
         aliases: "hyp, hpxl",
         category: "Stats"

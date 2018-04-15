@@ -6,96 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="shortcut icon" type="image/ico" href="images/favicon.ico">
-    <style>
-        body {
-            font-family: 'Consolas', sans-serif;
-        }
-
-        a, a:hover, a:link, a:visited, a:active {
-            text-decoration: none;
-        }
-
-        table, th, td {
-            color: #E0E0E0;
-            border: 1px solid silver;
-            padding: 15px;
-        }
-
-        td {
-            font-size: 18px;
-        }
-
-        th {
-            text-align: center;
-            font-size: 24px;
-        }
-
-        .header {
-            position: fixed;
-            background-color: #18191c;
-            width: 100%;
-            padding-left: 8%;
-            padding-right: 8%;
-        }
-
-        .inviteBtn {
-            color: white;
-            transition: .45s;
-            border-radius: 30px;
-            padding: 5px 15px;
-            text-align: center;
-            font-size: 18px;
-            display: inline-block;
-            border: 2px solid white;
-        }
-
-        .inviteBtn:hover, .inviteBtn:active {
-            background-color: white;
-            color: #18191c;
-        }
-
-        .topBtn {
-            color: #a1a1a1;
-            transition: .45s;
-            padding: 5px 15px;
-            text-align: center;
-            font-size: 18px;
-            display: inline-block;
-        }
-
-        .title {
-            color: white;
-            transition: .45s;
-            padding: 5px 15px;
-            text-align: center;
-            font-size: 40px;
-            display: inline-block;
-        }
-
-        .topBtn:hover, .topBtn:active, .title:hover, .title:active {
-            color: white;
-            transform: scale(1.1);
-        }
-
-        .panel {
-            background-color: transparent;
-            color: #E0E0E0;
-            text-align: center;
-            font-size: 60px;
-        }
-
-        .text {
-            text-align: center;
-            color: white;
-            font-size: 20px;
-            padding-top: 20px;
-        }
-
-        button, button:focus {
-            background-color: transparent;
-            border-color: transparent;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="themes/default.css"/>
 </head>
 <body style="background-color: #18191c">
 <div class="header">
@@ -133,7 +44,7 @@
         <button onclick="getCommands(`Misc`)" class="topBtn"><span>Misc</span></button>
         <button onclick="getCommands(`Stats`)" class="topBtn"><span>Stats</span></button>
         <button onclick="getCommands(`Music`)" class="topBtn"><span>Music</span></button>
-        <input type="text" placeholder="Search..." aria-describedby="basic-addon1" style="margin-left: 21%">
+        <input type="text" placeholder="Search..." class="search">
     </div>
     <div id="div"></div>
 

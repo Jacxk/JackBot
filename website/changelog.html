@@ -5,78 +5,7 @@
     <title>JackBot - ChangeLog</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="shortcut icon" type="image/ico" href="images/favicon.ico">
-    <style>
-        body {
-            font-family: 'Consolas', sans-serif;
-        }
-
-        a, a:hover {
-            text-decoration: none;
-        }
-
-        .header {
-            position: fixed;
-            background-color: #18191c;
-            width: 100%;
-            padding-left: 8%;
-            padding-right: 8%;
-        }
-
-        .panel {
-            background-color: transparent;
-            color: #E0E0E0;
-            text-align: center;
-            font-size: 60px;
-        }
-
-        .versionBox {
-            color: white;
-            border-color: transparent;
-            padding: 50px;
-            background-color: transparent;
-            font-size: 20px;
-        }
-
-        .inviteBtn {
-            color: white;
-            transition: .45s;
-            border-radius: 30px;
-            padding: 5px 15px;
-            text-align: center;
-            font-size: 18px;
-            display: inline-block;
-            border: 2px solid white;
-        }
-
-        .inviteBtn:hover, .inviteBtn:active {
-            background-color: white;
-            color: #18191c;
-        }
-
-        .topBtn {
-            color: #a1a1a1;
-            transition: .45s;
-            padding: 5px 15px;
-            text-align: center;
-            font-size: 18px;
-            display: inline-block;
-        }
-
-        .title {
-            color: white;
-            transition: .45s;
-            padding: 5px 15px;
-            text-align: center;
-            font-size: 40px;
-            display: inline-block;
-        }
-
-        .topBtn:hover, .topBtn:active, .title:hover, .title:active {
-            color: white;
-            transform: scale(1.1);
-        }
-
-    </style>
+    <link rel="stylesheet" type="text/css" href="themes/default.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body style="background-color: #18191c">
@@ -136,19 +65,17 @@
 
 <div class="container" style="padding-top: 8%;">
     <h1 id="changelog" class="panel">Change Log</h1>
-    <div style="background-color: #282c34;margin: 0 auto;width: 100%;height: 100%;box-shadow: 2px 20px 123px -13px rgba(0,0,0,0.6);">
+    <div class="versionOuterBox">
         <br>
-        <h3 style="color: white;text-align: center" id="version"></h3><br>
-        <div style="background-color: #3a3f4b;margin: 0 auto;width: 80%;height: 80%;box-shadow: 2px 20px 123px -13px rgba(0,0,0,0.3);">
-            <pre id="vBox" class="versionBox"></pre>
+        <h3 class="versionTitle" id="version"></h3><br>
+        <div class="versionInnerBox">
+            <pre id="vBox" class="changeBox"></pre>
         </div>
-        <div class="block, panel">
-            <a role="button" class="btn btn-default" onclick="getVersionButton(true)"
-               style="background-color: #3a3f4b; border-color: transparent;width: 50px;color: white;">
+        <div class="panel">
+            <a role="button" class="btn btn-default, changeVersionButton" onclick="getVersionButton(true)">
                 <span class="glyphicon glyphicon-triangle-left"></span>
             </a>
-            <a id="previous" role="button" class="btn btn-default" onclick="getVersionButton(false)"
-               style="background-color: #3a3f4b; border-color: transparent;width: 50px;color: white;">
+            <a id="previous" role="button" class="btn btn-default, changeVersionButton" onclick="getVersionButton(false)">
                 <span class="glyphicon glyphicon-triangle-right"></span>
             </a>
         </div>
