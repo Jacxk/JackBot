@@ -136,7 +136,7 @@ const commands = [
         category: "Stats"
     },
     {
-        name: "8bal",
+        name: "rankUp",
         description: "Are you lazy and don't want to add a role manually? Use this command :D",
         usage: "-rankUp [user] [roleName]",
         permission: "Administrator",
@@ -160,11 +160,11 @@ const commands = [
         category: "Admin"
     },
     {
-        name: "mute",
-        description: "Mute someone for a period of time.",
-        usage: "-mute [user] [reason]",
-        permission: "Administrator",
-        aliases: "None",
+        name: "tempMute",
+        description: "Mute someone for the assigned period of time.",
+        usage: "-tempMute [user] [time] [reason]",
+        permission: "Manage Messages",
+        aliases: "tempm, tmute, tm",
         category: "Moderation"
     },
     {
@@ -248,9 +248,9 @@ const commands = [
         category: "Misc"
     }
 ];
-let html = '';
 
 function getCommands(category) {
+    let html = '';
     commands.forEach((value) => {
         if (category.toLowerCase() !== value.category.toLowerCase() && category.toLowerCase() !== 'all') return;
         html += '<div style="background-color: white;margin: 0 0 1% 0">';
@@ -268,4 +268,4 @@ function getCommands(category) {
     document.getElementById('div').innerHTML = html;
 }
 
-getCommands('Moderation');
+getCommands('All');

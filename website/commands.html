@@ -8,7 +8,7 @@
     <link rel="shortcut icon" type="image/ico" href="images/favicon.ico">
     <style>
         body {
-            font-family: 'Comic Sans MS', sans-serif;
+            font-family: 'Consolas', sans-serif;
         }
 
         a, a:hover, a:link, a:visited, a:active {
@@ -91,6 +91,10 @@
             padding-top: 20px;
         }
 
+        button, button:focus {
+            background-color: transparent;
+            border-color: transparent;
+        }
     </style>
 </head>
 <body style="background-color: #18191c">
@@ -122,13 +126,14 @@
 <div class="container" style="padding-top: 8%;">
     <h1 class="panel">Commands</h1>
 
-    <div style="background-color: #3a3f4b;font-size: 20px;">
+    <div style="background-color: #3a3f4b;font-size: 20px;padding: 1%">
         <button onclick="getCommands(`All`)" class="topBtn"><span>All</span></button>
         <button onclick="getCommands(`Moderation`)" class="topBtn"><span>Moderation</span></button>
         <button onclick="getCommands(`Fun`)" class="topBtn"><span>Fun</span></button>
         <button onclick="getCommands(`Misc`)" class="topBtn"><span>Misc</span></button>
         <button onclick="getCommands(`Stats`)" class="topBtn"><span>Stats</span></button>
         <button onclick="getCommands(`Music`)" class="topBtn"><span>Music</span></button>
+        <input type="text" placeholder="Search..." aria-describedby="basic-addon1" style="margin-left: 21%">
     </div>
     <div id="div"></div>
 
