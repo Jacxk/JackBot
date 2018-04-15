@@ -44,8 +44,8 @@ module.exports.run = (message, args) => {
 };
 
 module.exports.command = {
-    name: 'define',
-    aliases: ['def', 'urbandictionary', 'ud', 'urbandef', 'urband', 'udef'],
+    name: 'urbanDictionary',
+    aliases: ['def', 'define', 'ud', 'urbandef', 'urband', 'udef'],
     permission: "none",
     enabled: true
 };

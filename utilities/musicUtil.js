@@ -1,4 +1,4 @@
-const YTDL = require('ytdl-core');
+const ytdl = require('ytdl-core');
 const YouTubeAPI = require('simple-youtube-api');
 const youtube = new YouTubeAPI(process.env.youtube);
 //const youtube = new YouTubeAPI(require('../tokenConfig.json').googleapi);
@@ -115,7 +115,7 @@ function play(message, results) {
 function addTOQueue(connection, id, url) {
 
     servers[id] = {
-        dispatcher: connection.playStream(YTDL(url, {filter: 'audioonly'}))
+        dispatcher: connection.playStream(ytdl(url, {filter: 'audioonly'}))
     };
 
     const server = servers[id];
