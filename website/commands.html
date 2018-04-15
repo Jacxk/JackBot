@@ -2,23 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>JackBot</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>JackBot - Commands</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/ico" href="images/favicon.ico">
     <style>
-        .panel {
-            background-color: transparent;
-            color: #E0E0E0;
-            text-align: center;
-            font-family: 'Arial Black';
-            font-size: 60px;
+        body {
+            font-family: 'Comic Sans MS', sans-serif;
         }
 
-        .text {
-            text-align: center;
-            font-family: 'Arial Black';
-            color: white;
-            font-size: 20px;
-            padding-top: 20px;
+        a, a:hover, a:link, a:visited, a:active {
+            text-decoration: none;
         }
 
         table, th, td {
@@ -35,251 +29,117 @@
             text-align: center;
             font-size: 24px;
         }
-        .block {
-            font-size: 18px;
-            font-family: 'Arial Black';
-            text-align: center;
-            display: inline-block;
-            width: 150px;
-            height: 50px;
-            margin: 0 auto;
+
+        .header {
+            position: fixed;
+            background-color: #18191c;
+            width: 100%;
+            padding-left: 8%;
+            padding-right: 8%;
+        }
+
+        .inviteBtn {
             color: white;
-            border-color: transparent;
-
-        }
-
-        .heading {
-            margin: 0 auto;
-            font-family: 'Arial Black';
-            text-decoration: none;
+            transition: .45s;
+            border-radius: 30px;
+            padding: 5px 15px;
             text-align: center;
+            font-size: 18px;
+            display: inline-block;
+            border: 2px solid white;
         }
+
+        .inviteBtn:hover, .inviteBtn:active {
+            background-color: white;
+            color: #18191c;
+        }
+
+        .topBtn {
+            color: #a1a1a1;
+            transition: .45s;
+            padding: 5px 15px;
+            text-align: center;
+            font-size: 18px;
+            display: inline-block;
+        }
+
+        .title {
+            color: white;
+            transition: .45s;
+            padding: 5px 15px;
+            text-align: center;
+            font-size: 40px;
+            display: inline-block;
+        }
+
+        .topBtn:hover, .topBtn:active, .title:hover, .title:active {
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .panel {
+            background-color: transparent;
+            color: #E0E0E0;
+            text-align: center;
+            font-size: 60px;
+        }
+
+        .text {
+            text-align: center;
+            color: white;
+            font-size: 20px;
+            padding-top: 20px;
+        }
+
     </style>
 </head>
-<body style="background-color: #424242">
-<div class="heading" style="background-color: #455A64;"><br>
-    <a href="https://material.io/guidelines/style/color.html#color-color-palette"
-       style="text-decoration: none;background-color: transparent;color: #263238;font-size: 60px;">JackBot's Dashboard
-    </a>
-    <br><br><br><br>
-    <div class="btn-group" role="group" aria-label="Basic example" style="margin: 0 auto;">
+<body style="background-color: #18191c">
+<div class="header">
+    <div style="display: inline-block;">
+        <a href="index.html" class="title">
+            <img src="images/logo.png" style="width: 40px; height: 40px;margin-bottom: 5px">
+            <span>JackBot</span>
+        </a>
+    </div>
 
-        <a role="button" class="btn btn-default, block" href="index.html" style="background-color: transparent;">
-            Home
+    <div style="display: inline-block;float: right;padding-top: 1%;padding-bottom: 1%">
+        <a href="index.html" class="topBtn">
+            <span>Home</span>
         </a>
-        <a role="button" class="btn btn-secondary, block" target="_blank" href="/invite"
-           style="background-color: transparent;">
-            Invite
+        <a href="commands.html" class="topBtn">
+            <span style="color: white">Commands</span>
         </a>
-        <a role="button" class="btn btn-secondary, block" href="guilds.html" style="background-color: transparent;">
-            Guilds
+        <a href="changelog.html" class="topBtn">
+            <span>ChangeLog</span>
         </a>
-        <a role="button" class="btn btn-secondary, block" href="commands.html"
-           style="background-color: #424242;box-shadow: inset 10px 78px 64px -64px rgba(0, 0, 0, 0.20);color: white;">
-            Commands
-        </a>
-        <a role="button" class="btn btn-secondary, block" href="changelog.html" style="background-color: transparent;">
-            ChangeLog
+        <a href="https://discordapp.com/api/oauth2/authorize?client_id=292180812638715904&permissions=8&scope=bot"
+           class="inviteBtn" role="button" target="_blank">
+            <span>Invite Me</span>
         </a>
     </div>
 </div>
-<div class="container">
-    <h1 class="panel">Commands</h1>
-    <br>
-    <table class="table" style="margin: auto; box-shadow: 0 0 75px 3px rgba(0,0,0,0.30);">
-        <tr style="background-color: transparent">
-            <th>Command</th>
-            <th>Description</th>
-            <th>Permission</th>
-            <th>Usage</th>
-            <th>Aliases</th>
-        </tr>
-        <tr style="background-color: #455A64">
-            <td>Help</td>
-            <td>Sends you a DM with all the commands</td>
-            <td>None</td>
-            <td>-help</td>
-            <td>None</td>
-        </tr>
-        <tr style="background-color: #607D8B">
-            <td>8Ball</td>
-            <td>This command can predict the future</td>
-            <td>None</td>
-            <td>-8Ball [Question]</td>
-            <td>fortune</td>
-        </tr>
-        <tr style="background-color: #455A64">
-            <td>Ban</td>
-            <td>Bans a user permanently</td>
-            <td>Administrator</td>
-            <td>-ban [@user] [reason]</td>
-            <td>None</td>
-        </tr>
-        <tr style="background-color: #607D8B">
-            <td>Bot Info</td>
-            <td>Checks for the bot's stats/information</td>
-            <td>None</td>
-            <td>-botInfo</td>
-            <td>binfo, boti</td>
-        </tr>
-        <tr style="background-color: #455A64">
-            <td>Change Log</td>
-            <td>Checks for the bot's changes</td>
-            <td>None</td>
-            <td>-changeLog</td>
-            <td>chlog, clog</td>
-        </tr>
-        <tr style="background-color: #607D8B">
-            <td>Clear</td>
-            <td>Clears a certain amount of messages from the chat</td>
-            <td>Manage Messages</td>
-            <td>-clear [Messages (Number)]</td>
-            <td>cc, c</td>
-        </tr>
-        <tr style="background-color: #455A64">
-            <td>Fortnite</td>
-            <td>Checks a user stats from Fornite's database</td>
-            <td>None</td>
-            <td>-fortnite [PlatForm] [Username] &lt;GameModes&gt;</td>
-            <td>fortn, fnite, fnt</td>
-        </tr>
-        <tr style="background-color: #607D8B">
-            <td>Guild Info</td>
-            <td>Gets some relevant information about the guild</td>
-            <td>None</td>
-            <td>-guildInfo</td>
-            <td>ginfo, guildi</td>
-        </tr>
-        <tr style="background-color: #455A64">
-            <td>Hypixel</td>
-            <td>Checks a user stats from Hypixel's database</td>
-            <td>None</td>
-            <td>-hypixel [PlayerName] [GameMode]</td>
-            <td>hyp, hpxl</td>
-        </tr>
-        <tr style="background-color: #607D8B">
-            <td>Invite</td>
-            <td>Sends you an invite link to get the bot on your guild</td>
-            <td>None</td>
-            <td>-invite</td>
-            <td>None</td>
-        </tr>
-        <tr style="background-color: #455A64">
-            <td>Kick</td>
-            <td>Kicks a user from the guild</td>
-            <td>Kick Members</td>
-            <td>-kick [@User] [Reason]</td>
-            <td>k, kck</td>
-        </tr>
-        <tr style="background-color: #607D8B">
-            <td>Meme</td>
-            <td>Uses the reddit api to get pictures from subreddits</td>
-            <td>None</td>
-            <td>-meme &lt;SubReddit&gt;</td>
-            <td>None</td>
-        </tr>
-        <tr style="background-color: #455A64">
-            <td>Mute</td>
-            <td>Mute an user permanently, until un muted</td>
-            <td>Administrator</td>
-            <td>-mute [@user] [reason]</td>
-            <td>None</td>
-        </tr>
-        <tr style="background-color: #607D8B">
-            <td>Profile</td>
-            <td>Checks a member's profile if specified</td>
-            <td>None</td>
-            <td>-profile &lt;@user&gt;</td>
-            <td>p, prof</td>
-        </tr>
-        <tr style="background-color: #455A64">
-            <td>Rank Up</td>
-            <td>Gives a member an specified role (Case sensitive)</td>
-            <td>Administrator</td>
-            <td>-rankUp [@user] [role]</td>
-            <td>None</td>
-        </tr>
-        <tr style="background-color: #607D8B">
-            <td>Say</td>
-            <td>Sends a beautiful embedded message to a channel</td>
-            <td>Administrator</td>
-            <td>-say [message] --color:&lt;color&gt;</td>
-            <td>broadcast, bc</td>
-        </tr>
-        <tr style="background-color: #455A64">
-            <td>Prefix</td>
-            <td>Changes the default prefix to the one specified</td>
-            <td>Administrator</td>
-            <td>-setPrefix [prefix]</td>
-            <td>sprefix, setp</td>
-        </tr>
-        <tr style="background-color: #607D8B">
-            <td>Setup</td>
-            <td>WIP</td>
-            <td>Administrator</td>
-            <td>WIP</td>
-            <td>WIP</td>
-        </tr>
-        <tr style="background-color: #455A64">
-            <td>Temp Mute</td>
-            <td>Get a DM with all the commands</td>
-            <td>Manage Messages</td>
-            <td>-tempMute [@user] [reason]</td>
-            <td>tmute, tempm</td>
-        </tr>
-        <tr style="background-color: #607D8B">
-            <td>Translate</td>
-            <td>Translates a message to the specified language</td>
-            <td>None</td>
-            <td>-translate [language] [message]</td>
-            <td>trans</td>
-        </tr>
-        <tr style="background-color: #455A64">
-            <td>Un Ban (Not Working)</td>
-            <td>UnBans a user from the guild</td>
-            <td>Administrator</td>
-            <td>-unBan [@user]</td>
-            <td>None</td>
-        </tr>
-        <tr style="background-color: #607D8B">
-            <td>Un Mute</td>
-            <td>UnMutes a user that was currently muted</td>
-            <td>Manage Messages</td>
-            <td>-unMute [@user]</td>
-            <td>umute, unm</td>
-        </tr>
-        <tr style="background-color: #455A64">
-            <td>Urban Dictionary</td>
-            <td>Checks definitions of a word on the urban dictionary page</td>
-            <td>None</td>
-            <td>-define [word] &lt;Number&gt;</td>
-            <td>def, urbandictionary, ud, urbandef, urband, udef</td>
-        </tr>
-        <tr style="background-color: #607D8B">
-            <td>Warn</td>
-            <td>Warns a user</td>
-            <td>Manage Messages</td>
-            <td>-warn [@user] [warning message]</td>
-            <td>wn, w</td>
-        </tr>
-        <tr style="background-color: #455A64">
-            <td>Weather</td>
-            <td>Checks the weather of the specified city, if found</td>
-            <td>Manage Messages</td>
-            <td>-weather [city]</td>
-            <td>climate, wea</td>
-        </tr>
-    </table>
-</div>
 
-<div>
-    <br>
-    <p class="text">
-        Note: If the text is surrounded in [ ] means that its required,
-        else if the text is surrounded in < > means that its optional.
-    </p>
-    <br>
+<div class="container" style="padding-top: 8%;">
+    <h1 class="panel">Commands</h1>
+
+    <div style="background-color: #3a3f4b;font-size: 20px;">
+        <button onclick="getCommands(`All`)" class="topBtn"><span>All</span></button>
+        <button onclick="getCommands(`Moderation`)" class="topBtn"><span>Moderation</span></button>
+        <button onclick="getCommands(`Fun`)" class="topBtn"><span>Fun</span></button>
+        <button onclick="getCommands(`Misc`)" class="topBtn"><span>Misc</span></button>
+        <button onclick="getCommands(`Stats`)" class="topBtn"><span>Stats</span></button>
+        <button onclick="getCommands(`Music`)" class="topBtn"><span>Music</span></button>
+    </div>
+    <div id="div"></div>
+
+    <script src="scripts/commands.js"></script>
+
 </div>
-<footer style="background-color: #455A64;alignment: bottom"><br><br><br><br></footer>
+<div>
+    <p class="text" style="margin: 2% 0 3% 0">
+        Note: If the text is surrounded in [ ] means that its required,
+        else if the text is surrounded in { } means that its optional.
+    </p>
+</div>
 </body>
 </html>

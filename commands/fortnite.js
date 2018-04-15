@@ -21,6 +21,7 @@ function getFortniteStats(channel, platform, username, mode) {
         }
     };
     request(options, (err, resp, data) => {
+
         if (err) return console.log(err);
         if (!data) return messageUtil.sendError(channel, 'Please try again later...');
 
@@ -33,10 +34,9 @@ function getFortniteStats(channel, platform, username, mode) {
         if (jsonData.message) return messageUtil.sendError(channel, jsonData.message);
 
         //console.log(data);
-        let liteTimeEmbed = new Discord.RichEmbed().setColor('GOLD')
+        let lifeTimeEmbed = new Discord.RichEmbed().setColor('GOLD')
             .setFooter('Powered By Fortnite Tracker').setTitle(`${username}'s LifeTime Stats`);
 
-        let timePlayed = jsonData.lifeTimeStats[13];
         let kills = jsonData.lifeTimeStats[10];
         let wins = jsonData.lifeTimeStats[8];
         let matches = jsonData.lifeTimeStats[7];
@@ -44,15 +44,14 @@ function getFortniteStats(channel, platform, username, mode) {
         let kpg = jsonData.lifeTimeStats[12];
         let kd = jsonData.lifeTimeStats[11];
 
-        liteTimeEmbed.addField(timePlayed.key, timePlayed.value, true);
-        liteTimeEmbed.addField(kills.key, kills.value, true);
-        liteTimeEmbed.addField(wins.key, wins.value, true);
-        liteTimeEmbed.addField(matches.key, matches.value, true);
-        liteTimeEmbed.addField(score.key, score.value, true);
-        liteTimeEmbed.addField(kpg.key, kpg.value, true);
-        liteTimeEmbed.addField(kd.key, kd.value, true);
+        lifeTimeEmbed.addField(kills.key, kills.value, true);
+        lifeTimeEmbed.addField(wins.key, wins.value, true);
+        lifeTimeEmbed.addField(matches.key, matches.value, true);
+        lifeTimeEmbed.addField(score.key, score.value, true);
+        lifeTimeEmbed.addField(kpg.key, kpg.value, true);
+        lifeTimeEmbed.addField(kd.key, kd.value, true);
 
-        if (!mode) return channel.send(liteTimeEmbed);
+        if (!mode) return channel.send(lifeTimeEmbed);
 
         switch (mode.toLowerCase()) {
             case "solo":

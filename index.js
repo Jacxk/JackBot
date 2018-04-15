@@ -2,12 +2,13 @@ const Discord = require('discord.js');
 const fs = require('fs');
 const config = require('./config.json');
 //const tokenConfig = require('./tokenConfig.json');
-const bot = new Discord.Client();
 const messageUtil = require('./utilities/messageUtil.js');
-const commandsCollection = new Discord.Collection();
 const mysqlUtil = require('./utilities/mysqlUtil.js');
 const website = require('./website.js');
 const joinLeave = require("./utilities/joinLeave.js");
+
+const bot = new Discord.Client();
+const commandsCollection = new Discord.Collection();
 
 let file = fs.readFileSync("./data.json", "utf8");
 let userData = JSON.parse(file);
@@ -54,7 +55,25 @@ fs.readdir("./commands/", (error, files) => {
     commands.forEach((commandFile) => {
         let props = require(`./commands/${commandFile}`);
         commandsCollection.set(props.command.name, props);
-        if (props.command.aliases) props.command.aliases.forEach(alias => commandsCollection.set(alias, props));
+        if (props.command.aliases) props.command.aliases.forEach(alias => {
+            if (commandsCollection.get(alias)) return console.log(`Conflict with alias: ${alias}`);
+            commandsCollection.set(alias, props)
+        });
+    });
+});
+
+fs.readdir("./commands/music/", (error, files) => {
+    if (error) return console.log(error);
+
+    let commands = files.filter(file => file.split(".").pop() === 'js');
+
+    commands.forEach((commandFile) => {
+        let props = require(`./commands/music/${commandFile}`);
+        commandsCollection.set(props.command.name, props);
+        if (props.command.aliases) props.command.aliases.forEach(alias => {
+            if (commandsCollection.get(alias)) return console.log(`Conflict with alias: ${alias}`);
+            commandsCollection.set(alias, props)
+        });
     });
 });
 
@@ -67,6 +86,7 @@ bot.on('channelCreate', channel => {
 
 bot.on('message', message => {
     if (message.author.bot) return;
+    if (message.channel.type === "dm") return;
 
     const prefix = message.channel.type !== "dm" ? mysqlUtil.getPrefix(message.guild.id) : '-';
     let commandChannel = message.channel.type !== "dm" ? mysqlUtil.getCommandChannel(message.guild.id) : "ALL";

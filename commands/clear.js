@@ -6,23 +6,25 @@ module.exports.run = (message, args) => {
 
     message.delete();
 
-    if (args.length < 2) return messageUtil.wrongUsage(message.channel, 'clear <@user> [Number]', 'clear 50');
+    if (args.length < 2) return messageUtil.wrongUsage(message.channel, 'clear [@user] [Number]', 'clear 50');
 
-    else clearMessages(message, args).catch(err => console.log(err));
+    else clearMessages(message, args);
 };
 
-async function clearMessages(message, args) {
+function clearMessages(message, args) {
     let embed = new Discord.RichEmbed();
     let amount = args[args.length - 1];
 
     if (isNaN(amount)) return messageUtil.sendError(message.channel, 'You need to enter a number.');
 
-    let messages = await message.channel.fetchMessages({limit: parseInt(amount) + 1});
-
-    message.channel.bulkDelete(messages).catch(error => messageUtil.sendError(message.channel, error.toString()));
-
-    message.channel.send(embed.setTitle('✅ DELETED MESSAGES ✅').setDescription(`You have deleted ${amount} messages.`)
-        .setColor("BLUE")).then(sent => sent.delete(1000 * 10));
+    
+    message.channel.bulkDelete(parseInt(amount)).then(() =>
+        message.channel.send(embed.setTitle('✅ DELETED MESSAGES ✅').setDescription(`You have deleted ${amount} messages.`)
+            .setColor("BLUE")).then(sent => sent.delete(1000 * 10))
+    ).catch(error => {
+        if (error.toString().includes('Unknown Message')) return;
+        messageUtil.sendError(message.channel, error.toString())
+    });
 }
 
 module.exports.command = {

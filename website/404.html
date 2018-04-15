@@ -2,87 +2,106 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>JackBot</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>JackBot - 404</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/ico" href="images/favicon.ico">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <style>
-        .heading {
-            font-family: 'Arial Black';
-            font-size: 42px;
-            text-align: center;
-        }
-
-        td {
-            font-size: 18px;
-        }
-
-        th {
-            text-align: center;
-            font-size: 24px;
-            color: white;
+        body {
+            overflow: hidden;
+            font-family: 'Comic Sans MS', sans-serif;
         }
 
         .panel {
-            background-color: transparent;
             color: #E0E0E0;
             text-align: center;
-            font-family: 'Arial Black';
             font-size: 60px;
         }
 
-        .block {
-            font-family: 'Arial Black';
-            display: inline-block;
-            width: fit-content;
-            height: fit-content;
-            padding-left: 25px;
-        }
-
-        .heading {
-            margin: 0 auto;
-            font-family: 'Arial Black';
-            font-size: 42px;
+        a, a:hover, a:link, a:visited, a:active {
             text-decoration: none;
         }
 
+        .header {
+            position: fixed;
+            background-color: #18191c;
+            width: 100%;
+            padding-left: 8%;
+            padding-right: 8%;
+        }
+
+        .inviteBtn {
+            color: white;
+            transition: .45s;
+            border-radius: 30px;
+            padding: 5px 15px;
+            text-align: center;
+            font-size: 18px;
+            display: inline-block;
+            border: 2px solid white;
+        }
+
+        .inviteBtn:hover, .inviteBtn:active {
+            background-color: white;
+            color: #18191c;
+        }
+
+        .topBtn {
+            color: #a1a1a1;
+            transition: .45s;
+            padding: 5px 15px;
+            text-align: center;
+            font-size: 18px;
+            display: inline-block;
+        }
+
+        .title {
+            color: white;
+            transition: .45s;
+            padding: 5px 15px;
+            text-align: center;
+            font-size: 40px;
+            display: inline-block;
+        }
+
+        .topBtn:hover, .topBtn:active, .title:hover, .title:active {
+            color: white;
+            transform: scale(1.1);
+        }
     </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
-<body style="background-color: #424242">
-<div class="jumbotron text-center"
-     style="background-color: #455A64; box-shadow: 2px 20px 123px -13px rgba(0,0,0,0.58);">
-    <h1 class="heading">
-        <a href="https://material.io/guidelines/style/color.html#color-color-palette"
-           style="text-decoration: none;background-color: transparent;color: #263238">JackBot's Website
+<body style="background-color: #18191c">
+<div class="header">
+    <div style="display: inline-block;">
+        <a href="index.html" class="title">
+            <img src="images/logo.png" style="width: 40px; height: 40px;margin-bottom: 5px">
+            <span>JackBot</span>
         </a>
-    </h1>
-    <br>
-    <div class="block" style="padding-left: 45px;margin: 0 auto">
-        <a role="button" class="btn btn-default" href="index.html"
-           style="background-color: #263238; border-color: transparent;width: 150px;color: white;">
-            Home
+    </div>
+
+    <div style="display: inline-block;float: right;padding-top: 1%;padding-bottom: 1%">
+        <a href="index.html" class="topBtn">
+            <span>Home</span>
         </a>
-        <a role="button" class="btn btn-default" target="_blank"
-           href="https://discordapp.com/api/oauth2/authorize?client_id=292180812638715904&permissions=8&scope=bot"
-           style="background-color: #263238; border-color: transparent;width: 150px;color: white;">
-            Invite
+        <a href="commands.html" class="topBtn">
+            <span>Commands</span>
         </a>
-        <a role="button" class="btn btn-default" href="guilds.html"
-           style="background-color: #263238; border-color: transparent;width: 150px;color: white;">
-            Guilds
+        <a href="changelog.html" class="topBtn">
+            <span>ChangeLog</span>
         </a>
-        <a role="button" class="btn btn-default" href="commands.html"
-           style="background-color: #263238; border-color: transparent;width: 150px;color: white;">
-            Commands
-        </a>
-        <a role="button" class="btn btn-default" href="changelog.html"
-           style="background-color: #263238; border-color: transparent;width: 150px;color: white;">
-            ChangeLog
+        <a href="https://discordapp.com/api/oauth2/authorize?client_id=292180812638715904&permissions=8&scope=bot"
+           class="inviteBtn" role="button" target="_blank">
+            <span>Invite Me</span>
         </a>
     </div>
 </div>
-<div class="container">
-    <h1 class="panel">ERROR: 404</h1>
-    <p class="panel">Page not found</p>
+<div class="container" style="padding-top: 18%;">
+    <h1 class="panel">Page Not Found</h1>
+    <p style="color: gray;text-align: center;font-size: 18px">
+        The page you where looking for is not available.
+        Try again later!
+    </p>
 </div>
 </body>
 </html>
