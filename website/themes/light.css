@@ -1,29 +1,29 @@
 .header {
     position: fixed;
-    background-color: #18191c;
+    background-color: #b9b9b9;
     width: 100%;
     padding-left: 8%;
     padding-right: 8%;
 }
 
 .inviteBtn {
-    color: white;
+    color: #000000;
     transition: .45s;
     border-radius: 30px;
     padding: 5px 15px;
     text-align: center;
     font-size: 18px;
     display: inline-block;
-    border: 2px solid white;
+    border: 2px solid #000000;
 }
 
 .inviteBtn:hover, .inviteBtn:active {
-    background-color: white;
-    color: #18191c;
+    background-color: #18191c;
+    color: white;
 }
 
 .topBtn {
-    color: #a1a1a1;
+    color: #525252;
     transition: .45s;
     padding: 5px 15px;
     text-align: center;
@@ -32,7 +32,7 @@
 }
 
 .title {
-    color: white;
+    color: #000000;
     transition: .45s;
     padding: 5px 15px;
     text-align: center;
@@ -41,20 +41,20 @@
 }
 
 .topBtn:hover, .topBtn:active, .title:hover, .title:active {
-    color: white;
+    color: #000000;
     transform: scale(1.1);
 }
 
 .panel {
     background-color: transparent;
-    color: #E0E0E0;
+    color: #000000;
     text-align: center;
     font-size: 60px;
 }
 
 .text {
     text-align: center;
-    color: white;
+    color: #000000;
     font-size: 20px;
     padding-top: 20px;
 }
@@ -63,16 +63,16 @@
     margin-left: 21%;
     background-color: transparent;
     border-color: transparent;
-    border-bottom-color: gray;
+    border-bottom-color: #838383;
     transition: .45s;
 }
 
 .search:focus {
-    border-bottom-color: white;
+    border-bottom-color: #000000;
 }
 
 .changeBox {
-    color: white;
+    color: #000000;
     border-color: transparent;
     padding: 50px;
     background-color: transparent;
@@ -80,41 +80,39 @@
 }
 
 .versionTitle {
-    color: white;
+    color: #000000;
     text-align: center;
 }
 
 .versionInnerBox {
-    background-color: #3a3f4b;
+    background-color: #c1c1c1;
     margin: 0 auto;
     width: 80%;
     height: 80%;
-    box-shadow: 2px 20px 123px -13px rgba(0, 0, 0, 0.3);
 }
 
 .versionOuterBox {
-    background-color: #282c34;
+    background-color: #a8a8a8;
     margin: 0 auto;
     width: 100%;
     height: 100%;
-    box-shadow: 2px 20px 123px -13px rgba(0, 0, 0, 0.6);
 }
 
 .changeVersionButton {
-    background-color: #3a3f4b;
+    background-color: #ffffff;
     border-color: transparent;
     width: 50px;
-    color: white;
+    color: #000000;
 }
 
 .pageNotFound {
-    color: gray;
+    color: #000000;
     text-align: center;
     font-size: 18px
 }
 
 .categoriesBox {
-    background-color: #3a3f4b;
+    background-color: #b9b9b9;
     font-size: 20px;
     padding: 1%;
 }
@@ -130,7 +128,7 @@ input:focus, select:focus, textarea:focus, button:focus {
 
 body {
     font-family: 'Consolas', sans-serif;
-    background-color: #18191c;
+    background-color: white;
 }
 
 a, a:hover, a:link, a:visited, a:active {

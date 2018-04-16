@@ -253,7 +253,7 @@ function getCommands(category) {
     let html = '';
     commands.forEach((value) => {
         if (category.toLowerCase() !== value.category.toLowerCase() && category.toLowerCase() !== 'all') return;
-        html += '<div style="background-color: white;margin: 0 0 1% 0">';
+        html += '<div class="commandsBox">';
         html += '<div class="card-body">';
         html += `<h5 class="card-title" style="font-size: 32px">${value.name}</h5>`;
         html += `<hr style="background-color: #18191c">`;
