@@ -8,6 +8,8 @@
     <link rel="shortcut icon" type="image/ico" href="images/favicon.ico">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="themes/default.css"/>
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
+    <script src="scripts/botStats.js"></script>
 </head>
 <body>
 <div class="header">
@@ -19,23 +21,47 @@
     </div>
 
     <div style="display: inline-block;float: right;padding-top: 1%;padding-bottom: 1%">
-        <a href="index.html" class="topBtn">
-            <span style="color: white">Home</span>
+        <a style="color: white" href="index.html" class="topBtn">
+            <span><i class="icon ion-home"></i> Home</span>
         </a>
+
         <a href="commands.html" class="topBtn">
-            <span>Commands</span>
+            <span><i class="ion-ios-list"></i> Commands</span>
         </a>
+
         <a href="changelog.html" class="topBtn">
-            <span>ChangeLog</span>
+            <span><i class="ion-edit"></i> ChangeLog</span>
         </a>
-        <a href="https://discordapp.com/api/oauth2/authorize?client_id=292180812638715904&permissions=8&scope=bot"
-           class="inviteBtn" role="button">
+
+        <a href="https://github.com/Jacxk/JackBot/" class="topBtn">
+            <span><i class="ion-social-github"></i> Source Code</span>
+        </a>
+
+        <a href="http://invite.jackbot.pw/"
+           class="inviteBtn" role="button" target="_blank">
             <span>Invite Me</span>
         </a>
     </div>
 </div>
-<div class="container" style="padding-top: 8%;">
-    <h1 class="panel">Index</h1>
+<div class="container" style="padding-top: 20%;">
+    <div>
+        <h1 class="heading">Who am I?</h1>
+        <p class="homeDescription">
+            I'm a discord bot that can do a variety of things,
+            such as play music, ban and kick users if they are not behaving.
+            I can also check your stats of some games... No I'm not hacking your account... or am I?<br><br>
+            What are you waiting for?<a href="http://invite.jackbot.pw/" class="topBtn"
+                                        style="color: white;font-size: 25px" target="_blank">Invite me!</a>
+        </p>
+    </div>
+    <div style="margin: 30% 0 30% 0;">
+        <p class="heading">
+            Status: <label id="status"></label><br>
+            Users: <label style="color: goldenrod" id="users"></label><br>
+            Guilds: <label style="color: goldenrod" id="guilds"></label><br>
+            Commands: <label style="color: goldenrod" id="commands"></label><br>
+        </p>
+    </div>
 </div>
 </body>
 </html>

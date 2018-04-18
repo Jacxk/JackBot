@@ -7,6 +7,7 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="shortcut icon" type="image/ico" href="images/favicon.ico">
     <link rel="stylesheet" type="text/css" href="themes/default.css"/>
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
 </head>
 <body>
 <div class="header">
@@ -19,14 +20,21 @@
 
     <div style="display: inline-block;float: right;padding-top: 1%;padding-bottom: 1%">
         <a href="index.html" class="topBtn">
-            <span>Home</span>
+            <span><i class="icon ion-home"></i> Home</span>
         </a>
-        <a href="commands.html" class="topBtn">
-            <span style="color: white">Commands</span>
+
+        <a style="color: white" href="commands.html" class="topBtn">
+            <span><i class="ion-ios-list"></i> Commands</span>
         </a>
+
         <a href="changelog.html" class="topBtn">
-            <span>ChangeLog</span>
+            <span><i class="ion-edit"></i> ChangeLog</span>
         </a>
+
+        <a href="https://github.com/Jacxk/JackBot/" class="topBtn">
+            <span><i class="ion-social-github"></i> Source Code</span>
+        </a>
+
         <a href="https://discordapp.com/api/oauth2/authorize?client_id=292180812638715904&permissions=8&scope=bot"
            class="inviteBtn" role="button" target="_blank">
             <span>Invite Me</span>
@@ -35,7 +43,7 @@
 </div>
 
 <div class="container" style="padding-top: 8%;">
-    <h1 class="panel">Commands</h1>
+    <h1 class="heading">Commands</h1>
 
     <div class="categoriesBox">
         <button onclick="getCommands(`All`)" class="topBtn"><span>All</span></button>

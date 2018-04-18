@@ -8,6 +8,7 @@
     <link rel="shortcut icon" type="image/ico" href="images/favicon.ico">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="themes/default.css"/>
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
 </head>
 <body>
 <div class="header">
@@ -19,15 +20,22 @@
     </div>
 
     <div style="display: inline-block;float: right;padding-top: 1%;padding-bottom: 1%">
-        <a href="index.html" class="topBtn">
-            <span>Home</span>
+        <ahref="index.html" class="topBtn">
+            <span><i class="icon ion-home"></i> Home</span>
         </a>
+
         <a href="commands.html" class="topBtn">
-            <span>Commands</span>
+            <span><i class="ion-ios-list"></i> Commands</span>
         </a>
+
         <a href="changelog.html" class="topBtn">
-            <span>ChangeLog</span>
+            <span><i class="ion-edit"></i> ChangeLog</span>
         </a>
+
+        <a href="https://github.com/Jacxk/JackBot/" class="topBtn">
+            <span><i class="ion-social-github"></i> Source Code</span>
+        </a>
+
         <a href="https://discordapp.com/api/oauth2/authorize?client_id=292180812638715904&permissions=8&scope=bot"
            class="inviteBtn" role="button" target="_blank">
             <span>Invite Me</span>
@@ -35,7 +43,7 @@
     </div>
 </div>
 <div class="container" style="padding-top: 18%;">
-    <h1 class="panel">Page Not Found</h1>
+    <h1 class="heading">Page Not Found</h1>
     <p class="pageNotFound">
         The page you where looking for is not available.
         Try again later!

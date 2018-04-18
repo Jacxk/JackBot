@@ -16,6 +16,10 @@ let userData = JSON.parse(file);
 let cooldownArray = [];
 
 website.runWebsite(bot);
+
+//bot.login(tokenConfig.token).catch(err => console.log(err));
+bot.login(process.env.botToken).catch(err => console.log(err));
+
 bot.on('ready', () => {
     mysqlUtil.connect();
     bot.guilds.forEach(guild => {
@@ -29,22 +33,31 @@ bot.on('ready', () => {
         bot.user.setActivity(game.replace('%randomUser%', bot.users.random().username), {type: "WATCHING"}).catch(err => console.log(err));
         console.log('game changed to ' + game);
     }, 60 * 60000);
-    console.log('bot ready');
     bot.user.setStatus("dnd").catch(console.error);
+    console.log('bot ready');
+    getBotStats();
 });
+
+bot.on('disconnect', () => getBotStats('Offline'));
+bot.on('guildCreate', () => getBotStats());
+bot.on('guildDelete', () => getBotStats());
 
 bot.on('guildMemberAdd', member => {
     const channelId = mysqlUtil.joinLeaveChannels.get(member.guild.id);
     const channel = member.guild.channels.get(channelId);
     if (!channel) return;
     joinLeave.imageOnJoin(member, channel);
+
+    getBotStats();
 });
 
 bot.on('guildMemberRemove', member => {
     const channelId = mysqlUtil.joinLeaveChannels.get(member.guild.id);
     const channel = member.guild.channels.get(channelId);
     if (!channel) return;
-    joinLeave.imageOnLeave(member, channel)
+    joinLeave.imageOnLeave(member, channel);
+
+    getBotStats();
 });
 
 fs.readdir("./commands/", (error, files) => {
@@ -158,5 +171,34 @@ function getTotalExpForLevel(level) {
     return Math.floor(450 * (level * 1.35));
 }
 
-//bot.login(tokenConfig.token).catch(err => console.log(err));
-bot.login(process.env.botToken).catch(err => console.log(err));
+function getBotStats(status) {
+    fs.readFile('./website/other/botstats.json', 'utf8', (err, data) => {
+        if (err) throw err;
+
+        const stats = {
+            guilds: bot.guilds.size,
+            users: bot.users.filter(f => !f.bot).size,
+            commands: 34,
+            status: !status ? 'Online' : status
+        };
+
+        fs.writeFile('./website/other/botstats.json', JSON.stringify(stats, null, 2), null, err => {
+            if (err) console.log(err)
+        });
+    });
+}
+
+function closeApp() {
+    console.log("Closing App");
+    getBotStats('Offline');
+
+    setTimeout(() => process.exit(), 2 * 1000);
+}
+
+process.on('SIGINT', () => {
+    closeApp();
+});
+
+process.on('SIGHUP', () => {
+    closeApp();
+});

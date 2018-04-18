@@ -2,20 +2,18 @@ const PORT = process.env.PORT || 8080;
 const express = require('express');
 const app = express();
 
-module.exports.runWebsite = (bot) => {
+module.exports.runWebsite = () => {
 
-    app.use(express.static('/website'));
+    app.use((req, res, next) => {
+        res.sendFile(__dirname + '/website/other/botstats.json');
 
-    app.get("/", (request, response) => {
-        response.sendFile(__dirname + '/website/index.html');
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        next();
     });
 
-    app.get("/home", (request, response) => {
-        response.sendFile(__dirname + '/website/index.html');
-    });
-
-    app.get("/invite", (request, response) => {
-        response.redirect('https://discordapp.com/api/oauth2/authorize?client_id=292180812638715904&permissions=8&scope=bot');
+    app.get("/botstats,json", (request, response) => {
+        response.sendFile(__dirname + '/website/other/botstats.json');
     });
 
     app.use((req, res) => {

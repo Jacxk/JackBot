@@ -45,7 +45,7 @@
     transform: scale(1.1);
 }
 
-.panel {
+.heading {
     background-color: transparent;
     color: #E0E0E0;
     text-align: center;
@@ -122,6 +122,12 @@
 .commandsBox {
     background-color: white;
     margin: 0 0 1% 0;
+}
+
+.homeDescription {
+    color: white;
+    text-align: center;
+    font-size: 25px;
 }
 
 input:focus, select:focus, textarea:focus, button:focus {
