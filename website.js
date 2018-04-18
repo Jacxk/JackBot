@@ -5,7 +5,7 @@ const app = express();
 module.exports.runWebsite = () => {
 
     app.use((req, res, next) => {
-        res.sendFile(__dirname + '/website/other/botstats.json');
+        express.static('/website');
 
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
