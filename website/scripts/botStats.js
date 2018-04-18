@@ -1,4 +1,4 @@
-$.getJSON('http://localhost:63343/JackBot/website/other/botstats.json', function(response) {
+$.getJSON('https://jackbot-djs.herokuapp.com/botstats.json', function(response) {
     console.log(response);
 
     $.each(response, function (key, val) {
