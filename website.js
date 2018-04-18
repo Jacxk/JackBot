@@ -5,21 +5,19 @@ const app = express();
 module.exports.runWebsite = () => {
 
     app.use((req, res, next) => {
-        express.static('/website');
-
-        res.setHeader("Access-Control-Allow-Origin", "*");
-        res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        res.setHeader('Access-Control-Allow-Methods', 'GET');
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        res.header('Access-Control-Allow-Methods', 'GET');
 
         next();
     });
 
-    app.get("/botstats,json", (request, response) => {
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        response.setHeader('Access-Control-Allow-Methods', 'GET');
-
+    app.get("/botstats", (request, response) => {
         response.sendFile(__dirname + '/website/other/botstats.json');
+    });
+
+    app.get("/", (request, response) => {
+        response.sendFile(__dirname + '/website/index.html');
     });
 
     app.use((req, res) => {
