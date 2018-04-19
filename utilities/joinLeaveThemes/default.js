@@ -1,7 +1,6 @@
 const Jimp = require("jimp");
 
-module.exports.imageOnJoin = (member, channel) => {
-
+module.exports.join = (member, channel) => {
     new Jimp(1024, 450, function (err, image) {
         if (err) throw err;
 
@@ -39,11 +38,9 @@ module.exports.imageOnJoin = (member, channel) => {
 
         }).catch(err => console.log(err));
     });
-
 };
 
-module.exports.imageOnLeave = (member, channel) => {
-
+module.exports.leave = (member, channel) => {
     new Jimp(1024, 450, function (err, image) {
         if (err) throw err;
 

@@ -1,5 +1,4 @@
-const joinLeave = require("../utilities/joinLeave.js");
-const music = require("../utilities/musicUtil.js");
+const joinLeaveThemes = require("../index.js").joinLeaveThemes;
 
 module.exports.run = (message, args) => {
 
@@ -8,10 +7,10 @@ module.exports.run = (message, args) => {
 
     switch (args[1]) {
         case 'join':
-            joinLeave.imageOnJoin(member, message.channel);
+            joinLeaveThemes.get(args.length === 4 ? args[3] : 'default').join(member, message.channel);
             break;
         case 'leave':
-            joinLeave.imageOnLeave(member, message.channel);
+            joinLeaveThemes.get(args.length === 4 ? args[3] : 'default').leave(member, message.channel);
             break;
     }
 };

@@ -35,13 +35,17 @@
             <span><i class="ion-social-github"></i> Source Code</span>
         </a>
 
-        <a href="https://discordapp.com/api/oauth2/authorize?client_id=292180812638715904&permissions=8&scope=bot"
-           class="inviteBtn" role="button" target="_blank">
+        <a href="JavaScript:newPopup('http://invite.jackbot.pw/');" class="inviteBtn" role="button" target="_blank">
             <span>Invite Me</span>
         </a>
     </div>
 </div>
 <script>
+
+    function newPopup(url) {
+        window.open(url, 'popUpWindow', 'height=725,width=500,left=50,top=50,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
+    }
+
     function getVersion(num) {
         try {
             $.get(`../changeLog/v${num}`, (data) => {
@@ -83,7 +87,8 @@
             <a role="button" class="btn btn-default, changeVersionButton" onclick="getVersionButton(true)">
                 <span class="glyphicon glyphicon-triangle-left"></span>
             </a>
-            <a id="previous" role="button" class="btn btn-default, changeVersionButton" onclick="getVersionButton(false)">
+            <a id="previous" role="button" class="btn btn-default, changeVersionButton"
+               onclick="getVersionButton(false)">
                 <span class="glyphicon glyphicon-triangle-right"></span>
             </a>
         </div>

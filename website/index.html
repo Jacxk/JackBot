@@ -12,6 +12,11 @@
     <script src="scripts/botStats.js"></script>
 </head>
 <body>
+<script type="text/javascript">
+    function newPopup(url) {
+        window.open(url, 'popUpWindow', 'height=725,width=500,left=50,top=50,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
+    }
+</script>
 <div class="header">
     <div style="display: inline-block;">
         <a href="index.html" class="title">
@@ -37,8 +42,7 @@
             <span><i class="ion-social-github"></i> Source Code</span>
         </a>
 
-        <a href="http://invite.jackbot.pw/"
-           class="inviteBtn" role="button" target="_blank">
+        <a href="JavaScript:newPopup('http://invite.jackbot.pw/');" class="inviteBtn" role="button" target="_blank">
             <span>Invite Me</span>
         </a>
     </div>
@@ -50,8 +54,9 @@
             I'm a discord bot that can do a variety of things,
             such as play music, ban and kick users if they are not behaving.
             I can also check your stats of some games... No I'm not hacking your account... or am I?<br><br>
-            What are you waiting for?<a href="http://invite.jackbot.pw/" class="topBtn"
-                                        style="color: white;font-size: 25px" target="_blank">Invite me!</a>
+            What are you waiting for?
+            <a href="JavaScript:newPopup('http://invite.jackbot.pw/');" class="topBtn"
+               style="color: white;font-size: 25px" target="_blank">Invite me!</a>
         </p>
     </div>
     <div style="margin: 30% 0 30% 0;">

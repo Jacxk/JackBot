@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
 </head>
 <body>
+<script type="text/javascript">
+    function newPopup(url) {
+        window.open(url, 'popUpWindow', 'height=725,width=500,left=50,top=50,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
+    }
+</script>
 <div class="header">
     <div style="display: inline-block;">
         <a href="index.html" class="title">
@@ -35,8 +40,7 @@
             <span><i class="ion-social-github"></i> Source Code</span>
         </a>
 
-        <a href="https://discordapp.com/api/oauth2/authorize?client_id=292180812638715904&permissions=8&scope=bot"
-           class="inviteBtn" role="button" target="_blank">
+        <a href="JavaScript:newPopup('http://invite.jackbot.pw/');" class="inviteBtn" role="button" target="_blank">
             <span>Invite Me</span>
         </a>
     </div>

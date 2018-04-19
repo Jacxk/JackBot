@@ -5,10 +5,10 @@ const config = require('./config.json');
 const messageUtil = require('./utilities/messageUtil.js');
 const mysqlUtil = require('./utilities/mysqlUtil.js');
 const website = require('./website.js');
-const joinLeave = require("./utilities/joinLeave.js");
 
 const bot = new Discord.Client();
 const commandsCollection = new Discord.Collection();
+const joinLeaveThemes = module.exports.joinLeaveThemes = new Discord.Collection();
 
 let file = fs.readFileSync("./data.json", "utf8");
 let userData = JSON.parse(file);
@@ -42,11 +42,22 @@ bot.on('disconnect', () => getBotStats('Offline'));
 bot.on('guildCreate', () => getBotStats());
 bot.on('guildDelete', () => getBotStats());
 
+fs.readdir('./utilities/joinLeaveThemes/', (err, files) => {
+    if (err) return console.log(err);
+
+    let themes = files.filter(file => file.split(".").pop() === 'js');
+
+    themes.forEach((theme) => {
+        let props = require(`./utilities/joinLeaveThemes/${theme}`);
+        joinLeaveThemes.set(theme.split(".")[0], props);
+    });
+});
+
 bot.on('guildMemberAdd', member => {
     const channelId = mysqlUtil.joinLeaveChannels.get(member.guild.id);
     const channel = member.guild.channels.get(channelId);
     if (!channel) return;
-    joinLeave.imageOnJoin(member, channel);
+    joinLeaveThemes.get('default').join(member, channel);
 
     getBotStats();
 });
@@ -55,7 +66,7 @@ bot.on('guildMemberRemove', member => {
     const channelId = mysqlUtil.joinLeaveChannels.get(member.guild.id);
     const channel = member.guild.channels.get(channelId);
     if (!channel) return;
-    joinLeave.imageOnLeave(member, channel);
+    joinLeaveThemes.get('default').leave(member, channel);
 
     getBotStats();
 });
@@ -200,5 +211,9 @@ process.on('SIGINT', () => {
 });
 
 process.on('SIGHUP', () => {
+    closeApp();
+});
+
+process.on('SIGTERM', () => {
     closeApp();
 });
