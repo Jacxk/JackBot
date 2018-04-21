@@ -1,7 +1,5 @@
 const Discord = require('discord.js');
 const fs = require('fs');
-let file = fs.readFileSync("./data.json", "utf8");
-let user = JSON.parse(file);
 
 module.exports.run = (message) => {
     let embed = new Discord.RichEmbed();
@@ -16,7 +14,7 @@ module.exports.run = (message) => {
     else playingStatus = "N/A";
 
     embed.setThumbnail(member.user.avatarURL).addField('Current Name', member.user.tag, true)
-        .addField('Current Level', ((user[member.id]) ? user[member.id].level : '0'), true)
+        .addField('Current Level', '0', true)
         .addField('Playing', playingStatus, true).addField('Role', highRole.name, true)
         .addField('Join Date', member.joinedAt.toDateString(), true).setColor(highRole.color);
     message.channel.send(embed);
