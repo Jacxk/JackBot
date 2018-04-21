@@ -200,9 +200,9 @@ const commands = [
         category: "Music"
     },
     {
-        name: "trasnlate",
+        name: "translate",
         description: "If you use this command you're lazy...",
-        usage: "-trasnlate [lang] [message]",
+        usage: "-translate [lang] [message]",
         permission: "None",
         aliases: "trans",
         category: "Misc"

@@ -5,7 +5,7 @@ module.exports.run = (message, args, nothing, bot) => {
     if (args.length < 2)
         return messageUtil.wrongUsage(message.channel, 'issue [message]', 'issue The guildInfo command is not working');
 
-    const issue = args.slice(2).join(' ');
+    const issue = args.slice(1).join(' ');
     const embed = new Discord.RichEmbed();
 
     embed.setTitle('New Issue').setColor('GREEN').setDescription(issue).addField('Guild Name', message.guild.name)
