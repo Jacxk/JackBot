@@ -1,5 +1,6 @@
 const mysqlUtil = require('../utilities/mysqlUtil.js');
 const messageUtil = require('../utilities/messageUtil.js');
+const themes = require('../index.js').joinLeaveThemes;
 
 module.exports.run = (message, args) => {
     if (message.channel.type === "dm") return message.channel.send('You need to use this command inside the guild.');
@@ -15,7 +16,7 @@ module.exports.run = (message, args) => {
             incidentsChannel(message, args);
             break;
         case "joinleave":
-            joinLeaveChannel(message, args);
+            joinLeave(message, args);
             break;
     }
 };
@@ -29,8 +30,8 @@ function incidentsChannel(message, args) {
 
 }
 
-function joinLeaveChannel(message, args) {
-    if (args.length < 4) return messageUtil.wrongUsage(message.channel, 'setup joinleave [type] [arg]', 'Types: Channel, Theme');
+function joinLeave(message, args) {
+    if (args.length < 3) return messageUtil.wrongUsage(message.channel, 'setup joinleave [type] [arg]', 'Types: Channel, Theme');
 
     switch (args[2].toLowerCase()) {
         case 'channel':
@@ -39,7 +40,12 @@ function joinLeaveChannel(message, args) {
             mysqlUtil.setJoinLeaveChannel(message.channel, message.guild, channel.id);
             break;
         case 'theme':
+            if (!args[3]) return messageUtil.sendError(message.channel, 'Available themes are ' + themes.join(', '));
             mysqlUtil.setJoinTheme(message.channel, message.guild, args[3].toLowerCase());
+            break;
+        default:
+            messageUtil.wrongUsage(message.channel, 'setup joinleave [type] [arg]', 'Types: Channel, Theme');
+            break;
     }
 }
 

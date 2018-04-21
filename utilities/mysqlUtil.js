@@ -167,8 +167,8 @@ module.exports.setJoinTheme = (channel, guild, theme) => {
         connection.query(update, [theme, guild.name, guild.id], (err, result) => {
             if (err) return console.error(err);
             joinLeaveChannels.set(guild.id, theme);
-            channel.send(embed.setColor("GOLD").setTitle('JoinLeave Channel Changed')
-                .setDescription('You have successfully changed the joinLeave channel to ' + channel.guild.channels.get(theme)))
+            channel.send(embed.setColor("GOLD").setTitle('JoinLeave Theme Changed')
+                .setDescription('You have successfully changed the JoinLeave theme to ' + theme))
                 .then(msg => msg.delete(20 * 1000));
         });
     }).catch(err => console.error(err));

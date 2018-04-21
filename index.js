@@ -9,6 +9,7 @@ const website = require('./website.js');
 const bot = new Discord.Client();
 const commandsCollection = new Discord.Collection();
 const joinLeaveThemes = module.exports.joinLeaveThemes = new Discord.Collection();
+let commandSize = 0;
 
 website.runWebsite(bot);
 
@@ -49,6 +50,40 @@ fs.readdir('./utilities/joinLeaveThemes/', (err, files) => {
     });
 });
 
+fs.readdir("./commands/", (error, files) => {
+    if (error) return console.log(error);
+
+    let commands = files.filter(file => file.split(".").pop() === 'js');
+
+    commands.forEach((commandFile) => {
+        commandSize++;
+
+        let props = require(`./commands/${commandFile}`);
+        commandsCollection.set(props.command.name, props);
+        if (props.command.aliases) props.command.aliases.forEach(alias => {
+            if (commandsCollection.get(alias)) return console.log(`Conflict with alias: ${alias}`);
+            commandsCollection.set(alias, props)
+        });
+    });
+});
+
+fs.readdir("./commands/music/", (error, files) => {
+    if (error) return console.log(error);
+
+    let commands = files.filter(file => file.split(".").pop() === 'js');
+
+    commands.forEach((commandFile) => {
+        commandSize++;
+
+        let props = require(`./commands/music/${commandFile}`);
+        commandsCollection.set(props.command.name, props);
+        if (props.command.aliases) props.command.aliases.forEach(alias => {
+            if (commandsCollection.get(alias)) return console.log(`Conflict with alias: ${alias}`);
+            commandsCollection.set(alias, props)
+        });
+    });
+});
+
 bot.on('guildMemberAdd', member => {
     const channelId = mysqlUtil.joinLeaveChannels.get(member.guild.id);
     const channel = member.guild.channels.get(channelId);
@@ -65,36 +100,6 @@ bot.on('guildMemberRemove', member => {
     joinLeaveThemes.get(mysqlUtil.getJoinTheme(channel.guild)).leave(member, channel);
 
     getBotStats();
-});
-
-fs.readdir("./commands/", (error, files) => {
-    if (error) return console.log(error);
-
-    let commands = files.filter(file => file.split(".").pop() === 'js');
-
-    commands.forEach((commandFile) => {
-        let props = require(`./commands/${commandFile}`);
-        commandsCollection.set(props.command.name, props);
-        if (props.command.aliases) props.command.aliases.forEach(alias => {
-            if (commandsCollection.get(alias)) return console.log(`Conflict with alias: ${alias}`);
-            commandsCollection.set(alias, props)
-        });
-    });
-});
-
-fs.readdir("./commands/music/", (error, files) => {
-    if (error) return console.log(error);
-
-    let commands = files.filter(file => file.split(".").pop() === 'js');
-
-    commands.forEach((commandFile) => {
-        let props = require(`./commands/music/${commandFile}`);
-        commandsCollection.set(props.command.name, props);
-        if (props.command.aliases) props.command.aliases.forEach(alias => {
-            if (commandsCollection.get(alias)) return console.log(`Conflict with alias: ${alias}`);
-            commandsCollection.set(alias, props)
-        });
-    });
 });
 
 bot.on('channelCreate', channel => {
@@ -138,7 +143,7 @@ function getBotStats(status) {
         const stats = {
             guilds: bot.guilds.size,
             users: bot.users.filter(f => !f.bot).size,
-            commands: 34,
+            commands: commandSize,
             status: !status ? 'Online' : status
         };
 
