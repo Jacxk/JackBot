@@ -104,6 +104,14 @@ const commands = [
         category: "Misc"
     },
     {
+        name: "issue",
+        description: "If the bot is broken or something use this to send me a message.",
+        usage: "-issue [message]",
+        permission: "Administrator",
+        aliases: "None",
+        category: "Misc"
+    },
+    {
         name: "kick",
         description: "Kick a member if you are felling like you have to.",
         usage: "-kick [user] [reason]",
