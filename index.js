@@ -23,6 +23,7 @@ bot.on('ready', () => {
         mysqlUtil.setCommandChannel(guild);
         mysqlUtil.getJoinLeaveChannel(guild.id);
         mysqlUtil.getJoinThemeSQL(guild.id);
+        mysqlUtil.getIncidentsChannel(guild.id);
     });
     setInterval(() => {
         let gameStatus = config.games;

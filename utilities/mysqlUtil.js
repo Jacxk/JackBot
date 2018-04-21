@@ -5,6 +5,7 @@ const messageUtil = require('../utilities/messageUtil.js');
 const prefixes = module.exports.prefixeMap = new Map();
 const commandChannels = module.exports.commandChannelMap = new Map();
 const joinLeaveChannels = module.exports.joinLeaveChannels = new Map();
+const incidentsChannels = module.exports.incidentsChannels = new Map();
 const themeCollection = module.exports.themeCollection = new Map();
 
 module.exports.connect = () => {
@@ -75,7 +76,7 @@ module.exports.setIncidentsChannel = (channel, guild, channelID) => {
 
         connection.query(update, [channelID, guild.name, guild.id], (err, result) => {
             if (err) return console.error(err);
-            joinLeaveChannels.set(guild.id, channelID);
+            incidentsChannels.set(guild.id, channelID);
             channel.send(embed.setColor("GOLD").setTitle('Incidents Channel Changed')
                 .setDescription('You have successfully changed the Incidents channel to ' + channel.guild.channels.get(channelID)))
                 .then(msg => msg.delete(20 * 1000));
@@ -90,7 +91,7 @@ module.exports.getIncidentsChannel = (guildID) => {
 
         connection.query(select, [guildID], (err, result) => {
             if (err) return console.error(err);
-            joinLeaveChannels.set(guildID, result[0].IncidentsChannel)
+            incidentsChannels.set(guildID, result[0].IncidentsChannel)
         });
     }).catch(err => console.error(err));
 };
@@ -153,7 +154,7 @@ module.exports.getJoinThemeSQL = (guild) => {
         if (!boolean) return;
         const select = `SELECT JoinTheme FROM GuildSettings WHERE GuildId = ?;`;
         connection.query(select, [guild.id], (err, result) => {
-            themeCollection.set(guild.id, result[0].JoinTheme ? result[0].JoinTheme : 'default');
+            themeCollection.set(guild.id, result[0].JoinTheme);
         });
     }).catch(err => console.error(err));
 };
@@ -166,7 +167,7 @@ module.exports.setJoinTheme = (channel, guild, theme) => {
 
         connection.query(update, [theme, guild.name, guild.id], (err, result) => {
             if (err) return console.error(err);
-            joinLeaveChannels.set(guild.id, theme);
+            themeCollection.set(guild.id, theme);
             channel.send(embed.setColor("GOLD").setTitle('JoinLeave Theme Changed')
                 .setDescription('You have successfully changed the JoinLeave theme to ' + theme))
                 .then(msg => msg.delete(20 * 1000));
