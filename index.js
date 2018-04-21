@@ -88,7 +88,7 @@ bot.on('guildMemberAdd', member => {
     const channelId = mysqlUtil.joinLeaveChannels.get(member.guild.id);
     const channel = member.guild.channels.get(channelId);
     if (!channel) return;
-    joinLeaveThemes.get(mysqlUtil.getJoinTheme(channel.guild)).join(member, channel);
+    joinLeaveThemes.get(mysqlUtil.getJoinTheme(member.guild.id)).join(member, channel);
 
     getBotStats();
 });
@@ -97,7 +97,7 @@ bot.on('guildMemberRemove', member => {
     const channelId = mysqlUtil.joinLeaveChannels.get(member.guild.id);
     const channel = member.guild.channels.get(channelId);
     if (!channel) return;
-    joinLeaveThemes.get(mysqlUtil.getJoinTheme(channel.guild)).leave(member, channel);
+    joinLeaveThemes.get(mysqlUtil.getJoinTheme(member.guild.id)).leave(member, channel);
 
     getBotStats();
 });
