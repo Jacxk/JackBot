@@ -1,8 +1,10 @@
 const Discord = require('discord.js');
+const mysqlUtil = require('../utilities/mysqlUtil.js');
+const messageUtil = require('../utilities/messageUtil.js');
 const ms = require('ms');
 
 let timeOut;
-const tempBan = module.exports.tempMute = (args, memberToMute, message) => {
+module.exports.tempMute = (args, memberToMute, message) => {
     ban(memberToMute, message, args, true, args[1]);
     timeOut = setTimeout(() => {
         unBan(memberToMute, message, args);
@@ -14,19 +16,17 @@ const ban = module.exports.ban = (memberToBan, message, args, isTemp, duration) 
     let guild = message.guild;
     guild.fetchBans().then(bans => {
         if (bans.get(memberToBan.id ? memberToBan.id : memberToBan)) {
-            message.channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌')
-                .setDescription(`The member ${memberToBan} is already banned`))
-                .then(msg => msg.delete(10 * 1000));
+            messageUtil.sendError(message.channel, `The member ${memberToBan} is already banned`);
         } else {
-            memberToBan.ban({reason: args}).catch(err => embed.setColor("RED").setTitle('❌ ERROR ❌').setDescription(err));
+            memberToBan.ban({reason: args}).catch(err => messageUtil.sendError(message.channel, err.toString()));
             message.channel.send(embed.setColor("GREEN").setTitle('🔇 BAN REPORT 🔇')
                 .setDescription(`The member ${memberToBan.user.tag ? memberToBan.user.tag : memberToBan} has been banned.`))
                 .then(msg => msg.delete(10 * 1000));
             sendBanEmbed(args, message.guild, message.member, memberToBan,
                 "http://i.dawn.com/large/2015/03/55138188b5b6c.jpg", duration, isTemp);
         }
-    }).catch(err => message.channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌')
-        .setDescription('Could not find the user ' + memberToBan)).then(msg => msg.delete(10 * 1000)));
+    }).catch(err => message.channel.send(messageUtil.sendError(message.channel, 'Could not find the user ' + memberToBan))
+        .then(msg => msg.delete(10 * 1000)));
 };
 
 const unBan = module.exports.unBan = (memberToBan, message) => {
@@ -38,23 +38,21 @@ const unBan = module.exports.unBan = (memberToBan, message) => {
             guild.unBan(bannedUser).then(unBanned => {
                 message.channel.send(embed.setColor("GREEN").setTitle('🔇 BAN REPORT 🔇')
                     .setDescription(`The member ${unBanned.user.tag} has been unBanned.`)).then(msg => msg.delete(10 * 1000));
-            }).catch(err => embed.setColor("RED").setTitle('❌ ERROR ❌').setDescription(err));
+            }).catch(err => messageUtil.sendError(message.channel, err.toString()));
             if (timeOut) clearTimeout(timeOut);
         } else {
-            message.channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌').setDescription(`The member ${memberToBan} is not banned`))
-                .then(msg => msg.delete(10 * 1000));
+            messageUtil.sendError(message.channel,`The member ${memberToBan} is not banned`);
         }
-    }).catch(err => message.channel.send(embed.setColor("RED").setTitle('❌ ERROR ❌')
-        .setDescription('Could not find the user ' + memberToBan)).then(msg => msg.delete(10 * 1000)));
+    }).catch(err => messageUtil.sendError(message.channel, err.toString()));
 };
 
 function sendBanEmbed(args, guild, staffMember, bannedMember, url, duration, isTemp) {
     if (args.length < 2) return;
 
-    let reason = [];
-    for (let i = (isTemp ? 3 : 2); i < args.length; i++) {
-        reason.push(args[i]);
-    }
+    let reason = args.slice(isTemp ? 3 : 2).join(' ');
+
+    let channel = guild.channels.get(mysqlUtil.getIncidentsChannel(guild.id));
+    if (!channel) return;
 
     const embed = new Discord.RichEmbed().setColor("AQUA")
         .setTitle('📃 BAN REPORT 📃').addField("Staff Member Tag", staffMember.user.tag, true)
@@ -64,9 +62,5 @@ function sendBanEmbed(args, guild, staffMember, bannedMember, url, duration, isT
         .addField("Reason", reason ? `**${reason.join(' ')}**` : "Not Specified")
         .setThumbnail(url);
 
-    let channel = guild.channels.find('name', "incidents");
-    if (!channel) {
-        guild.createChannel("incidents", "text").then(channel.send(embed))
-            .catch(err => embed.setColor("RED").setTitle('❌ ERROR ❌').setDescription(err));
-    } else channel.send(embed);
+     channel.send(embed);
 }

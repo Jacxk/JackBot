@@ -10,11 +10,6 @@ const bot = new Discord.Client();
 const commandsCollection = new Discord.Collection();
 const joinLeaveThemes = module.exports.joinLeaveThemes = new Discord.Collection();
 
-let file = fs.readFileSync("./data.json", "utf8");
-let userData = JSON.parse(file);
-
-let cooldownArray = [];
-
 website.runWebsite(bot);
 
 //bot.login(tokenConfig.token).catch(err => console.log(err));
@@ -23,9 +18,10 @@ bot.login(process.env.botToken).catch(err => console.log(err));
 bot.on('ready', () => {
     mysqlUtil.connect();
     bot.guilds.forEach(guild => {
-        mysqlUtil.setPrefix(guild).catch(err => console.error(err));
-        mysqlUtil.setCommandChannel(guild).catch(err => console.error(err));
+        mysqlUtil.setPrefix(guild);
+        mysqlUtil.setCommandChannel(guild);
         mysqlUtil.getJoinLeaveChannel(guild.id);
+        mysqlUtil.getJoinThemeSQL(guild.id);
     });
     setInterval(() => {
         let gameStatus = config.games;
@@ -57,7 +53,7 @@ bot.on('guildMemberAdd', member => {
     const channelId = mysqlUtil.joinLeaveChannels.get(member.guild.id);
     const channel = member.guild.channels.get(channelId);
     if (!channel) return;
-    joinLeaveThemes.get('default').join(member, channel);
+    joinLeaveThemes.get(mysqlUtil.getJoinTheme(channel.guild)).join(member, channel);
 
     getBotStats();
 });
@@ -66,7 +62,7 @@ bot.on('guildMemberRemove', member => {
     const channelId = mysqlUtil.joinLeaveChannels.get(member.guild.id);
     const channel = member.guild.channels.get(channelId);
     if (!channel) return;
-    joinLeaveThemes.get('default').leave(member, channel);
+    joinLeaveThemes.get(mysqlUtil.getJoinTheme(channel.guild)).leave(member, channel);
 
     getBotStats();
 });
@@ -134,53 +130,6 @@ bot.on('message', message => {
     }
 
 });
-
-function rankSystem(id) {
-    if (cooldownArray.indexOf(id) > -1) return;
-    else {
-        cooldownArray.push(id);
-        setTimeout(function () {
-            cooldownArray.splice(cooldownArray.indexOf(id), 1);
-        }, 1000 * 60);
-    }
-    if (!userData[id]) userData[id] = {
-        level: 1,
-        exp: 0
-    };
-
-    giveExp(Math.floor(Math.random() * 15 + 10), id);
-
-    fs.writeFile('./data.json', JSON.stringify(userData, null, 2), (err) => {
-        if (err) console.log(err)
-    });
-}
-
-function giveExp(exp, id) {
-
-    userData[id].exp += exp;
-
-    if (getNeededExp(id) <= 0) {
-        userData[id].level++;
-    }
-    console.log(getNeededExp(id) + '/' + getTotalExpForLevel(userData[id].level));
-}
-
-function getExpString(id) {
-    let embed = new Discord.RichEmbed();
-
-    let nextLevelTotal = getTotalExpForLevel(userData[id].level);
-
-
-    return embed.setDescription(getNeededExp(id) + '/' + nextLevelTotal + '\nTotal Exp: ' + userData[id].exp + '\nCurrent level: ' + userData[id].level).setColor("AQUA");
-}
-
-function getNeededExp(id) {
-    return getTotalExpForLevel(userData[id].level) - (userData[id].exp - getTotalExpForLevel(userData[id].level - 1));
-}
-
-function getTotalExpForLevel(level) {
-    return Math.floor(450 * (level * 1.35));
-}
 
 function getBotStats(status) {
     fs.readFile('./website/other/botstats.json', 'utf8', (err, data) => {

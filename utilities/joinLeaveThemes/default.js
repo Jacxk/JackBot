@@ -15,7 +15,7 @@ module.exports.join = (member, channel) => {
         const welcomeImage = new Jimp(1920, 1080, (err, image) => {
             if (err) throw err;
             Jimp.loadFont('./fonts/jellydonut128/font.fnt').then((font) => {
-                image.print(font, Jimp.HORIZONTAL_ALIGN_CENTER, Jimp.VERTICAL_ALIGN_MIDDLE, 'WELCOME');
+                image.print(font, Jimp.HORIZONTAL_ALIGN_CENTER, Jimp.VERTICAL_ALIGN_MIDDLE, 'Welcome');
                 image.autocrop();
             });
         });

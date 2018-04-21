@@ -9,7 +9,7 @@ let servers = {};
 let currentSongEmbed;
 
 module.exports.play = (message, args) => {
-    if (args.length <= 1) return messageUtil.wrongUsage(message.channel, 'play [song name/url]', 'play Drake - Gods Plan');
+    if (args.length <= 1) return messageUtil.wrongUsage(message.channel, 'play [song name/url]', 'play Nate Dogg - Another short story');
 
     if (!servers[message.guild.id]) servers[message.guild.id] = {
         queue: []
