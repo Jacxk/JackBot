@@ -1,6 +1,6 @@
 const mysqlUtil = require('../utilities/mysqlUtil.js');
 const messageUtil = require('../utilities/messageUtil.js');
-const themes = require('../index.js').joinLeaveThemes;
+const joinLeaveThemes = require('../index.js').joinLeaveThemes;
 
 module.exports.run = (message, args) => {
     if (message.channel.type === "dm") return message.channel.send('You need to use this command inside the guild.');
@@ -40,7 +40,13 @@ function joinLeave(message, args) {
             mysqlUtil.setJoinLeaveChannel(message.channel, message.guild, channel.id);
             break;
         case 'theme':
-            if (!args[3]) return messageUtil.sendError(message.channel, 'Available themes are ' + themes.join(', '));
+            if (!args[3]) {
+                const themes = [];
+
+                joinLeaveThemes.forEach((value, key) => themes.push(key));
+
+                return messageUtil.sendError(message.channel, 'Available themes are ' + themes.join(', '));
+            }
             mysqlUtil.setJoinTheme(message.channel, message.guild, args[3].toLowerCase());
             break;
         default:

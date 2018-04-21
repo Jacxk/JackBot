@@ -1,6 +1,6 @@
 const joinLeaveThemes = require("../index.js").joinLeaveThemes;
 
-module.exports.run = (message, args) => {
+module.exports.run = (message, args, a, bot) => {
 
     if (args.length <= 1) return;
     const member = message.mentions.members.first() || message.member;
@@ -11,6 +11,9 @@ module.exports.run = (message, args) => {
             break;
         case 'leave':
             joinLeaveThemes.get(args.length === 4 ? args[3] : 'default').leave(member, message.channel);
+            break;
+        case 'event':
+            bot.emit(args[2], member);
             break;
     }
 };
