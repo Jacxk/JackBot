@@ -65,6 +65,7 @@
     border-color: transparent;
     border-bottom-color: gray;
     transition: .45s;
+    color: white;
 }
 
 .search:focus {

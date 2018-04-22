@@ -273,7 +273,23 @@ function getCommands(category) {
         html += `<b>Category: </b>${value.category}<br>`;
         html += '</pre></div></div>'
     });
-    document.getElementById('div').innerHTML = html;
+    document.getElementById('commandsDiv').innerHTML = html;
+}
+
+function search() {
+    const input = document.getElementById("searchBox");
+    const filter = input.value.toUpperCase();
+
+    const mainDiv = document.getElementById("commandsDiv");
+    const subDivs = mainDiv.getElementsByTagName("div");
+
+    for (let i = 0; i < subDivs.length; i++) {
+        const header = subDivs[i].getElementsByTagName("h5")[0];
+
+        if (header.innerHTML.toUpperCase().includes(filter)) subDivs[i].style.display = "";
+        else subDivs[i].style.display = "none";
+
+    }
 }
 
 getCommands('All');

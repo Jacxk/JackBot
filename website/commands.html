@@ -56,9 +56,9 @@
         <button onclick="getCommands(`Misc`)" class="topBtn"><span>Misc</span></button>
         <button onclick="getCommands(`Stats`)" class="topBtn"><span>Stats</span></button>
         <button onclick="getCommands(`Music`)" class="topBtn"><span>Music</span></button>
-        <input type="text" placeholder="Search..." class="search">
+        <input id="searchBox" type="text" placeholder="Search..." class="search" onkeyup="search()">
     </div>
-    <div id="div"></div>
+    <div id="commandsDiv"></div>
 
     <script src="scripts/commands.js"></script>
 
