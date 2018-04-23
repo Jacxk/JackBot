@@ -17,6 +17,8 @@
     <link rel="shortcut icon" type="image/ico" href="images/favicon.ico">
     <link rel="stylesheet" type="text/css" href="themes/default.css"/>
     <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 <script type="text/javascript">
@@ -59,12 +61,12 @@
     <h1 class="heading">Commands</h1>
 
     <div class="categoriesBox">
-        <button onclick="getCommands(`All`)" class="topBtn"><span>All</span></button>
-        <button onclick="getCommands(`Moderation`)" class="topBtn"><span>Moderation</span></button>
-        <button onclick="getCommands(`Fun`)" class="topBtn"><span>Fun</span></button>
-        <button onclick="getCommands(`Misc`)" class="topBtn"><span>Misc</span></button>
-        <button onclick="getCommands(`Stats`)" class="topBtn"><span>Stats</span></button>
-        <button onclick="getCommands(`Music`)" class="topBtn"><span>Music</span></button>
+        <button id="all" onclick="getCommands(`All`)" class="topBtn"><span>All</span></button>
+        <button id="moderation" onclick="getCommands(`Moderation`)" class="topBtn"><span>Moderation</span></button>
+        <button id="fun" onclick="getCommands(`Fun`)" class="topBtn"><span>Fun</span></button>
+        <button id="misc" onclick="getCommands(`Misc`)" class="topBtn"><span>Misc</span></button>
+        <button id="stats" onclick="getCommands(`Stats`)" class="topBtn"><span>Stats</span></button>
+        <button id="music" onclick="getCommands(`Music`)" class="topBtn"><span>Music</span></button>
         <input id="searchBox" type="text" placeholder="Search..." class="search" onkeyup="search()">
     </div>
     <div id="commandsDiv"></div>

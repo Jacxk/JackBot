@@ -19,10 +19,11 @@ bot.login(process.env.botToken).catch(err => console.log(err));
 bot.on('ready', () => {
     mysqlUtil.connect();
     bot.guilds.forEach(guild => {
+        mysqlUtil.insertToTable(guild);
         mysqlUtil.setPrefix(guild);
         mysqlUtil.setCommandChannel(guild);
         mysqlUtil.getJoinLeaveChannel(guild.id);
-        mysqlUtil.getJoinThemeSQL(guild.id);
+        mysqlUtil.getJoinThemeSQL(guild);
         mysqlUtil.getIncidentsChannel(guild.id);
     });
     setInterval(() => {

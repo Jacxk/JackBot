@@ -26,7 +26,8 @@ const connection = mysql.createConnection({
 
 const createTable = module.exports.createTable = () => {
     const statement = 'CREATE TABLE IF NOT EXISTS GuildSettings (ID int NOT NULL AUTO_INCREMENT, GuildId text, ' +
-        'GuildName text, Prefix text, CommandChannel text, IncidentsChannel text, JoinLeaveChannel text, MemesChannel text, PRIMARY KEY (ID));';
+        'GuildName text, Prefix text, CommandChannel text, IncidentsChannel text, JoinLeaveChannel text, MemesChannel text,' +
+        'JoinTheme text, PRIMARY KEY (ID));';
     connection.query(statement, (err, result) => {
         if (err) return console.error(err);
     });
@@ -39,6 +40,18 @@ const containsGuild = (guild) => new Promise((resolve, reject) => {
         else resolve(!!result[0]);
     });
 });
+
+module.exports.insertToTable = (guild) => {
+    containsGuild(guild.id).then(boolean => {
+        if (boolean) return;
+        const select = 'INSERT INTO GuildSettings (GuildId,GuildName,Prefix,CommandChannel,IncidentsChannel,JoinLeaveChannel,' +
+            'MemesChannel,JoinTheme) VALUES (?,?,?,?,?,?,?,?);';
+        connection.query(select, [guild.id, guild.name, '-', 'ALL', 'None', 'None', 'None', 'default'], (err, result) => {
+            if (err) return console.error(err);
+        });
+    });
+
+};
 
 module.exports.getJoinLeaveChannel = (guildID) => {
     containsGuild(guildID).then(boolean => {
@@ -103,8 +116,8 @@ module.exports.changePrefix = (channel, guild, prefix) => {
         if (!boolean) return;
 
         connection.query(update, [prefix, guild.name, guild.id], (err, result) => {
-            console.log('Updating prefix of ' + guild.id);
             if (err) return messageUtil.sendError(channel, 'Update Error: ' + err.toString());
+
             prefixes.set(guild.id, prefix);
             channel.send(embed.setColor("GOLD").setTitle('Prefix Changed')
                 .setDescription('You have successfully changed the prefix to `' + prefix + '`'))
@@ -134,6 +147,8 @@ module.exports.setPrefix = (guild) => {
         if (!boolean) return;
         const select = `SELECT Prefix FROM GuildSettings WHERE GuildId = ?;`;
         connection.query(select, [guild.id], (err, result) => {
+            if (err) return console.error(err);
+
             prefixes.set(guild.id, result[0].Prefix);
         });
     }).catch(err => console.error(err));
@@ -144,6 +159,8 @@ module.exports.setCommandChannel = (guild) => {
         if (!boolean) return;
         const select = `SELECT CommandChannel FROM GuildSettings WHERE GuildId = ?;`;
         connection.query(select, [guild.id], (err, result) => {
+            if (err) return console.error(err);
+
             commandChannels.set(guild.id, result[0].CommandChannel ? result[0].CommandChannel : 'ALL');
         });
     }).catch(err => console.error(err));
@@ -154,6 +171,7 @@ module.exports.getJoinThemeSQL = (guild) => {
         if (!boolean) return;
         const select = `SELECT JoinTheme FROM GuildSettings WHERE GuildId = ?;`;
         connection.query(select, [guild.id], (err, result) => {
+            if (err) return console.error(err);
             themeCollection.set(guild.id, result[0].JoinTheme);
         });
     }).catch(err => console.error(err));
@@ -167,9 +185,10 @@ module.exports.setJoinTheme = (channel, guild, theme) => {
 
         connection.query(update, [theme, guild.name, guild.id], (err, result) => {
             if (err) return console.error(err);
+
             themeCollection.set(guild.id, theme);
             channel.send(embed.setColor("GOLD").setTitle('JoinLeave Theme Changed')
-                .setDescription('You have successfully changed the JoinLeave theme to ' + theme))
+                .setDescription(`You have successfully changed the JoinLeave theme to theme **${theme}**`))
                 .then(msg => msg.delete(20 * 1000));
         });
     }).catch(err => console.error(err));
@@ -184,5 +203,5 @@ module.exports.getCommandChannel = (guildId) => {
 };
 
 module.exports.getJoinTheme = (guildId) => {
-    return themeCollection.get(guildId) ? themeCollection.get(guildId) : 'default';
+    return themeCollection.has(guildId) ? themeCollection.get(guildId) : 'default';
 };
