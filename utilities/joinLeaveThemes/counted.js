@@ -31,7 +31,7 @@ module.exports.join = (member, channel) => {
             });
         });
 
-        const date = new Jimp(1920, 1080, (err, image) => {
+        const date = new Jimp(720, 2000, (err, image) => {
             if (err) throw err;
             Jimp.loadFont('./fonts/jellydonut128/font.fnt').then((font) => {
                 image.print(font, Jimp.HORIZONTAL_ALIGN_CENTER, Jimp.VERTICAL_ALIGN_MIDDLE, member.joinedAt.toLocaleDateString('en-US', {
