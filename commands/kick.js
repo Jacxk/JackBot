@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const messageUtil = require('../utilities/messageUtil.js');
+const mysqlUtil = require('../utilities/mysqlUtil.js');
 
 module.exports.run = (message, args) => {
     if (message.channel.type === "dm") return message.channel.send('You need to use this command inside the guild.');
@@ -16,8 +17,8 @@ module.exports.run = (message, args) => {
 
     let reason = args.slice(2).join(" ");
     memberToKick.kick(reason).then(() => {
-        let channel = message.guild.channels.find('name', "incidents");
-        if (!channel) return message.channel.send("Please create a text channel called `incidents`");
+        let channel = message.guild.channels.get(mysqlUtil.getIncidentsChannel(message.guild.id));
+        if (!channel) return;
 
         const embed = new Discord.RichEmbed().setColor("PURPLE")
             .setTitle('📃 KICK REPORT 📃').addField("Staff Member Tag", staffMember.user.tag, true)

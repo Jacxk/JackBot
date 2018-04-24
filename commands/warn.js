@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const messageUtil = require('../utilities/messageUtil.js');
+const mysqlUtil = require('../utilities/mysqlUtil.js');
 
 module.exports.run = (message, args) => {
     if (message.channel.type === "dm") return message.channel.send('You need to use this command inside the guild.');
@@ -14,8 +15,8 @@ module.exports.run = (message, args) => {
     if (!memberToWarn) return messageUtil.specifyUser(message.channel);
     if (memberToWarn.highestRole.position >= staffMember.highestRole.position) return messageUtil.sameRankOrHigher(message.channel);
 
-    let channel = message.guild.channels.find('name', "incidents");
-    if (!channel) return message.channel.send("Please create a text channel called `incidents`");
+    let channel = message.guild.channels.get(mysqlUtil.getIncidentsChannel(message.guild.id));
+    if (!channel) return;
 
     const embed = new Discord.RichEmbed().setColor("GREEN")
         .setTitle('📃 WARN REPORT 📃').addField("Staff Member Tag", staffMember.user.tag, true)
