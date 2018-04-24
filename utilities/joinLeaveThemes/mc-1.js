@@ -65,7 +65,7 @@ module.exports.leave = (member, channel) => {
     Jimp.read('./utilities/joinLeaveThemes/images/mc-bg-1.png').then(image => {
         const nameImage = new Jimp(1920, 1080, (err, image) => {
             if (err) throw err;
-            Jimp.loadFont(Jimp.FONT_SANS_64_WHITE).then((font) => {
+            Jimp.loadFont('./fonts/minecraftia/font.fnt').then((font) => {
                 image.print(font, Jimp.HORIZONTAL_ALIGN_CENTER, Jimp.VERTICAL_ALIGN_MIDDLE, member.user.tag.split(' ').join(''));
                 image.autocrop();
                 image.resize(Jimp.AUTO, 40);
@@ -74,7 +74,7 @@ module.exports.leave = (member, channel) => {
 
         const welcomeImage = new Jimp(1920, 1080, (err, image) => {
             if (err) throw err;
-            Jimp.loadFont(Jimp.FONT_SANS_64_WHITE).then((font) => {
+            Jimp.loadFont('./fonts/minecraftia/font.fnt').then((font) => {
                 image.print(font, Jimp.HORIZONTAL_ALIGN_CENTER, Jimp.VERTICAL_ALIGN_MIDDLE, 'GoodBye');
                 image.autocrop();
                 image.resize(Jimp.AUTO, 60);
@@ -83,7 +83,7 @@ module.exports.leave = (member, channel) => {
 
         const date = new Jimp(1920, 1080, (err, image) => {
             if (err) throw err;
-            Jimp.loadFont(Jimp.FONT_SANS_64_WHITE).then((font) => {
+            Jimp.loadFont('./fonts/minecraftia/font.fnt').then((font) => {
                 image.print(font, Jimp.HORIZONTAL_ALIGN_CENTER, Jimp.VERTICAL_ALIGN_MIDDLE, member.joinedAt.toLocaleDateString('en-US', {
                     weekday: 'long',
                     year: 'numeric',
