@@ -1,7 +1,7 @@
 const Jimp = require("jimp");
 
 module.exports.join = (member, channel) => {
-    Jimp.read('./utilities/joinLeaveThemes/images/fnt-bg-2.png').then(image => {
+    Jimp.read('./utilities/joinLeaveThemes/images/fnt-bg-3.png').then(image => {
         const nameImage = new Jimp(1920, 1080, (err, image) => {
             if (err) throw err;
             Jimp.loadFont('./fonts/BurbankBigCondensed/font.fnt').then((font) => {
@@ -62,7 +62,7 @@ module.exports.join = (member, channel) => {
 };
 
 module.exports.leave = (member, channel) => {
-    Jimp.read('./utilities/joinLeaveThemes/images/fnt-bg-2.png').then(image => {
+    Jimp.read('./utilities/joinLeaveThemes/images/fnt-bg-3.png').then(image => {
         const nameImage = new Jimp(1920, 1080, (err, image) => {
             if (err) throw err;
             Jimp.loadFont('./fonts/BurbankBigCondensed/font.fnt').then((font) => {
