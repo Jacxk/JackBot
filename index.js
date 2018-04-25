@@ -139,19 +139,15 @@ bot.on('message', message => {
 });
 
 function getBotStats(status) {
-    fs.readFile('./website/other/botstats.json', 'utf8', (err, data) => {
-        if (err) throw err;
+    const stats = {
+        guilds: bot.guilds.size,
+        users: bot.users.filter(f => !f.bot).size,
+        commands: commandSize,
+        status: !status ? 'Online' : status
+    };
 
-        const stats = {
-            guilds: bot.guilds.size,
-            users: bot.users.filter(f => !f.bot).size,
-            commands: commandSize,
-            status: !status ? 'Online' : status
-        };
-
-        fs.writeFile('./website/other/botstats.json', JSON.stringify(stats, null, 2), null, err => {
-            if (err) console.log(err)
-        });
+    fs.writeFile('./website/other/botstats.json', JSON.stringify(stats, null, 2), null, err => {
+        if (err) console.log(err)
     });
 }
 
