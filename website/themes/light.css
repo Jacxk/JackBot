@@ -123,6 +123,18 @@
     margin: 0 0 1% 0;
 }
 
+.joinThemesBox {
+    background-color: white;
+    margin: 0 0 1% 0;
+}
+
+.themePicture {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #36393e;
+}
+
 .homeDescription {
     color: black;
     text-align: center;

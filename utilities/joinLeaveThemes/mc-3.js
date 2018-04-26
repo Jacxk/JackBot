@@ -81,7 +81,7 @@ module.exports.leave = (member, channel) => {
             }).catch(err => console.log(err));
         });
 
-        const date = new Jimp(1920, 1080, (err, image) => {
+        const date = new Jimp(3000, 1080, (err, image) => {
             if (err) throw err;
             Jimp.loadFont('./fonts/minecraftia/font.fnt').then((font) => {
                 image.print(font, Jimp.HORIZONTAL_ALIGN_CENTER, Jimp.VERTICAL_ALIGN_MIDDLE, member.joinedAt.toLocaleDateString('en-US', {
