@@ -50,7 +50,7 @@ function getFortniteStats(channel, platform, username, mode) {
         let top25 = jsonData.lifeTimeStats[5];
         let score = jsonData.lifeTimeStats[6];
         let kd = jsonData.lifeTimeStats[11];
-        let deaths = Math.floor(kills / kd).toString();
+        let deaths = Math.floor(parseInt(kills) / parseFloat(kd)).toString();
 
         lifeTimeEmbed.addField(wins.key, wins.value, true);
         lifeTimeEmbed.addField(kills.key, kills.value, true);
@@ -58,8 +58,8 @@ function getFortniteStats(channel, platform, username, mode) {
         lifeTimeEmbed.addField(matches.key, matches.value, true);
         lifeTimeEmbed.addField(top5.key, top5.value, true);
         lifeTimeEmbed.addField(top25.key, top25.value, true);
-        lifeTimeEmbed.addField(score.key, score.value, true);
         lifeTimeEmbed.addField(kd.key, kd.value, true);
+        lifeTimeEmbed.addField(score.key, score.value, true);
 
         if (!mode) return channel.send(lifeTimeEmbed);
 
@@ -73,7 +73,7 @@ function getFortniteStats(channel, platform, username, mode) {
                 let soloScore = soloData.score;
                 let soloKills = soloData.kills;
                 let soloKd = soloData.kd;
-                let soloDeaths = Math.floor(soloKills / soloKd).toString();
+                let soloDeaths = Math.floor(parseInt(soloKills) / parseFloat(soloKd)).toString();
                 let soloTop5 = soloData.top5;
                 let soloTop10 = soloData.top10;
                 let soloTop25 = soloData.top25;
@@ -100,7 +100,7 @@ function getFortniteStats(channel, platform, username, mode) {
                 let duoScore = duoData.score;
                 let duoKills = duoData.kills;
                 let duoKd = soloData.kd;
-                let duoDeaths = Math.floor(duoKills / duoKd).toString();
+                let duoDeaths = Math.floor(parseInt(duoKills) / parseFloat(duoKd)).toString();
                 let duoTop5 = duoData.top5;
                 let duoTop10 = duoData.top10;
                 let duoTop25 = duoData.top25;
@@ -127,7 +127,7 @@ function getFortniteStats(channel, platform, username, mode) {
                 let squadScore = squadData.score;
                 let squadKills = squadData.kills;
                 let squadKd = soloData.kd;
-                let squadDeaths = Math.floor(squadKills / squadKd).toString();
+                let squadDeaths = Math.floor(parseInt(squadKills) / parseFloat(squadKd)).toString();
                 let squadTop5 = squadData.top5;
                 let squadTop10 = squadData.top10;
                 let squadTop25 = squadData.top25;
