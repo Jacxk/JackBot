@@ -33,38 +33,35 @@ function getFortniteStats(channel, platform, username, mode) {
 
         if (jsonData.message) return messageUtil.sendError(channel, jsonData.message);
 
-        //console.log(data);
-        let lifeTimeEmbed = new Discord.RichEmbed().setColor('GOLD')
-            .setFooter('Powered By Fortnite Tracker').setTitle(`${username}'s LifeTime Stats`);
-        let soloEmbed = new Discord.RichEmbed().setColor('BLUE')
-            .setFooter('Powered By Fortnite Tracker').setTitle(`${username}'s Solo Stats`);
-        let duoEmbed = new Discord.RichEmbed().setColor('GREEN')
-            .setFooter('Powered By Fortnite Tracker').setTitle(`${username}'s Duo Stats`);
-        let squadEmbed = new Discord.RichEmbed().setColor('PURPLE')
-            .setFooter('Powered By Fortnite Tracker').setTitle(`${username}'s Squad Stats`);
+        if (!mode) {
+            let lifeTimeEmbed = new Discord.RichEmbed().setColor('GOLD')
+                .setFooter('Powered By Fortnite Tracker').setTitle(`${username}'s LifeTime Stats`);
 
-        let kills = jsonData.lifeTimeStats[10];
-        let wins = jsonData.lifeTimeStats[8];
-        let matches = jsonData.lifeTimeStats[7];
-        let top5 = jsonData.lifeTimeStats[1];
-        let top25 = jsonData.lifeTimeStats[5];
-        let score = jsonData.lifeTimeStats[6];
-        let kd = jsonData.lifeTimeStats[11];
-        let deaths = Math.floor(parseInt(kills) / parseFloat(kd)).toString();
+            let kills = jsonData.lifeTimeStats[10];
+            let wins = jsonData.lifeTimeStats[8];
+            let matches = jsonData.lifeTimeStats[7];
+            let top5 = jsonData.lifeTimeStats[1];
+            let top25 = jsonData.lifeTimeStats[5];
+            let score = jsonData.lifeTimeStats[6];
+            let kd = jsonData.lifeTimeStats[11];
+            let deaths = Math.floor(parseInt(kills) / parseFloat(kd)).toString();
 
-        lifeTimeEmbed.addField(wins.key, wins.value, true);
-        lifeTimeEmbed.addField(kills.key, kills.value, true);
-        lifeTimeEmbed.addField('Deaths', deaths, true);
-        lifeTimeEmbed.addField(matches.key, matches.value, true);
-        lifeTimeEmbed.addField(top5.key, top5.value, true);
-        lifeTimeEmbed.addField(top25.key, top25.value, true);
-        lifeTimeEmbed.addField(kd.key, kd.value, true);
-        lifeTimeEmbed.addField(score.key, score.value, true);
+            lifeTimeEmbed.addField(wins.key, wins.value, true);
+            lifeTimeEmbed.addField(kills.key, kills.value, true);
+            lifeTimeEmbed.addField('Deaths', deaths, true);
+            lifeTimeEmbed.addField(matches.key, matches.value, true);
+            lifeTimeEmbed.addField(top5.key, top5.value, true);
+            lifeTimeEmbed.addField(top25.key, top25.value, true);
+            lifeTimeEmbed.addField(kd.key, kd.value, true);
+            lifeTimeEmbed.addField(score.key, score.value, true);
 
-        if (!mode) return channel.send(lifeTimeEmbed);
+            return channel.send(lifeTimeEmbed);
+        }
 
         switch (mode.toLowerCase()) {
             case "solo":
+                let soloEmbed = new Discord.RichEmbed().setColor('BLUE')
+                    .setFooter('Powered By Fortnite Tracker').setTitle(`${username}'s Solo Stats`);
 
                 let soloData = jsonData.stats.p2;
                 if (!soloData) return messageUtil.sendError(channel, "No data was found...");
@@ -92,6 +89,8 @@ function getFortniteStats(channel, platform, username, mode) {
                 channel.send(soloEmbed);
                 break;
             case "duo":
+                let duoEmbed = new Discord.RichEmbed().setColor('GREEN')
+                    .setFooter('Powered By Fortnite Tracker').setTitle(`${username}'s Duo Stats`);
 
                 let duoData = jsonData.stats.p10;
                 if (!duoData) return messageUtil.sendError(channel, "No data was found...");
@@ -99,7 +98,7 @@ function getFortniteStats(channel, platform, username, mode) {
                 let duoWins = duoData.top1;
                 let duoScore = duoData.score;
                 let duoKills = duoData.kills;
-                let duoKd = soloData.kd;
+                let duoKd = duoData.kd;
                 let duoDeaths = Math.floor(parseInt(duoKills) / parseFloat(duoKd)).toString();
                 let duoTop5 = duoData.top5;
                 let duoTop10 = duoData.top10;
@@ -119,6 +118,8 @@ function getFortniteStats(channel, platform, username, mode) {
                 channel.send(duoEmbed);
                 break;
             case "squad":
+                let squadEmbed = new Discord.RichEmbed().setColor('PURPLE')
+                    .setFooter('Powered By Fortnite Tracker').setTitle(`${username}'s Squad Stats`);
 
                 let squadData = jsonData.stats.p9;
                 if (!squadData) return messageUtil.sendError(channel, "No data was found...");
@@ -126,7 +127,7 @@ function getFortniteStats(channel, platform, username, mode) {
                 let squadWins = squadData.top1;
                 let squadScore = squadData.score;
                 let squadKills = squadData.kills;
-                let squadKd = soloData.kd;
+                let squadKd = squadKd.kd;
                 let squadDeaths = Math.floor(parseInt(squadKills) / parseFloat(squadKd)).toString();
                 let squadTop5 = squadData.top5;
                 let squadTop10 = squadData.top10;
