@@ -4,7 +4,7 @@ const commands = [
         description: "This ball can tell you the future.",
         usage: "-8ball [question]",
         permission: "None",
-        aliases: "fortune",
+        aliases: ["fortune"],
         category: "Fun"
     },
     {
@@ -12,7 +12,7 @@ const commands = [
         description: "Add an emote to the guild.",
         usage: "-addEmote [name] [image link]",
         permission: "Administrator",
-        aliases: "None",
+        aliases: ["None"],
         category: "Admin"
     },
     {
@@ -20,7 +20,7 @@ const commands = [
         description: "Ban a member that is not behaving.",
         usage: "-ban [user] [reason]",
         permission: "Administrator",
-        aliases: "None",
+        aliases: ["None"],
         category: "Moderation"
     },
     {
@@ -28,7 +28,7 @@ const commands = [
         description: "Show info about the bot, such as uptime.",
         usage: "-botInfo",
         permission: "None",
-        aliases: "binfo, boti",
+        aliases: ["binfo", "boti"],
         category: "Misc"
     },
     {
@@ -36,7 +36,7 @@ const commands = [
         description: "See the changes made to the bot and website throughout time.",
         usage: "-changeLog {version}",
         permission: "None",
-        aliases: "clog, chlog",
+        aliases: ["clog", "chlog"],
         category: "Misc"
     },
     {
@@ -44,7 +44,7 @@ const commands = [
         description: "Clear the specified number of messages.",
         usage: "-clear [number of messages]",
         permission: "Manage Messages",
-        aliases: "c, cc",
+        aliases: ["c", "cc"],
         category: "Moderation"
     },
     {
@@ -52,7 +52,7 @@ const commands = [
         description: "Displays the current song playing",
         usage: "-currentSong ",
         permission: "None",
-        aliases: "csong, playing, current",
+        aliases: ["csong", "playing", "current"],
         category: "Music"
     },
     {
@@ -60,7 +60,7 @@ const commands = [
         description: "Remove a custom emote from the guild.",
         usage: "-delEmote [emote name]",
         permission: "Administrator",
-        aliases: "None",
+        aliases: ["None"],
         category: "Admin"
     },
     {
@@ -68,7 +68,7 @@ const commands = [
         description: "Check your stats from Fortnite's database",
         usage: "-fortnite [platform] [username] {gamemode}",
         permission: "None",
-        aliases: "fortn, fnite, fnt",
+        aliases: ["fortn", "fnite", "fnt"],
         category: "Stats"
     },
     {
@@ -76,7 +76,7 @@ const commands = [
         description: "Get information about the guild.",
         usage: "-guildInfo",
         permission: "None",
-        aliases: "ginfo, guildi",
+        aliases: ["ginfo", "guildi"],
         category: "Misc"
     },
     {
@@ -84,7 +84,7 @@ const commands = [
         description: "Get help about all the commands.",
         usage: "-help",
         permission: "None",
-        aliases: "None",
+        aliases: ["None"],
         category: "Misc"
     },
     {
@@ -92,7 +92,7 @@ const commands = [
         description: "Check your stats from Hypixel's database.",
         usage: "-hypixel [player name] [gamemode]",
         permission: "None",
-        aliases: "hyp, hpxl",
+        aliases: ["hyp", "hpxl"],
         category: "Stats"
     },
     {
@@ -100,7 +100,7 @@ const commands = [
         description: "Get a message with a link to invite me :D",
         usage: "-invite",
         permission: "None",
-        aliases: "None",
+        aliases: ["None"],
         category: "Misc"
     },
     {
@@ -108,7 +108,7 @@ const commands = [
         description: "If the bot is broken or something use this to send me a message.",
         usage: "-issue [message]",
         permission: "Administrator",
-        aliases: "None",
+        aliases: ["None"],
         category: "Misc"
     },
     {
@@ -116,7 +116,7 @@ const commands = [
         description: "Kick a member if you are felling like you have to.",
         usage: "-kick [user] [reason]",
         permission: "Kick Members",
-        aliases: "k, kck",
+        aliases: ["k", "kck"],
         category: "Moderation"
     },
     {
@@ -124,7 +124,7 @@ const commands = [
         description: "Want some memes? This is your lucky command... Maybe...",
         usage: "-meme {subReddit}",
         permission: "None",
-        aliases: "None",
+        aliases: ["None"],
         category: "Fun"
     },
     {
@@ -132,7 +132,7 @@ const commands = [
         description: "Mute someone if he is not shutting up.",
         usage: "-mute [user] [reason]",
         permission: "Administrator",
-        aliases: "None",
+        aliases: ["None"],
         category: "Moderation"
     },
     {
@@ -140,7 +140,7 @@ const commands = [
         description: "Check your or someone else's profile.",
         usage: "-profile {user}",
         permission: "None",
-        aliases: "pr, prof",
+        aliases: ["pr", "prof"],
         category: "Stats"
     },
     {
@@ -148,15 +148,23 @@ const commands = [
         description: "Are you lazy and don't want to add a role manually? Use this command :D",
         usage: "-rankUp [user] [roleName]",
         permission: "Administrator",
-        aliases: "None",
+        aliases: ["None"],
         category: "Admin"
+    },
+    {
+        name: "rps",
+        description: "Rock, Paper, Scissors... Who would win?",
+        usage: "-rps [rock/paper/scissors]",
+        permission: "None",
+        aliases: ["rockpaper", "rps", "rockps"],
+        category: "Fun"
     },
     {
         name: "say",
         description: "Want your bot to send a message? No? ok then...",
         usage: "-say [message]",
         permission: "Administrator",
-        aliases: "broadcast, bc",
+        aliases: ["broadcast", "bc"],
         category: "Admin"
     },
     {
@@ -164,7 +172,7 @@ const commands = [
         description: "Setup the guild's channel, etc.",
         usage: "-setup [argument 1] [argument 2] || -setup help",
         permission: "Administrator",
-        aliases: "settings, stp, stt",
+        aliases: ["settings", "stp", "stt"],
         category: "Admin"
     },
     {
@@ -172,7 +180,7 @@ const commands = [
         description: "Mute someone for the assigned period of time.",
         usage: "-tempMute [user] [time] [reason]",
         permission: "Manage Messages",
-        aliases: "tempm, tmute, tm",
+        aliases: ["tempm", "tmute", "tm"],
         category: "Moderation"
     },
     {
@@ -180,7 +188,7 @@ const commands = [
         description: "Wanna hear some music? Then what are you waiting for.",
         usage: "-play [song/url]",
         permission: "None",
-        aliases: "p, pl",
+        aliases: ["p", "pl"],
         category: "Music"
     },
     {
@@ -188,7 +196,7 @@ const commands = [
         description: "Get a list of the songs in the queue",
         usage: "-queue",
         permission: "None",
-        aliases: "q",
+        aliases: ["q"],
         category: "Music"
     },
     {
@@ -196,7 +204,7 @@ const commands = [
         description: "You don't like the song? Skip it then",
         usage: "-skip",
         permission: "None",
-        aliases: "s, skp",
+        aliases: ["s", "skp"],
         category: "Music"
     },
     {
@@ -204,7 +212,7 @@ const commands = [
         description: "If you use this command you're lazy...",
         usage: "-translate [lang] [message]",
         permission: "None",
-        aliases: "trans",
+        aliases: ["trans"],
         category: "Misc"
     },
     {
@@ -212,7 +220,7 @@ const commands = [
         description: "Is someone banned and you want to unban him? Why you banned him then?",
         usage: "-unban [user id]",
         permission: "Ban Members",
-        aliases: "None",
+        aliases: ["None"],
         category: "Moderation"
     },
     {
@@ -220,7 +228,7 @@ const commands = [
         description: "Do I really need to explain what this does? I'm tired of writing.",
         usage: "-unMute [user]",
         permission: "Manage Messages",
-        aliases: "umute, unm",
+        aliases: ["umute", "unm"],
         category: "Moderation"
     },
     {
@@ -228,7 +236,7 @@ const commands = [
         description: "Check the definition of a word...",
         usage: "-urbanDictionary [word]",
         permission: "None",
-        aliases: "def, define, ud, urbandef, urband, udef",
+        aliases: ["def, define, ud, urbandef, urband, udef"],
         category: "Fun"
     },
     {
@@ -236,7 +244,7 @@ const commands = [
         description: "OMG! the music is to loud, TURN IT DOWN!!!",
         usage: "-volume [number]",
         permission: "None",
-        aliases: "vol",
+        aliases: ["vol"],
         category: "Music"
     },
     {
@@ -244,7 +252,7 @@ const commands = [
         description: "Warn a user because why not...",
         usage: "-warn [user] [reason]",
         permission: "Manage Messages",
-        aliases: "wn, w",
+        aliases: ["wn", "w"],
         category: "Moderation"
     },
     {
@@ -252,7 +260,7 @@ const commands = [
         description: "Check the weather of a city.",
         usage: "-weather city",
         permission: "None",
-        aliases: "climate, wea",
+        aliases: ["climate", "wea"],
         category: "Misc"
     }
 ];
@@ -269,7 +277,7 @@ function getCommands(category) {
         html += `<b>Description: </b>${value.description}<br>`;
         html += `<b>Usage: </b>${value.usage}<br>`;
         html += `<b>Permission: </b>${value.permission}<br>`;
-        html += `<b>Aliases: </b>${value.aliases}<br>`;
+        html += `<b>Aliases: </b>${value.aliases.join(' ')}<br>`;
         html += `<b>Category: </b>${value.category}<br>`;
         html += '</pre></div></div>'
     });
