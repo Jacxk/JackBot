@@ -108,12 +108,12 @@ function getFortniteStats(channel, platform, username, mode) {
                 duoEmbed.addField(duoWins.label, duoWins.displayValue, true);
                 duoEmbed.addField(duoScore.label, duoScore.displayValue, true);
                 duoEmbed.addField(duoKills.label, duoKills.displayValue, true);
-                soloEmbed.addField('Deaths', duoDeaths, true);
+                duoEmbed.addField('Deaths', duoDeaths, true);
                 duoEmbed.addField(duoTop5.label, duoTop5.displayValue, true);
                 duoEmbed.addField(duoTop10.label, duoTop10.displayValue, true);
                 duoEmbed.addField(duoTop25.label, duoTop25.displayValue, true);
                 duoEmbed.addField(duoKpg.label, duoKpg.displayValue, true);
-                soloEmbed.addField(duoKd.label, duoKd.displayValue, true);
+                duoEmbed.addField(duoKd.label, duoKd.displayValue, true);
 
                 channel.send(duoEmbed);
                 break;
@@ -137,12 +137,12 @@ function getFortniteStats(channel, platform, username, mode) {
                 squadEmbed.addField(squadWins.label, squadWins.displayValue, true);
                 squadEmbed.addField(squadScore.label, squadScore.displayValue, true);
                 squadEmbed.addField(squadKills.label, squadKills.displayValue, true);
-                soloEmbed.addField('Deaths', squadDeaths, true);
+                squadEmbed.addField('Deaths', squadDeaths, true);
                 squadEmbed.addField(squadTop5.label, squadTop5.displayValue, true);
                 squadEmbed.addField(squadTop10.label, squadTop10.displayValue, true);
                 squadEmbed.addField(squadTop25.label, squadTop25.displayValue, true);
                 squadEmbed.addField(squadKpg.label, squadKpg.displayValue, true);
-                soloEmbed.addField(squadKd.label, squadKd.displayValue, true);
+                squadEmbed.addField(squadKd.label, squadKd.displayValue, true);
 
                 channel.send(squadEmbed);
                 break;
