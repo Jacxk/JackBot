@@ -5,3 +5,4 @@ tokenConfig.json
 node_modules/
 mysqlConfig.json
 website/other/botstats.json
+php/

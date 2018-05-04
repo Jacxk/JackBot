@@ -44,7 +44,7 @@ function getFortniteStats(channel, platform, username, mode) {
             let top25 = jsonData.lifeTimeStats[5];
             let score = jsonData.lifeTimeStats[6];
             let kd = jsonData.lifeTimeStats[11];
-            let deaths = Math.floor(parseInt(kills) / parseFloat(kd)).toString();
+            let deaths = Math.floor(parseInt(kills.value) / parseFloat(kd.value)).toString();
 
             lifeTimeEmbed.addField(wins.key, wins.value, true);
             lifeTimeEmbed.addField(kills.key, kills.value, true);
@@ -70,7 +70,7 @@ function getFortniteStats(channel, platform, username, mode) {
                 let soloScore = soloData.score;
                 let soloKills = soloData.kills;
                 let soloKd = soloData.kd;
-                let soloDeaths = Math.floor(parseInt(soloKills) / parseFloat(soloKd)).toString();
+                let soloDeaths = Math.floor(parseInt(soloKills.displayValue) / parseFloat(soloKd.displayValue)).toString();
                 let soloTop5 = soloData.top5;
                 let soloTop10 = soloData.top10;
                 let soloTop25 = soloData.top25;
@@ -99,7 +99,7 @@ function getFortniteStats(channel, platform, username, mode) {
                 let duoScore = duoData.score;
                 let duoKills = duoData.kills;
                 let duoKd = duoData.kd;
-                let duoDeaths = Math.floor(parseInt(duoKills) / parseFloat(duoKd)).toString();
+                let duoDeaths = Math.floor(parseInt(duoKills.displayValue) / parseFloat(duoKd.displayValue)).toString();
                 let duoTop5 = duoData.top5;
                 let duoTop10 = duoData.top10;
                 let duoTop25 = duoData.top25;
@@ -128,7 +128,7 @@ function getFortniteStats(channel, platform, username, mode) {
                 let squadScore = squadData.score;
                 let squadKills = squadData.kills;
                 let squadKd = squadKd.kd;
-                let squadDeaths = Math.floor(parseInt(squadKills) / parseFloat(squadKd)).toString();
+                let squadDeaths = Math.floor(parseInt(squadKills.displayValue) / parseFloat(squadKd.displayValue)).toString();
                 let squadTop5 = squadData.top5;
                 let squadTop10 = squadData.top10;
                 let squadTop25 = squadData.top25;
