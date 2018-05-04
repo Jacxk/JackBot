@@ -145,14 +145,8 @@ function getFortniteStats(channel, platform, username, mode) {
 
                 channel.send(squadEmbed);
                 break;
-            case "all":
-                channel.send(lifeTimeEmbed);
-                channel.send(soloEmbed);
-                channel.send(duoEmbed);
-                channel.send(squadEmbed);
-                break;
             default:
-                return messageUtil.sendError(channel, "Valid GameModes are [SOLO, DUO, SQUAD, ALL]");
+                return messageUtil.sendError(channel, "Valid GameModes are [SOLO, DUO, SQUAD]");
         }
     })
 }
