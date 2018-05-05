@@ -277,7 +277,7 @@ function getCommands(category) {
         html += `<b>Description: </b>${value.description}<br>`;
         html += `<b>Usage: </b>${value.usage}<br>`;
         html += `<b>Permission: </b>${value.permission}<br>`;
-        html += `<b>Aliases: </b>${value.aliases.join(' ')}<br>`;
+        html += `<b>Aliases: </b>${value.aliases.join(', ')}<br>`;
         html += `<b>Category: </b>${value.category}<br>`;
         html += '</pre></div></div>'
     });

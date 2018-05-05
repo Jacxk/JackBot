@@ -29,7 +29,8 @@ bot.on('ready', () => {
     setInterval(() => {
         let gameStatus = config.games;
         let game = gameStatus[Math.floor(Math.random() * gameStatus.length)];
-        bot.user.setActivity(game.replace('%randomUser%', bot.users.random().username), {type: "WATCHING"}).catch(err => console.log(err));
+        //bot.user.setActivity(game.replace('%randomUser%', bot.users.random().username), {type: "WATCHING"}).catch(err => console.log(err));
+        bot.user.setActivity("http://www.jackbot.pw/", {type: "WATCHING"}).catch(err => console.log(err));
         console.log('game changed to ' + game);
     }, 60 * 60000);
     bot.user.setStatus("dnd").catch(console.error);
