@@ -1,4 +1,12 @@
 {
+  "botToken": "",
+  "youtubeApiToken": "",
+  "database": {
+    "host": "localhost",
+    "user": "root",
+    "password": "",
+    "database": "JackBot"
+  },
   "fortune": [
     "no",
     "yes",

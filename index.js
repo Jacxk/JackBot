@@ -1,7 +1,6 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 const config = require('./config.json');
-//const tokenConfig = require('./tokenConfig.json');
 const messageUtil = require('./utilities/messageUtil.js');
 const mysqlUtil = require('./utilities/mysqlUtil.js');
 const website = require('./website.js');
@@ -13,8 +12,7 @@ let commandSize = 0;
 
 website.runWebsite(bot);
 
-//bot.login(tokenConfig.token).catch(err => console.log(err));
-bot.login(process.env.botToken).catch(err => console.log(err));
+bot.login(config.botToken).catch(err => console.log(err));
 
 bot.on('ready', () => {
     mysqlUtil.connect();
