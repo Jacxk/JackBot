@@ -64,7 +64,7 @@ module.exports.run = (message, args, bot) => {
             break;
     }
 
-    embed.setAuthor(message.author.username, message.author.avatarURL).addField('You Chose:', args[0], true)
+    embed.setAuthor(message.author.username, message.author.avatarURL).addField('You Chose:', args[1], true)
         .addField('I Choose:', rpsRandom, true).addField('Winner:', winner);
 
     message.channel.send(embed);
