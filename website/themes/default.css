@@ -165,7 +165,7 @@
     transition: 1s;
     display: none;
     position: absolute;
-    background-color: transparent;
+    background-color: #18191c;
     min-width: 160px;
     z-index: 1;
 }
@@ -220,4 +220,19 @@ button, button:focus {
 
 ::-webkit-scrollbar-thumb {
     background: #101013;
+}
+#goTopBtn {
+    transform: scale(0);
+    position: fixed;
+    bottom: 5%;
+    right: 5%;
+    font-size: 50px;
+    background-color: transparent;
+    color: gray;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#goTopBtn:hover {
+    color: #555;
 }
