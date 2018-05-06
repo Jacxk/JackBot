@@ -1,11 +1,18 @@
 {
   "botToken": "",
-  "youtubeApiToken": "",
+  "apiTokens" : {
+    "youtube": "",
+    "hypixel": "",
+    "fortnite": ""
+  },
   "database": {
     "host": "localhost",
     "user": "root",
     "password": "",
     "database": "JackBot"
+  },
+  "website": {
+    "port": 8080
   },
   "fortune": [
     "no",

@@ -1,7 +1,7 @@
 const ytdl = require('ytdl-core');
 const YouTubeAPI = require('simple-youtube-api');
 const config = require('../config.json');
-const youtube = new YouTubeAPI(config.youtubeApiToken);
+const youtube = new YouTubeAPI(config.apiTokens.youtube);
 const Discord = require('discord.js');
 const messageUtil = require('../utilities/messageUtil.js');
 
