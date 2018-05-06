@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const request = require('request');
-const mysqlUtil = require('../utilities/mysqlUtil.js');
+const mysqlUtil = require('../../utilities/mysqlUtil.js');
 
 module.exports.run = (message, args) => {
     getHypixelData(args, message.channel, mysqlUtil.getPrefix(message.guild.id));

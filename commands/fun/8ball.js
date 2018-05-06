@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
-const config = require('../config.json');
-const messageUtil = require('../utilities/messageUtil.js');
+const config = require('../../config.json');
+const messageUtil = require('../../utilities/messageUtil.js');
 
 module.exports.run = (message, args) => {
     message.delete().catch(err => console.log(err));

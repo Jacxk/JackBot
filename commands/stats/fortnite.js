@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const messageUtil = require('../utilities/messageUtil.js');
+const messageUtil = require('../../utilities/messageUtil.js');
 const request = require('request');
 
 module.exports.run = (message, args) => {

@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const messageUtil = require('../utilities/messageUtil.js');
+const messageUtil = require('../../utilities/messageUtil.js');
 const rps = ["rock", "paper", "scissors"];
 
 module.exports.run = (message, args, bot) => {

@@ -1,6 +1,6 @@
-const mysqlUtil = require('../utilities/mysqlUtil.js');
-const messageUtil = require('../utilities/messageUtil.js');
-const joinLeaveThemes = require('../index.js').joinLeaveThemes;
+const mysqlUtil = require('../../utilities/mysqlUtil.js');
+const messageUtil = require('../../utilities/messageUtil.js');
+const joinLeaveThemes = require('../../index.js').joinLeaveThemes;
 
 const themes = [];
 joinLeaveThemes.forEach((value, key) => themes.push(key));

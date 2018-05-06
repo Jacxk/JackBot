@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const mysqlUtil = require('../utilities/mysqlUtil.js');
+const mysqlUtil = require('../../utilities/mysqlUtil.js');
 
 module.exports.run = (message, args, commandsCollection) => {
     helpMessages(message, args, commandsCollection);

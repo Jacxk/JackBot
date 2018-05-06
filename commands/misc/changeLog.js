@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const fs = require("fs");
-const messageUtil = require('../utilities/messageUtil.js');
+const messageUtil = require('../../utilities/messageUtil.js');
 const versions = new Discord.Collection();
 
 fs.readdir("./changeLog/", (err, files) => {

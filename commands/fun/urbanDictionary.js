@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const request = require('request');
-const messageUtil = require('../utilities/messageUtil.js');
+const messageUtil = require('../../utilities/messageUtil.js');
 
 module.exports.run = (message, args) => {
     let embed = new Discord.RichEmbed();
