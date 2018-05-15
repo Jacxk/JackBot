@@ -1,0 +1,36 @@
+{
+  "botToken": "",
+  "apiTokens" : {
+    "youtube": "",
+    "hypixel": "",
+    "fortnite": ""
+  },
+  "database": {
+    "host": "localhost",
+    "user": "root",
+    "password": "",
+    "database": "JackBot"
+  },
+  "website": {
+    "port": 8080
+  },
+  "fortune": [
+    "no",
+    "yes",
+    "maybe",
+    ":shrug: don't ask me",
+    "yeah boi",
+    "of course",
+    "nah",
+    "u rite"
+  ],
+  "games": [
+    "Memes",
+    "Fortnite",
+    "You",
+    "The Future with 8ball",
+    "The owner",
+    "%randomUser%",
+    "You dying"
+  ]
+}
