@@ -1,7 +1,6 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 const config = require('./config.json');
-//const tokenConfig = require('./tokenConfig.json');
 const messageUtil = require('./utilities/messageUtil.js');
 const mysqlUtil = require('./utilities/mysqlUtil.js');
 const website = require('./website.js');
@@ -13,8 +12,7 @@ let commandSize = 0;
 
 website.runWebsite(bot);
 
-//bot.login(tokenConfig.token).catch(err => console.log(err));
-bot.login(process.env.botToken).catch(err => console.log(err));
+bot.login(config.botToken).catch(err => console.log(err));
 
 bot.on('ready', () => {
     mysqlUtil.connect();
@@ -52,39 +50,28 @@ fs.readdir('./utilities/joinLeaveThemes/', (err, files) => {
     });
 });
 
-fs.readdir("./commands/", (error, files) => {
-    if (error) return console.log(error);
+loadCommands();
 
-    let commands = files.filter(file => file.split(".").pop() === 'js');
+function loadCommands(dir = "./commands/") {
+    fs.readdir(dir, (error, files) => {
+        if (error) return console.log(error);
 
-    commands.forEach((commandFile) => {
-        commandSize++;
+        files.forEach((file) => {
+            if (fs.lstatSync(dir + file).isDirectory()) {
+                loadCommands(dir + file + "/");
+                return;
+            }
 
-        let props = require(`./commands/${commandFile}`);
-        commandsCollection.set(props.command.name, props);
-        if (props.command.aliases) props.command.aliases.forEach(alias => {
-            if (commandsCollection.get(alias)) return console.log(`Conflict with alias: ${alias}`);
-            commandsCollection.set(alias, props)
+            commandSize++;
+            let props = require(`${dir}${file}`);
+            commandsCollection.set(props.command.name, props);
+            if (props.command.aliases) props.command.aliases.forEach(alias => {
+                if (commandsCollection.get(alias)) return console.log(`Conflict with alias: ${alias}`);
+                commandsCollection.set(alias, props)
+            });
         });
     });
-});
-
-fs.readdir("./commands/music/", (error, files) => {
-    if (error) return console.log(error);
-
-    let commands = files.filter(file => file.split(".").pop() === 'js');
-
-    commands.forEach((commandFile) => {
-        commandSize++;
-
-        let props = require(`./commands/music/${commandFile}`);
-        commandsCollection.set(props.command.name, props);
-        if (props.command.aliases) props.command.aliases.forEach(alias => {
-            if (commandsCollection.get(alias)) return console.log(`Conflict with alias: ${alias}`);
-            commandsCollection.set(alias, props)
-        });
-    });
-});
+}
 
 bot.on('guildMemberAdd', member => {
     const channelId = mysqlUtil.joinLeaveChannels.get(member.guild.id);

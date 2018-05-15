@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const mysql = require('mysql');
+const config = require('../config.json');
 const messageUtil = require('../utilities/messageUtil.js');
-//const sqlConfig = require('../mysqlConfig');
 const prefixes = module.exports.prefixeMap = new Map();
 const commandChannels = module.exports.commandChannelMap = new Map();
 const joinLeaveChannels = module.exports.joinLeaveChannels = new Map();
@@ -13,15 +13,10 @@ module.exports.connect = () => {
 };
 
 const connection = mysql.createConnection({
-    host: process.env.host,
-    user: process.env.user,
-    database: process.env.database,
-    password: process.env.password
-
-    /*host: sqlConfig.host,
-    user: sqlConfig.user,
-    database: sqlConfig.database,
-    password: sqlConfig.password*/
+    host: config.database.host,
+    user: config.database.user,
+    database: config.database.database,
+    password: config.database.password
 });
 
 const createTable = module.exports.createTable = () => {
