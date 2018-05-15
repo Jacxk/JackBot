@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
-const messageUtil = require('../utilities/messageUtil.js');
+const config = require('../../config.json');
+const messageUtil = require('../../utilities/messageUtil.js');
 const request = require('request');
 
 module.exports.run = (message, args) => {
@@ -17,7 +18,7 @@ function getFortniteStats(channel, platform, username, mode) {
         url: `https://api.fortnitetracker.com/v1/profile/${platform.toLowerCase()}/${username}`,
         headers: {
             'User-Agent': 'nodejs request',
-            'TRN-Api-Key': process.env.fortniteApiKey
+            'TRN-Api-Key': config.apiTokens.fortnite
         }
     };
     request(options, (err, resp, data) => {

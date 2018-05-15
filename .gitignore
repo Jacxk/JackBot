@@ -6,3 +6,5 @@ node_modules/
 mysqlConfig.json
 website/other/botstats.json
 php/
+config.json
+config.example.json

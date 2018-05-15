@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const messageUtil = require('../utilities/messageUtil.js');
+const messageUtil = require('../../utilities/messageUtil.js');
 const validUrl = require('valid-url');
 
 module.exports.run = (message, args) => {

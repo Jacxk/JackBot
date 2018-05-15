@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const mysqlUtil = require('../utilities/mysqlUtil.js');
+const mysqlUtil = require('../../utilities/mysqlUtil.js');
 
 module.exports.run = (message, args, commandsCollection) => {
     helpMessages(message, args, commandsCollection);
@@ -170,7 +170,7 @@ function helpMessages(message, args, commandsCollection) {
         return;
     }
     embed.setTitle('These are all the available commands')
-        .setDescription('Use -help [commandName] to get more information about the command')
+        .setDescription(`Use ${prefix}help [commandName] to get more information about the command`)
         .addField('Moderation Commands', moderation(prefix), true)
         .addField('Admin Commands', admins(prefix), true)
         .addField('Stats Commands', stats(prefix), true)

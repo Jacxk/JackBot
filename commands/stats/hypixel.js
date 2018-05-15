@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const request = require('request');
-const mysqlUtil = require('../utilities/mysqlUtil.js');
+const config = require('../../config.json');
+const mysqlUtil = require('../../utilities/mysqlUtil.js');
 
 module.exports.run = (message, args) => {
     getHypixelData(args, message.channel, mysqlUtil.getPrefix(message.guild.id));
@@ -8,7 +9,7 @@ module.exports.run = (message, args) => {
 
 function getHypixelData(args, channel, prefix) {
     let playerName = args[1];
-    request.get("https://api.hypixel.net/player?key=" + process.env.hypixelToken + "&name=" + playerName, function (err, res, data) {
+    request.get("https://api.hypixel.net/player?key=" + config.apiTokens.hypixel + "&name=" + playerName, function (err, res, data) {
         if (err) return console.log(err);
         let embed = new Discord.RichEmbed();
         if (args.length !== 3 || args.length === 2 && args[1].toLowerCase() === "help") {

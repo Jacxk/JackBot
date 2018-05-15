@@ -1,4 +1,4 @@
-const messageUtil = require('../utilities/messageUtil.js');
+const messageUtil = require('../../utilities/messageUtil.js');
 
 module.exports.run = (message) => {
     message.delete().catch(err => messageUtil.sendError(message.channel, err.toString()));

@@ -1,4 +1,5 @@
-const PORT = process.env.PORT || 8080;
+const config = require(__dirname + '/config.json');
+const PORT = config.website.port;
 const express = require('express');
 const app = express();
 
