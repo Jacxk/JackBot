@@ -21,12 +21,4 @@ module.exports.runWebsite = () => {
         console.log('Your app is listening on port ' + listener.address().port);
     });
 
-    ping();
 };
-
-function ping() {
-    const http = require('http');
-    setInterval(() => {
-        http.get("http://jackbot-djs.herokuapp.com");
-    }, 300000);
-}
