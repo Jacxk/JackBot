@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "bufferutil": "^3.0.3",
+    "canvas-prebuilt": "^1.6.5-prerelease.1",
     "convert-units": "^2.3.4",
     "discord.js": "^11.3.2",
     "express": "^4.16.3",

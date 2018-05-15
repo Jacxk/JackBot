@@ -16,14 +16,6 @@ module.exports.runWebsite = () => {
         response.sendFile(__dirname + '/website/other/botstats.json');
     });
 
-    app.get("/", (request, response) => {
-        response.sendFile(__dirname + '/website/index.html');
-    });
-
-    app.use((req, res) => {
-        res.status(404).sendFile(__dirname + '/website/404.html');
-    });
-
     const listener = app.listen(PORT, () => {
         console.log('Your app is listening on port ' + listener.address().port);
     });
