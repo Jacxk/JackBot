@@ -134,7 +134,7 @@ function getBotStats(status) {
         status: !status ? 'Online' : status
     };
 
-    fs.writeFile('./website/other/botstats.json', JSON.stringify(stats, null, 2), null, err => {
+    fs.writeFile('./botstats.json', JSON.stringify(stats, null, 2), null, err => {
         if (err) console.log(err)
     });
 }

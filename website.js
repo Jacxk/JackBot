@@ -14,7 +14,7 @@ module.exports.runWebsite = () => {
     });
 
     app.get("/botstats", (request, response) => {
-        response.sendFile(__dirname + '/website/other/botstats.json');
+        response.sendFile(__dirname + '/botstats.json');
     });
 
     const listener = app.listen(PORT, () => {

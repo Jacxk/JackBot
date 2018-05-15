@@ -1,10 +1,5 @@
-node
 package-lock.json
-tokenConfig.json
 .idea/
 node_modules/
-mysqlConfig.json
-website/other/botstats.json
-php/
+botstats.json
 config.json
-config.example.json
