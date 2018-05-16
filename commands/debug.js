@@ -1,8 +1,4 @@
 const joinLeaveThemes = require("../index.js").joinLeaveThemes;
-const Canvas = require('canvas-prebuilt'),
-    Image = Canvas.Image,
-    canvas = new Canvas(200, 200),
-    ctx = canvas.getContext('2d');
 
 module.exports.run = (message, args, a, bot) => {
 

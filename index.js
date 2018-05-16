@@ -15,25 +15,17 @@ website.runWebsite(bot);
 bot.login(config.botToken).catch(err => console.log(err));
 
 bot.on('ready', () => {
-    mysqlUtil.connect();
     bot.guilds.forEach(guild => {
-        mysqlUtil.insertToTable(guild);
+        mysqlUtil.createGuild(guild);
         mysqlUtil.setPrefix(guild);
         mysqlUtil.setCommandChannel(guild);
         mysqlUtil.getJoinLeaveChannel(guild.id);
         mysqlUtil.getJoinThemeSQL(guild);
         mysqlUtil.getIncidentsChannel(guild.id);
     });
-    setInterval(() => {
-        let gameStatus = config.games;
-        let game = gameStatus[Math.floor(Math.random() * gameStatus.length)];
-        //bot.user.setActivity(game.replace('%randomUser%', bot.users.random().username), {type: "WATCHING"}).catch(err => console.log(err));
-        bot.user.setActivity("http://www.jackbot.pw/", {type: "WATCHING"}).catch(err => console.log(err));
-        console.log('game changed to ' + game);
-    }, 60 * 60000);
-    bot.user.setStatus("dnd").catch(console.error);
-    console.log('bot ready');
+    setGame();
     getBotStats();
+    console.log(`${bot.user.username} is ready in ${bot.guilds.size} guilds and ${bot.users.size} members!`);
 });
 
 bot.on('disconnect', () => getBotStats('Offline'));
@@ -99,6 +91,14 @@ bot.on('channelCreate', channel => {
     muteUtils.createMutedRole(channel.guild, channel, role, false);
 });
 
+bot.on('guildCreate', guild => {
+    mysqlUtil.createGuild(guild);
+});
+
+bot.on('guildDelete', guild => {
+    mysqlUtil.deleteGuild(guild);
+});
+
 bot.on('message', message => {
     if (message.author.bot) return;
     if (message.channel.type === "dm") return;
@@ -117,14 +117,25 @@ bot.on('message', message => {
 
     const command = commandsCollection.get(args[0].toLowerCase());
     if (command) {
-        if (message.author.id !== "266315409735548928" && !command.command.enabled)
-            return messageUtil.commandDisabled(message);
+        if (message.author.id !== "266315409735548928" && !command.command.enabled) return messageUtil.commandDisabled(message);
         if (message.author.id !== "266315409735548928" && command.command.permission !== 'none' && !message.member.hasPermission(command.command.permission))
             return messageUtil.noPermissionMessage(message);
         command.run(message, args, commandsCollection, bot);
     }
 
 });
+
+function setGame() {
+    const set = () => {
+        let gameStatus = config.games;
+        let game = gameStatus[Math.floor(Math.random() * gameStatus.length)];
+        //bot.user.setActivity(game.replace('%randomUser%', bot.users.random().username), {type: "WATCHING"}).catch(err => console.log(err));
+        bot.user.setActivity("http://www.jackbot.pw/", {type: "WATCHING"}).catch(err => console.log(err));
+    };
+    set();
+    setInterval(() => set(), 60 * 60000);
+    bot.user.setStatus("dnd").catch(console.error);
+}
 
 function getBotStats(status) {
     const stats = {

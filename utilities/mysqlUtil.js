@@ -8,10 +8,6 @@ const joinLeaveChannels = module.exports.joinLeaveChannels = new Map();
 const incidentsChannels = module.exports.incidentsChannels = new Map();
 const themeCollection = module.exports.themeCollection = new Map();
 
-module.exports.connect = () => {
-    createTable();
-};
-
 const connection = mysql.createConnection({
     host: config.database.host,
     user: config.database.user,
@@ -19,24 +15,15 @@ const connection = mysql.createConnection({
     password: config.database.password
 });
 
-const createTable = module.exports.createTable = () => {
-    const statement = 'CREATE TABLE IF NOT EXISTS GuildSettings (ID int NOT NULL AUTO_INCREMENT, GuildId text, ' +
-        'GuildName text, Prefix text, CommandChannel text, IncidentsChannel text, JoinLeaveChannel text, MemesChannel text,' +
-        'JoinTheme text, PRIMARY KEY (ID));';
-    connection.query(statement, (err, result) => {
-        if (err) return console.error(err);
-    });
-};
-
 const containsGuild = (guild) => new Promise((resolve, reject) => {
     const select = `SELECT * FROM GuildSettings WHERE GuildId = ?;`;
     connection.query(select, [guild], (err, result) => {
-        if (err) resolve(false);
+        if (err) reject(err.toString());
         else resolve(!!result[0]);
     });
 });
 
-module.exports.insertToTable = (guild) => {
+module.exports.createGuild = (guild) => {
     containsGuild(guild.id).then(boolean => {
         if (boolean) return;
         const select = 'INSERT INTO GuildSettings (GuildId,GuildName,Prefix,CommandChannel,IncidentsChannel,JoinLeaveChannel,' +
@@ -55,7 +42,7 @@ module.exports.getJoinLeaveChannel = (guildID) => {
 
         connection.query(select, [guildID], (err, result) => {
             if (err) return console.error(err);
-            joinLeaveChannels.set(guildID, result[0].JoinLeaveChannel)
+            joinLeaveChannels.set(guildID, result[0]["JoinLeaveChannel"])
         });
     }).catch(err => console.error(err));
 };
@@ -183,7 +170,8 @@ module.exports.setJoinTheme = (channel, guild, theme) => {
 
             themeCollection.set(guild.id, theme);
             channel.send(embed.setColor("GOLD").setTitle('JoinLeave Theme Changed')
-                .setDescription(`You have successfully changed the JoinLeave theme to theme **${theme}**`))
+                .setDescription(`You have successfully changed the JoinLeave theme to theme **${theme}**`)
+                .setImage(`https://jackbot.pw/images/themes_examples/${theme}.jpg`))
                 .then(msg => msg.delete(20 * 1000));
         });
     }).catch(err => console.error(err));
