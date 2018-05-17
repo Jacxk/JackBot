@@ -2,6 +2,7 @@
 
 A discord bot with miscellaneous features.
 For more informations show our [Website](www.jackbot.pw).
+If you want to steal my then just follow the setup. I recommend it for people who wants to test thigs out and if you are going to add new features to it and send a pull request.
 
 ### Setup
 
@@ -16,5 +17,12 @@ For more informations show our [Website](www.jackbot.pw).
 WIP
 
 ### Note
+
+You need a lot of api keys to get the bot working:
+* Fortnite: https://fortnitetracker.com/site-api
+* Google: https://console.developers.google.com/
+* Hypixel: https://api.hypixel.net/
+
+You also need a MySQL database.
 
 The Readme is WIP (work in progress)!
