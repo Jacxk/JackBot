@@ -25,14 +25,28 @@ const containsGuild = (guild) => new Promise((resolve, reject) => {
 
 module.exports.createGuild = (guild) => {
     containsGuild(guild.id).then(boolean => {
-        if (boolean) return;
+        if (!boolean) return;
         const select = 'INSERT INTO GuildSettings (GuildId,GuildName,Prefix,CommandChannel,IncidentsChannel,JoinLeaveChannel,' +
             'MemesChannel,JoinTheme) VALUES (?,?,?,?,?,?,?,?);';
-        connection.query(select, [guild.id, guild.name, '-', 'ALL', 'None', 'None', 'None', 'default'], (err, result) => {
+        connection.query(select, [guild.id, guild.name, '-', 'ALL', 'None', 'None', 'None', 'default'], (err) => {
             if (err) return console.error(err);
         });
     });
+};
 
+module.exports.deleteGuild = (guild) => {
+    containsGuild(guild.id).then(boolean => {
+        if (!boolean) return;
+        const select = 'DELETE FROM GuildSettings WHERE GuildId = ?;';
+        connection.query(select, [guild.id], (err) => {
+            if (err) return console.error(err);
+            prefixes.delete(guild.id);
+            commandChannels.delete(guild.id);
+            joinLeaveChannels.delete(guild.id);
+            incidentsChannels.delete(guild.id);
+            themeCollection.delete(guild.id);
+        });
+    });
 };
 
 module.exports.getJoinLeaveChannel = (guildID) => {
@@ -53,7 +67,7 @@ module.exports.setJoinLeaveChannel = (channel, guild, channelID) => {
         if (!boolean) return;
         const update = `UPDATE GuildSettings SET JoinLeaveChannel = ?, GuildName = ? WHERE GuildId = ?;`;
 
-        connection.query(update, [channelID, guild.name, guild.id], (err, result) => {
+        connection.query(update, [channelID, guild.name, guild.id], (err) => {
             if (err) return console.error(err);
             joinLeaveChannels.set(guild.id, channelID);
             channel.send(embed.setColor("GOLD").setTitle('JoinLeave Channel Changed')
@@ -69,7 +83,7 @@ module.exports.setIncidentsChannel = (channel, guild, channelID) => {
         if (!boolean) return;
         const update = `UPDATE GuildSettings SET IncidentsChannel = ?, GuildName = ? WHERE GuildId = ?;`;
 
-        connection.query(update, [channelID, guild.name, guild.id], (err, result) => {
+        connection.query(update, [channelID, guild.name, guild.id], (err,) => {
             if (err) return console.error(err);
             incidentsChannels.set(guild.id, channelID);
             channel.send(embed.setColor("GOLD").setTitle('Incidents Channel Changed')
@@ -97,7 +111,7 @@ module.exports.changePrefix = (channel, guild, prefix) => {
     containsGuild(guild.id).then(boolean => {
         if (!boolean) return;
 
-        connection.query(update, [prefix, guild.name, guild.id], (err, result) => {
+        connection.query(update, [prefix, guild.name, guild.id], (err) => {
             if (err) return messageUtil.sendError(channel, 'Update Error: ' + err.toString());
 
             prefixes.set(guild.id, prefix);
@@ -114,7 +128,7 @@ module.exports.changeCommandChannel = (channel, guild, ch) => {
 
     containsGuild(guild.id).then(boolean => {
         if (!boolean) return;
-        connection.query(update, [ch.id ? ch.id : ch, guild.name, guild.id], (err, result) => {
+        connection.query(update, [ch.id ? ch.id : ch, guild.name, guild.id], (err) => {
             console.log('Updating CommandChannel of ' + guild.id);
             if (err) return messageUtil.sendError(channel, 'Update Error: ' + err.toString());
             commandChannels.set(guild.id, ch.id ? ch.id : ch);
@@ -165,7 +179,7 @@ module.exports.setJoinTheme = (channel, guild, theme) => {
         if (!boolean) return;
         const update = `UPDATE GuildSettings SET JoinTheme = ?, GuildName = ? WHERE GuildId = ?;`;
 
-        connection.query(update, [theme, guild.name, guild.id], (err, result) => {
+        connection.query(update, [theme, guild.name, guild.id], (err) => {
             if (err) return console.error(err);
 
             themeCollection.set(guild.id, theme);

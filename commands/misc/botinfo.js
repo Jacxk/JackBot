@@ -11,6 +11,7 @@ module.exports.run = (message, args, a, bot) => {
 
     embed.addField('My Uptime', '🕙 ' + millisToTimeString(bot.uptime), true);
     embed.addField('I\'m Watching', '👀 ' + bot.users.filter(f => !f.bot).size + ' members', true);
+    embed.setTimestamp();
 
     message.channel.send(embed);
 };

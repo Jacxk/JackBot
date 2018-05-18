@@ -25,12 +25,19 @@ bot.on('ready', () => {
     });
     setGame();
     getBotStats();
+    loadCommands();
     console.log(`${bot.user.username} is ready in ${bot.guilds.size} guilds and ${bot.users.size} members!`);
 });
 
 bot.on('disconnect', () => getBotStats('Offline'));
-bot.on('guildCreate', () => getBotStats());
-bot.on('guildDelete', () => getBotStats());
+bot.on('guildCreate', () => {
+    mysqlUtil.createGuild(guild);
+    getBotStats()
+});
+bot.on('guildDelete', () => {
+    mysqlUtil.deleteGuild(guild);
+    getBotStats()
+});
 
 fs.readdir('./utilities/joinLeaveThemes/', (err, files) => {
     if (err) return console.log(err);
@@ -43,9 +50,7 @@ fs.readdir('./utilities/joinLeaveThemes/', (err, files) => {
     });
 });
 
-loadCommands();
-
-function loadCommands(dir = "./commands/") {
+const loadCommands = module.exports.loadCommands = (dir = "./commands/") => {
     fs.readdir(dir, (error, files) => {
         if (error) return console.log(error);
 
@@ -56,6 +61,9 @@ function loadCommands(dir = "./commands/") {
             }
 
             commandSize++;
+
+            delete require.cache[require.resolve(`${dir}${file}`)];
+
             let props = require(`${dir}${file}`);
             commandsCollection.set(props.command.name, props);
             if (props.command.aliases) props.command.aliases.forEach(alias => {
@@ -64,7 +72,7 @@ function loadCommands(dir = "./commands/") {
             });
         });
     });
-}
+};
 
 bot.on('guildMemberAdd', member => {
     const channelId = mysqlUtil.joinLeaveChannels.get(member.guild.id);
@@ -89,14 +97,6 @@ bot.on('channelCreate', channel => {
     let muteUtils = require('./utilities/muteUtils');
     let role = channel.guild.roles.find("name", "Muted");
     muteUtils.createMutedRole(channel.guild, channel, role, false);
-});
-
-bot.on('guildCreate', guild => {
-    mysqlUtil.createGuild(guild);
-});
-
-bot.on('guildDelete', guild => {
-    mysqlUtil.deleteGuild(guild);
 });
 
 bot.on('message', message => {
