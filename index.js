@@ -30,11 +30,11 @@ bot.on('ready', () => {
 });
 
 bot.on('disconnect', () => getBotStats('Offline'));
-bot.on('guildCreate', () => {
+bot.on('guildCreate', (guild) => {
     mysqlUtil.createGuild(guild);
     getBotStats()
 });
-bot.on('guildDelete', () => {
+bot.on('guildDelete', (guild) => {
     mysqlUtil.deleteGuild(guild);
     getBotStats()
 });

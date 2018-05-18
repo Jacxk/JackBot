@@ -25,7 +25,7 @@ const containsGuild = (guild) => new Promise((resolve, reject) => {
 
 module.exports.createGuild = (guild) => {
     containsGuild(guild.id).then(boolean => {
-        if (!boolean) return;
+        if (boolean) return;
         const select = 'INSERT INTO GuildSettings (GuildId,GuildName,Prefix,CommandChannel,IncidentsChannel,JoinLeaveChannel,' +
             'MemesChannel,JoinTheme) VALUES (?,?,?,?,?,?,?,?);';
         connection.query(select, [guild.id, guild.name, '-', 'ALL', 'None', 'None', 'None', 'default'], (err) => {
