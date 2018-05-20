@@ -14,12 +14,12 @@ let commandSize = 0;
 bot.login(config.botToken).catch(err => console.log(err));
 
 bot.on('ready', () => {
-    //loadGuildInfo();
+    loadGuildInfo();
     setGame();
     getBotStats();
     website.runWebsite(bot);
     console.log(`${bot.user.username} is ready in ${bot.guilds.size} guilds, ${bot.users.size} members, and ${commandSize} commands!`);
-    //setInterval(() => loadGuildInfo(), ms('5m'))
+    setInterval(() => loadGuildInfo(), ms('5m'))
 });
 
 function loadGuildInfo() {
