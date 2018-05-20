@@ -14,12 +14,12 @@ let commandSize = 0;
 bot.login(config.botToken).catch(err => console.log(err));
 
 bot.on('ready', () => {
-    loadGuildInfo();
+    //loadGuildInfo();
     setGame();
     getBotStats();
     website.runWebsite(bot);
     console.log(`${bot.user.username} is ready in ${bot.guilds.size} guilds, ${bot.users.size} members, and ${commandSize} commands!`);
-    setInterval(() => loadGuildInfo(), ms('5m'))
+    //setInterval(() => loadGuildInfo(), ms('5m'))
 });
 
 function loadGuildInfo() {
@@ -110,10 +110,21 @@ bot.on('message', message => {
     if (message.author.bot) return;
     if (message.channel.type === "dm") return;
 
-    const prefix = message.channel.type !== "dm" ? mysqlUtil.getPrefix(message.guild.id) : '-';
+    let prefix = message.channel.type !== "dm" ? mysqlUtil.getPrefix(message.guild.id) : '-';
     let commandChannel = message.channel.type !== "dm" ? mysqlUtil.getCommandChannel(message.guild.id) : "ALL";
 
-    if (!message.content.startsWith(prefix) && message.channel.type !== "dm") return; //rankSystem(message.author.id);
+    if (!message.content.startsWith(prefix) && message.channel.type !== "dm") {
+        const botUser = message.mentions.members.first();
+
+        if (!botUser) return;
+        const args = message.content.split(' ');
+
+        if (args.length === 1) {
+            if (botUser.id === bot.user.id) return message.reply(`The prefix of this guild is: **${prefix}**`);
+        } else if (args.length > 1) prefix = `<@${botUser.id}> `;
+
+    }
+
     if (commandChannel !== 'ALL' && commandChannel !== undefined) {
         const channel = message.guild.channels.get(commandChannel);
         if (message.channel.id !== channel.id && !message.member.hasPermission("ADMINISTRATOR"))
@@ -121,8 +132,8 @@ bot.on('message', message => {
     }
 
     const args = message.content.substring(prefix.length).split(' ');
-
     const command = commandsCollection.get(args[0].toLowerCase());
+
     if (command) {
         if (message.author.id !== "266315409735548928" && !command.command.enabled) return messageUtil.commandDisabled(message);
         if (message.author.id !== "266315409735548928" && command.command.permission !== 'none' && !message.member.hasPermission(command.command.permission))
