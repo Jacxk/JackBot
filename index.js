@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const fs = require('fs');
+const ms = require('ms');
 const config = require('./config.json');
 const messageUtil = require('./utilities/messageUtil.js');
 const mysqlUtil = require('./utilities/mysqlUtil.js');
@@ -10,11 +11,19 @@ const commandsCollection = new Discord.Collection();
 const joinLeaveThemes = module.exports.joinLeaveThemes = new Discord.Collection();
 let commandSize = 0;
 
-website.runWebsite(bot);
-
 bot.login(config.botToken).catch(err => console.log(err));
 
 bot.on('ready', () => {
+    loadGuildInfo();
+    setGame();
+    getBotStats();
+    website.runWebsite(bot);
+    console.log(`${bot.user.username} is ready in ${bot.guilds.size} guilds, ${bot.users.size} members, and ${commandSize} commands!`);
+    setInterval(() => loadGuildInfo(), ms('5m'))
+});
+
+function loadGuildInfo() {
+    console.log('[%d:%d] Loading guild\'s information from the database', new Date().getHours(), new Date().getMinutes());
     bot.guilds.forEach(guild => {
         mysqlUtil.createGuild(guild);
         mysqlUtil.setPrefix(guild);
@@ -23,11 +32,7 @@ bot.on('ready', () => {
         mysqlUtil.getJoinThemeSQL(guild);
         mysqlUtil.getIncidentsChannel(guild.id);
     });
-    setGame();
-    getBotStats();
-    loadCommands();
-    console.log(`${bot.user.username} is ready in ${bot.guilds.size} guilds and ${bot.users.size} members!`);
-});
+}
 
 bot.on('disconnect', () => getBotStats('Offline'));
 bot.on('guildCreate', (guild) => {
@@ -60,12 +65,13 @@ const loadCommands = module.exports.loadCommands = (dir = "./commands/") => {
                 return;
             }
 
-            commandSize++;
-
             delete require.cache[require.resolve(`${dir}${file}`)];
 
             let props = require(`${dir}${file}`);
+
             commandsCollection.set(props.command.name, props);
+            commandSize++;
+
             if (props.command.aliases) props.command.aliases.forEach(alias => {
                 if (commandsCollection.get(alias)) return console.log(`Conflict with alias: ${alias}`);
                 commandsCollection.set(alias, props)
@@ -73,6 +79,7 @@ const loadCommands = module.exports.loadCommands = (dir = "./commands/") => {
         });
     });
 };
+loadCommands();
 
 bot.on('guildMemberAdd', member => {
     const channelId = mysqlUtil.joinLeaveChannels.get(member.guild.id);
@@ -130,7 +137,7 @@ function setGame() {
         let gameStatus = config.games;
         let game = gameStatus[Math.floor(Math.random() * gameStatus.length)];
         //bot.user.setActivity(game.replace('%randomUser%', bot.users.random().username), {type: "WATCHING"}).catch(err => console.log(err));
-        bot.user.setActivity("http://www.jackbot.pw/", {type: "WATCHING"}).catch(err => console.log(err));
+        bot.user.setActivity("https://jackbot.pw/", {type: "WATCHING"}).catch(err => console.log(err));
     };
     set();
     setInterval(() => set(), 60 * 60000);

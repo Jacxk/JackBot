@@ -8,12 +8,27 @@ const joinLeaveChannels = module.exports.joinLeaveChannels = new Map();
 const incidentsChannels = module.exports.incidentsChannels = new Map();
 const themeCollection = module.exports.themeCollection = new Map();
 
-const connection = mysql.createConnection({
+const connection = module.exports.createConnection = mysql.createConnection({
     host: config.database.host,
     user: config.database.user,
     database: config.database.database,
     password: config.database.password
 });
+
+const handleDisconnect = module.exports.handleDisconnect = () => {
+    connection.connect(function (err) {
+        if (err) {
+            console.log('error when connecting to db:', err);
+            setTimeout(handleDisconnect, 2000);
+        }
+    });
+
+    connection.on('error', function (err) {
+        console.log('db error', err);
+        if (err.code === 'PROTOCOL_CONNECTION_LOST') handleDisconnect();
+        else throw err;
+    });
+};
 
 const containsGuild = (guild) => new Promise((resolve, reject) => {
     const select = `SELECT * FROM GuildSettings WHERE GuildId = ?;`;
@@ -62,9 +77,10 @@ module.exports.getJoinLeaveChannel = (guildID) => {
 };
 
 module.exports.setJoinLeaveChannel = (channel, guild, channelID) => {
-    const embed = new Discord.RichEmbed();
     containsGuild(guild.id).then(boolean => {
         if (!boolean) return;
+
+        const embed = new Discord.RichEmbed();
         const update = `UPDATE GuildSettings SET JoinLeaveChannel = ?, GuildName = ? WHERE GuildId = ?;`;
 
         connection.query(update, [channelID, guild.name, guild.id], (err) => {
@@ -78,9 +94,10 @@ module.exports.setJoinLeaveChannel = (channel, guild, channelID) => {
 };
 
 module.exports.setIncidentsChannel = (channel, guild, channelID) => {
-    const embed = new Discord.RichEmbed();
     containsGuild(guild.id).then(boolean => {
         if (!boolean) return;
+
+        const embed = new Discord.RichEmbed();
         const update = `UPDATE GuildSettings SET IncidentsChannel = ?, GuildName = ? WHERE GuildId = ?;`;
 
         connection.query(update, [channelID, guild.name, guild.id], (err,) => {
@@ -106,10 +123,11 @@ module.exports.getIncidentsChannel = (guildID) => {
 };
 
 module.exports.changePrefix = (channel, guild, prefix) => {
-    const embed = new Discord.RichEmbed();
-    const update = `UPDATE GuildSettings SET Prefix = ?, GuildName = ? WHERE GuildId = ?;`;
     containsGuild(guild.id).then(boolean => {
         if (!boolean) return;
+
+        const embed = new Discord.RichEmbed();
+        const update = `UPDATE GuildSettings SET Prefix = ?, GuildName = ? WHERE GuildId = ?;`;
 
         connection.query(update, [prefix, guild.name, guild.id], (err) => {
             if (err) return messageUtil.sendError(channel, 'Update Error: ' + err.toString());
@@ -123,11 +141,12 @@ module.exports.changePrefix = (channel, guild, prefix) => {
 };
 
 module.exports.changeCommandChannel = (channel, guild, ch) => {
-    const embed = new Discord.RichEmbed();
-    const update = `UPDATE GuildSettings SET CommandChannel = ?, GuildName = ? WHERE GuildId = ?;`;
-
     containsGuild(guild.id).then(boolean => {
         if (!boolean) return;
+
+        const embed = new Discord.RichEmbed();
+        const update = `UPDATE GuildSettings SET CommandChannel = ?, GuildName = ? WHERE GuildId = ?;`;
+
         connection.query(update, [ch.id ? ch.id : ch, guild.name, guild.id], (err) => {
             console.log('Updating CommandChannel of ' + guild.id);
             if (err) return messageUtil.sendError(channel, 'Update Error: ' + err.toString());
@@ -174,9 +193,9 @@ module.exports.getJoinThemeSQL = (guild) => {
 };
 
 module.exports.setJoinTheme = (channel, guild, theme) => {
-    const embed = new Discord.RichEmbed();
     containsGuild(guild.id).then(boolean => {
         if (!boolean) return;
+        const embed = new Discord.RichEmbed();
         const update = `UPDATE GuildSettings SET JoinTheme = ?, GuildName = ? WHERE GuildId = ?;`;
 
         connection.query(update, [theme, guild.name, guild.id], (err) => {
@@ -202,3 +221,5 @@ module.exports.getCommandChannel = (guildId) => {
 module.exports.getJoinTheme = (guildId) => {
     return themeCollection.has(guildId) ? themeCollection.get(guildId) : 'default';
 };
+
+handleDisconnect();
