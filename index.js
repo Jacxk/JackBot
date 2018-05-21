@@ -19,10 +19,9 @@ bot.on('ready', () => {
     getBotStats();
     website.runWebsite(bot);
     console.log(`${bot.user.username} is ready in ${bot.guilds.size} guilds, ${bot.users.size} members, and ${commandSize} commands!`);
-    setInterval(() => loadGuildInfo(), ms('5m'))
 });
 
-function loadGuildInfo() {
+const loadGuildInfo = module.exports.loadGuildInfo = () => {
     console.log('[%d:%d] Loading guild\'s information from the database', new Date().getHours(), new Date().getMinutes());
     bot.guilds.forEach(guild => {
         mysqlUtil.createGuild(guild);
@@ -32,7 +31,7 @@ function loadGuildInfo() {
         mysqlUtil.getJoinThemeSQL(guild);
         mysqlUtil.getIncidentsChannel(guild.id);
     });
-}
+};
 
 bot.on('disconnect', () => getBotStats('Offline'));
 bot.on('guildCreate', (guild) => {
@@ -114,15 +113,11 @@ bot.on('message', message => {
     let commandChannel = message.channel.type !== "dm" ? mysqlUtil.getCommandChannel(message.guild.id) : "ALL";
 
     if (!message.content.startsWith(prefix) && message.channel.type !== "dm") {
-        const botUser = message.mentions.members.first();
-
-        if (!botUser) return;
         const args = message.content.split(' ');
-
-        if (args.length === 1) {
-            if (botUser.id === bot.user.id) return message.reply(`The prefix of this guild is: **${prefix}**`);
-        } else if (args.length > 1) prefix = `<@${botUser.id}> `;
-
+        if (message.content.startsWith(bot.user.toString())) {
+            if (args.length > 1) prefix = bot.user.toString() + ' ';
+            else return message.reply(`The prefix of this guild is: **${prefix}**`);
+        } else return;
     }
 
     if (commandChannel !== 'ALL' && commandChannel !== undefined) {
