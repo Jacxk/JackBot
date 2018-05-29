@@ -34,5 +34,6 @@ module.exports.command = {
     name: 'botinfo',
     aliases: ['binfo', 'boti'],
     permission: "none",
+    description: "Show info about the bot, such as uptime.",
     enabled: true
 };

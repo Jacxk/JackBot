@@ -24,5 +24,6 @@ module.exports.command = {
     name: 'tempmute',
     aliases: ['tempm', 'tmute', 'tm'],
     permission: "MANAGE_MESSAGES",
+    description: "Mute someone for the assigned period of time.",
     enabled: true
 };

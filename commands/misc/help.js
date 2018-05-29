@@ -235,5 +235,6 @@ const getPermission = (commandsCollection, command) => {
 module.exports.command = {
     name: 'help',
     permission: "none",
+    description: "Get help about all the commands.",
     enabled: true
 };

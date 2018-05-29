@@ -157,5 +157,6 @@ module.exports.command = {
     name: 'fortnite',
     aliases: ["fortn", "fnite", "fnt"],
     permission: "none",
+    description: "Check your stats from Fortnite's database",
     enabled: true
 };

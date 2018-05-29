@@ -51,5 +51,6 @@ module.exports.command = {
     name: 'weather',
     aliases: ['climate', 'wea'],
     permission: "none",
+    description: "Check the weather of a city.",
     enabled: true
 };

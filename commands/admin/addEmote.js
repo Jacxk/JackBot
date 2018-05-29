@@ -36,5 +36,6 @@ module.exports.run = (message, args) => {
 module.exports.command = {
     name: 'addemote',
     permission: "ADMINISTRATOR",
+    description: "Add an emote to the guild.",
     enabled: true
 };

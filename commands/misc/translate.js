@@ -30,6 +30,7 @@ module.exports.command = {
     name: 'translate',
     aliases: ['trans'],
     permission: "none",
+    description: "If you use this command you're lazy...",
     enabled: true
 };
 

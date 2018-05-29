@@ -20,5 +20,6 @@ module.exports.run = (message, args) => {
 module.exports.command = {
     name: 'ban',
     permission: "ADMINISTRATOR",
+    description: "Ban a member that is not behaving.",
     enabled: true
 };

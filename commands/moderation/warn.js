@@ -32,5 +32,6 @@ module.exports.command = {
     name: 'warn',
     aliases: ["wn", "w"],
     permission: "MANAGE_MESSAGES",
+    description: "Warn a user because why not...",
     enabled: true
 };

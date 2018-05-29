@@ -36,5 +36,6 @@ module.exports.command = {
     name: 'kick',
     aliases: ["k", "kck"],
     permission: "KICK_MEMBERS",
+    description: "Kick a member if you are felling like you have to.",
     enabled: true
 };

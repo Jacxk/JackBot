@@ -22,5 +22,6 @@ module.exports.command = {
     name: 'unmute',
     aliases: ['umute', 'unm'],
     permission: "MANAGE_MESSAGES",
+    description: "Do I really need to explain what this does? I'm tired of writing.",
     enabled: true
 };

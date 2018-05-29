@@ -47,5 +47,6 @@ module.exports.command = {
     name: 'urbanDictionary',
     aliases: ['def', 'define', 'ud', 'urbandef', 'urband', 'udef'],
     permission: "none",
+    description: "Check the definition of a word...",
     enabled: true
 };

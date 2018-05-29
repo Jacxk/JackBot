@@ -23,5 +23,6 @@ module.exports.run = (message, args) => {
 module.exports.command = {
     name: 'mute',
     permission: "ADMINISTRATOR",
+    description: "Mute someone if he is not shutting up.",
     enabled: true
 };

@@ -36,5 +36,6 @@ function generateMeme(message, args) {
 module.exports.command = {
     name: 'meme',
     permission: "none",
+    description: "Want some memes? This is your lucky command... Maybe...",
     enabled: true
 };

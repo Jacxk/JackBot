@@ -8,5 +8,6 @@ module.exports.command = {
     name: 'queue',
     aliases: ['q'],
     permission: "none",
+    description: "Get a list of the songs in the queue",
     enabled: true
 };

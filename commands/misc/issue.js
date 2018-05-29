@@ -25,5 +25,6 @@ module.exports.command = {
     name: 'issue',
     aliases: [],
     permission: "Administrator",
+    description: "If the bot is broken or something use this to send me a message.",
     enabled: true
 };

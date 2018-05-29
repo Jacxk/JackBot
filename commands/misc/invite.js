@@ -9,5 +9,6 @@ module.exports.run = (message) => {
 module.exports.command = {
     name: 'invite',
     permission: "none",
+    description: "Get a message with a link to invite me :D",
     enabled: true
 };

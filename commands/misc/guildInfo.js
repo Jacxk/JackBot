@@ -19,5 +19,6 @@ module.exports.command = {
     name: 'guildinfo',
     aliases: ['ginfo', 'guildi'],
     permission: "none",
+    description: "Get information about the guild.",
     enabled: true
 };

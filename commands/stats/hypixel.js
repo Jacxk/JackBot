@@ -102,5 +102,6 @@ module.exports.command = {
     name: 'hypixel',
     aliases: ['hyp', 'hpxl'],
     permission: "none",
+    description: "Check your stats from Hypixel's database.",
     enabled: true
 };

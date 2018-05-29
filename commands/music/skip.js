@@ -8,5 +8,6 @@ module.exports.command = {
     name: 'skip',
     aliases: ['s', 'skp'],
     permission: "none",
+    description: "You don't like the song? Skip it then",
     enabled: true
 };

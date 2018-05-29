@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 const fs = require('fs');
-const ms = require('ms');
 const config = require('./config.json');
 const messageUtil = require('./utilities/messageUtil.js');
 const mysqlUtil = require('./utilities/mysqlUtil.js');
