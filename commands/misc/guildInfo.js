@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
+const mysqlUtil = require('../../utilities/mysqlUtil.js');
 
-module.exports.run = (message, args) => {
+module.exports.run = (message) => {
     let embed = new Discord.RichEmbed().setColor("GOLD");
     let guild = message.guild;
 
@@ -8,6 +9,7 @@ module.exports.run = (message, args) => {
     embed.setThumbnail(guild.iconURL);
     embed.addField('Guild Name', guild.name, true);
     embed.addField('Members', guild.memberCount, true);
+    embed.addField('Prefix', mysqlUtil.getPrefix(guild.id), true);
     embed.addField('Guild Owner', guild.owner.user.tag, true);
     embed.addField('Guild Region', guild.region, true);
     embed.addField('Creation Date', guild.createdAt.toDateString(), true);
