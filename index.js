@@ -22,6 +22,7 @@ bot.on('ready', () => {
 
 const loadGuildInfo = module.exports.loadGuildInfo = () => {
     console.log('[%d:%d] Loading guild\'s information from the database', new Date().getHours(), new Date().getMinutes());
+    mysqlUtil.loadConnection;
     bot.guilds.forEach(guild => {
         mysqlUtil.createGuild(guild);
         mysqlUtil.setPrefix(guild);
