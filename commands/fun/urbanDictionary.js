@@ -48,5 +48,6 @@ module.exports.command = {
     aliases: ['def', 'define', 'ud', 'urbandef', 'urband', 'udef'],
     permission: "none",
     description: "Check the definition of a word...",
+    usage: "urbandictionary [ word ] < page number >",
     enabled: true
 };

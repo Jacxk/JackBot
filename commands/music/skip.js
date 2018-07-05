@@ -9,5 +9,6 @@ module.exports.command = {
     aliases: ['s', 'skp'],
     permission: "none",
     description: "You don't like the song? Skip it then",
+    usage: "skip",
     enabled: true
 };

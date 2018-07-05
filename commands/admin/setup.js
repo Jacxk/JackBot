@@ -75,5 +75,5 @@ module.exports.command = {
     aliases: ['settings', 'stp', 'stt'],
     permission: "ADMINISTRATOR",
     description: "Setup the guild's channel, etc.",
-    enabled: true
+    enabled: false
 };

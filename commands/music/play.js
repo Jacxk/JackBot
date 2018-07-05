@@ -9,5 +9,6 @@ module.exports.command = {
     aliases: ['p', 'pl'],
     permission: "none",
     description: "Wanna hear some music? Then what are you waiting for.",
+    usage: "play [ url/song name ]",
     enabled: true
 };

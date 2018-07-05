@@ -15,7 +15,7 @@ const pool = module.exports.createConnection = mysql.createPool({
     password: config.database.password
 });
 
-module.exports.loadConnection = pool.getConnection((error, connection) => {
+pool.getConnection((error, connection) => {
 
     const containsGuild = (guild) => new Promise((resolve, reject) => {
         const select = `SELECT * FROM GuildSettings WHERE GuildId = ?;`;

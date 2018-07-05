@@ -31,5 +31,6 @@ module.exports.command = {
     name: "changelog",
     aliases: ["chlog", "clog"],
     permission: "none",
-    enabled: true
+    usage: "changelog < version >",
+    enabled: false
 };

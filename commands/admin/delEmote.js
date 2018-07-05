@@ -15,5 +15,6 @@ module.exports.command = {
     name: 'delemote',
     permission: "ADMINISTRATOR",
     description: "Remove a custom emote from the guild.",
+    usage: "delemote [ emote name ]",
     enabled: false
 };

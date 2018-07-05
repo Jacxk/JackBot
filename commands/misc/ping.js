@@ -19,5 +19,6 @@ module.exports.command = {
     name: 'ping',
     permission: "none",
     description: "PONG!! Wanna check my ping and response time??",
+    usage: "ping",
     enabled: true
 };

@@ -15,5 +15,5 @@ module.exports.command = {
     name: 'setprefix',
     aliases: ['sprefix', 'setp'],
     permission: "ADMINISTRATOR",
-    enabled: true
+    enabled: false
 };

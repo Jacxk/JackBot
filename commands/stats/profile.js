@@ -25,5 +25,6 @@ module.exports.command = {
     aliases: ['pr', 'prof'],
     permission: "none",
     description: "Check your or someone else's profile.",
+    usage: "profile < User >",
     enabled: true
 };

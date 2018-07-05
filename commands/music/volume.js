@@ -9,5 +9,6 @@ module.exports.command = {
     aliases: ['vol'],
     permission: "none",
     description: "OMG! the music is to loud, TURN IT DOWN!!!",
+    usage: "volume [ volume # ]",
     enabled: true
 };

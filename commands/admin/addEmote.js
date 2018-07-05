@@ -37,5 +37,6 @@ module.exports.command = {
     name: 'addemote',
     permission: "ADMINISTRATOR",
     description: "Add an emote to the guild.",
+    usage: "addemote [ image url ] [ name ]",
     enabled: true
 };

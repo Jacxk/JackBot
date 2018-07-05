@@ -24,5 +24,6 @@ module.exports.command = {
     name: 'mute',
     permission: "ADMINISTRATOR",
     description: "Mute someone if he is not shutting up.",
+    usage: "mute [ @user ] [ reason ]",
     enabled: true
 };

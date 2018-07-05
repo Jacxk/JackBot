@@ -18,5 +18,6 @@ module.exports.command = {
     name: 'unban',
     permission: "BAN_MEMBERS",
     description: "Is someone banned and you want to unban him? Why you banned him then?",
+    usage: "unban [ user id ]",
     enabled: false
 };

@@ -37,5 +37,6 @@ module.exports.command = {
     name: 'meme',
     permission: "none",
     description: "Want some memes? This is your lucky command... Maybe...",
+    usage: "meme < subreddit >",
     enabled: true
 };

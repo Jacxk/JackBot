@@ -21,5 +21,6 @@ module.exports.command = {
     name: 'ban',
     permission: "ADMINISTRATOR",
     description: "Ban a member that is not behaving.",
+    usage: "ban [ @user ]",
     enabled: true
 };

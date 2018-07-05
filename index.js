@@ -22,7 +22,6 @@ bot.on('ready', () => {
 
 const loadGuildInfo = module.exports.loadGuildInfo = () => {
     console.log('[%d:%d] Loading guild\'s information from the database', new Date().getHours(), new Date().getMinutes());
-    mysqlUtil.loadConnection;
     bot.guilds.forEach(guild => {
         mysqlUtil.createGuild(guild);
         mysqlUtil.setPrefix(guild);
@@ -107,10 +106,11 @@ bot.on('channelCreate', channel => {
 
 bot.on('message', message => {
     if (message.author.bot) return;
-    if (message.channel.type === "dm") return;
 
     let prefix = message.channel.type !== "dm" ? mysqlUtil.getPrefix(message.guild.id) : '-';
     let commandChannel = message.channel.type !== "dm" ? mysqlUtil.getCommandChannel(message.guild.id) : "ALL";
+
+    if (message.channel.type === "dm" && !message.content.startsWith(prefix + 'help')) return;
 
     if (!message.content.startsWith(prefix) && message.channel.type !== "dm") {
         const args = message.content.split(' ');

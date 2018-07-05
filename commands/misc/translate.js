@@ -31,6 +31,7 @@ module.exports.command = {
     aliases: ['trans'],
     permission: "none",
     description: "If you use this command you're lazy...",
+    usage: "translate [ language ] [ message ]",
     enabled: true
 };
 

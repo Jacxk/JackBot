@@ -75,5 +75,6 @@ module.exports.command = {
     aliases: ["rockpaper", "rps", "rockps"],
     permission: "none",
     description: "Rock, Paper, Scissors... Who would win?",
+    usage: "rps [ rock/paper/scissors ]",
     enabled: true
 };

@@ -10,5 +10,6 @@ module.exports.command = {
     name: 'invite',
     permission: "none",
     description: "Get a message with a link to invite me :D",
+    usage: "invite",
     enabled: true
 };

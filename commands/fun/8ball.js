@@ -20,5 +20,6 @@ module.exports.command = {
     name: '8ball',
     aliases: ['fortune'],
     permission: "none",
+    usage: "8ball [ question ]",
     enabled: true
 };

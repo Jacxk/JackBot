@@ -9,5 +9,6 @@ module.exports.command = {
     aliases: ['csong', 'playing', 'current'],
     permission: "none",
     description: "Displays the current song playing",
+    usage: "currentsong",
     enabled: true
 };

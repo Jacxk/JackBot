@@ -39,5 +39,6 @@ module.exports.command = {
     aliases: ['broadcast', 'bc'],
     permission: "ADMINISTRATOR",
     description: "Want your bot to send a message? No? ok then...",
+    usage: "say [ text ]",
     enabled: true
 };

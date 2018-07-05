@@ -24,5 +24,6 @@ module.exports.command = {
     name: 'rankup',
     permission: "ADMINISTRATOR",
     description: "Are you lazy and don't want to add a role manually? Use this command :D",
+    usage: "rankup [ @user ] [ role name ]",
     enabled: true
 };

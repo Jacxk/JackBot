@@ -32,5 +32,6 @@ module.exports.command = {
     aliases: ['cc', 'c'],
     permission: "MANAGE_MESSAGES",
     description: "Clear the specified number of messages.",
+    usage: "clear [ number of messages ]",
     enabled: true
 };
