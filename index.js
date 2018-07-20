@@ -117,6 +117,18 @@ bot.on('message', message => {
         if (message.content.startsWith(bot.user.toString())) {
             if (args.length > 1) prefix = bot.user.toString() + ' ';
             else return message.reply(`The prefix of this guild is: **${prefix}**`);
+        } else if (args.length === 1) {
+            const matches = commandsCollection.get('tictactoe').matches;
+            const match = matches.get(message.member);
+
+            if (!match) return;
+            message.delete(200);
+            if (isNaN(args[0])) return;
+            const move = parseInt(args[0]);
+            if (move < 1 || move > 9) return;
+
+            match.makeMove(message.member, move, message.channel, matches);
+            return;
         } else return;
     }
 
