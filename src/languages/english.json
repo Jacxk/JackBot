@@ -1,0 +1,245 @@
+{
+  "commands": {
+    "help": {
+      "description": "Get help about all available commands on the bot. If an argument is surrounded by {}, means that its required. Else if its surrounded by [], means that its optional",
+      "embed": {
+        "title": "Displaying help for the command: {0}",
+        "footer": "Total available commands: {0}"
+      }
+    },
+    "configure": {
+      "description": "Configure the bot how ever you want for this guild.",
+      "prefix_change": "{0} changed the prefix to {1}",
+      "music": {
+        "queue_limit_change": "{0} changed the queue limit to {1}",
+        "song_display_limit_change": "{0} changed the songs display limit to {1}",
+        "time_limit_change": "{0} changed the time limit to {1}"
+      }
+    },
+    "guildinfo": {
+      "description": "Get relevant information about this guild."
+    },
+    "kick": {
+      "description": "Kick a user for no reason if you want."
+    },
+    "ban": {
+      "description": "Ban a user permanently or for a period of time."
+    },
+    "mute": {
+      "description": "Mute a user permanently or for a period of time."
+    },
+    "history": {
+      "description": "Show the punishment history of a user. Ordered in chronological order.\nShows the latest punishments. You can also enter the amount of punishments to display.",
+      "embed": {
+        "title": "Punishment history!",
+        "description": "Showing punishment History of {0}",
+        "footer": "Documents found: {0}"
+      }
+    },
+    "clear": {
+      "description": "Clear messages from a text channel.",
+      "success": {
+        "no_user": "Cleared {0} messages.",
+        "from_user": "Cleared {0} messages from {1}"
+      }
+    },
+    "play": {
+      "description": "Play the music you want from YouTube either by typing the song name or using the song's url. Or play music from Soundcloud, Vimeo, or Mixer",
+      "select_song": {
+        "title": "Select a song by saying the number you want in the chat!",
+        "footer": "You have {0} seconds to choose a song. Type 'cancel' to cancel the selection.",
+        "cancelled": "The song selection has been canceled!"
+      },
+      "added_to_queue": "{0} has added {1} to the queue.",
+      "empty_queue": "The queue is now empty, play more songs to continue listening to music."
+    },
+    "skip": {
+      "description": "You don't like a song? Skip it then.",
+      "skipping": "Skipping song!"
+    },
+    "queue": {
+      "description": "Hmmm... wanna know what's the song list? :thinking:",
+      "songs": "{0} - {1}\nRequested by {2}"
+    },
+    "fortnite": {
+      "description": "Get your or someone else's fortnite statistics.",
+      "embed": {
+        "title": "Showing {0}'s {1} stats!",
+        "footer": "Powered By FortniteTracker.com"
+      }
+    },
+    "botinfo": {
+      "description": "Show information about the nobody knows",
+      "embed": {
+        "title": "Showing {0}'s information!",
+        "footer": "Made by {0}"
+      }
+    }
+  },
+  "errors": {
+    "disabled": {
+      "global": "This command has been disabled by the developer.",
+      "local": "This command is disabled in this guild."
+    },
+    "done_before": {
+      "is_muted": "This member has already been muted."
+    },
+    "not_found": {
+      "user": "Could not find any user argument. Please tag a user or enter the user's ID.",
+      "mute_role": "No Mute role found. Please go to the Official Website.",
+      "song": "No songs were found. Please try again!",
+      "player": "Music player not found on this guild!",
+      "punishments": {
+        "for_user": "No punishments found for the user {0}",
+        "for_type": "No punishments found with type {0}"
+      },
+      "data": "I could not find any data."
+    },
+    "invalid": {
+      "number": "You need to enter a valid number!",
+      "option": "{0} is not valid. Please enter one of these {1}",
+      "gamemode": {
+        "fortnite": "Gamemode {0} not valid. Valid GameModes are [SOLO, DUO, or SQUAD]"
+      }
+    },
+    "error_occurred": "An error has occurred!",
+    "no_perms": "You do not have the right permissions to do that.",
+    "needed": "Permission Needed: {0}",
+    "same_rank_or_higher": "You cannot do this to a user who has the same rank or higher.",
+    "self_punish": "You cannot do this to your self.",
+    "wrong_usage": "That's not how it's done. Let me show you!",
+    "times_up": "Time is up! You didn't chose any song.",
+    "queue_limit": "There is a limit of {0} songs, you cannot add more until a space is free.",
+    "user_not_voice_channel": "You must be in a voice channel to do this!",
+    "track_list": "There was an error trying to get a track list, please try again!",
+    "no_songs_queue": "There are no song in the queue!"
+  },
+  "success": {
+    "reload": {
+      "commands": "Commands reloaded successfully!",
+      "events": "Events reloaded successfully!"
+    }
+  },
+  "punishment": {
+    "dm_punishment": "You have been {0} because {1}",
+    "bans": {
+      "new_ban": "A user has been banned from the server.",
+      "user_banned": {
+        "user": "User banned",
+        "by": "Banned by",
+        "when": "Banned date",
+        "time": "Banned for",
+        "reason": "Ban Reason"
+      }
+    },
+    "kicks": {
+      "new_kick": "A user has been banned from the server.",
+      "user_kicked": {
+        "user": "User Kicked",
+        "by": "Kicked by",
+        "when": "Kick date",
+        "reason": "Kick Reason"
+      }
+    },
+    "warns": {
+      "new_warn": "User has been warned!",
+      "user_warned": {
+        "user": "User Warned",
+        "by": "Warned by",
+        "when": "Warn date",
+        "reason": "Warn Reason",
+        "total_warns": "Total Warns"
+      }
+    },
+    "reports": {
+      "new_report": "User has been reported!",
+      "user_reported": {
+        "user": "User Reported",
+        "by": "Reported by",
+        "when": "Report date",
+        "reason": "Report Reason",
+        "total_reports": "Total Reports"
+      }
+    },
+    "mute": {
+      "new_mute": "A user has been muted from the server.",
+      "user_muted": {
+        "user": "User Muted",
+        "by": "Muted by",
+        "when": "Muted date",
+        "time": "Muted for",
+        "reason": "Mute Reason"
+      }
+    },
+    "type": {
+      "p_type": "Punishment Type",
+      "perm": "Permanent",
+      "temp": "Temporal"
+    },
+    "by": "Punished by",
+    "date": "Punished Date",
+    "for": "Punished for"
+  },
+  "categories": {
+    "moderation": "Moderation",
+    "music": "Music",
+    "statistics": "Statistics",
+    "fun": "Fun",
+    "administration": "Administration",
+    "misc": "Misc",
+    "economy": "Economy"
+  },
+  "guild": {
+    "name": "Guild Name",
+    "owner": "Guild Owner",
+    "region": "Guild Region"
+  },
+  "date": {
+    "creation": "Creation Date"
+  },
+  "yes": "Yes",
+  "no": "No",
+  "description": "Description",
+  "enabled": "Enabled",
+  "aliases": "Aliases",
+  "category": "Category",
+  "usage": "Usage",
+  "example": "Example",
+  "permission_needed": "Permission Needed",
+  "humans": "Humans",
+  "bots": "Bots",
+  "total": "Total",
+  "prefix": "Prefix",
+  "reason": "Reason",
+  "kick": "Kick",
+  "ban": "Ban",
+  "warn": {
+    "past": "Warned",
+    "present": "Warn"
+  },
+  "report": {
+    "past": "Reported",
+    "present": "Report"
+  },
+  "now_playing": "Now Playing",
+  "now_playing_long": "Now Playing:\n\n{0} - {1}\nRequested by {2}",
+  "queue": "Queue List",
+  "welcome": "Welcome",
+  "goodbye": "Goodbye",
+  "current_name": "Current Name",
+  "current_level": "Current Level",
+  "level": "Level",
+  "playing": "Playing",
+  "roles": "Roles",
+  "join_date": "Join Date",
+  "bio": "Bio",
+  "empty_bio": "There is nothing to display.",
+  "my_name": "My Name",
+  "guilds_using": "Guilds Using Me",
+  "ping": "My Ping",
+  "reponse_time": "Response Time",
+  "uptime": "My Uptime",
+  "watching": "I'm watching",
+  "members": "Members",
+  "channels": "Channels"
+}
