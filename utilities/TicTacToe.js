@@ -1,6 +1,7 @@
 module.exports.TicTacToe = class TicTacToe {
 
     constructor(challenger, rival, map) {
+        this.map = map;
         this.challenger = challenger;
         this.rival = rival;
         this.playing = challenger;
@@ -14,7 +15,7 @@ module.exports.TicTacToe = class TicTacToe {
         ];
 
         this.time = 60;
-        const a = setInterval(() =>{
+        const a = setInterval(() => {
             if (this.time > 0) return this.time--;
             clearInterval(a);
             this.table_message.edit(`Time is up! The player did not play for one minute... Its a DRAW`);
@@ -22,6 +23,7 @@ module.exports.TicTacToe = class TicTacToe {
             map.delete(this.challenger);
             map.delete(this.rival);
         }, 1000);
+        this.interval = a;
     }
 
     startMatch(channel) {
@@ -123,6 +125,7 @@ module.exports.TicTacToe = class TicTacToe {
                 setTimeout(() => this.table_message.edit('Restarting game, its a DRAW'), 500);
                 this.table_message.edit(':one::two::three:\n:four::five::six:\n:seven::eight::nine:');
                 resetArrays();
+                this.stopMatch();
                 break;
             }
             if (TicTacToe.arrayEqual(os, [true, true, true])) {
@@ -130,12 +133,14 @@ module.exports.TicTacToe = class TicTacToe {
                     `\nWinner: ${this.playing_next.displayName}`, 500));
                 resetArrays();
                 this.current_message.delete();
+                this.stopMatch();
                 break;
             } else if (TicTacToe.arrayEqual(xs, [true, true, true])) {
                 setTimeout(() => channel.send(`**${this.challenger.displayName} vs. ${this.rival.displayName}**` +
                     `\nWinner: ${this.playing_next.displayName}`, 500));
                 resetArrays();
                 this.current_message.delete();
+                this.stopMatch();
                 break;
             }
             resetArrays();
@@ -169,6 +174,12 @@ module.exports.TicTacToe = class TicTacToe {
 
     setTime(time) {
         this.time = time;
+    }
+
+    stopMatch() {
+        clearInterval(this.interval);
+        this.map.delete(this.challenger);
+        this.map.delete(this.rival);
     }
 
     static arrayEqual(a, b) {

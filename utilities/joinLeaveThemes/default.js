@@ -20,7 +20,7 @@ module.exports.join = (member, channel) => {
             });
         });
 
-        Jimp.read(member.user.avatarURL).then(avatar => {
+        Jimp.read(member.user.displayAvatarURL).then(avatar => {
             avatar.cover(280, 280, Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE);
 
             Jimp.read('https://cloud.githubusercontent.com/assets/414918/11165709/051d10b0-8b0f-11e5-864a-20ef0bada8d6.png').then(mask => {
@@ -60,7 +60,7 @@ module.exports.leave = (member, channel) => {
             });
         });
 
-        Jimp.read(member.user.avatarURL).then(avatar => {
+        Jimp.read(member.user.displayAvatarURL).then(avatar => {
             avatar.cover(280, 280, Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE);
 
             Jimp.read('https://cloud.githubusercontent.com/assets/414918/11165709/051d10b0-8b0f-11e5-864a-20ef0bada8d6.png').then(mask => {

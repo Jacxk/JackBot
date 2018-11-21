@@ -6,9 +6,9 @@ module.exports.run = (message) => {
 
 module.exports.command = {
     name: 'currentsong',
-    aliases: ['csong', 'playing', 'current'],
+    aliases: ['csong', 'playing_next', 'current'],
     permission: "none",
-    description: "Displays the current song playing",
+    description: "Displays the current song playing_next",
     usage: "currentsong",
     enabled: true
 };

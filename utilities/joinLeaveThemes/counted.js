@@ -46,7 +46,7 @@ module.exports.join = (member, channel) => {
             });
         });
 
-        Jimp.read(member.user.avatarURL).then(avatar => {
+        Jimp.read(member.user.displayAvatarURL).then(avatar => {
             avatar.cover(280, 280, Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE);
 
             Jimp.read('./utilities/joinLeaveThemes/images/squared-white-border.png').then(border => {
@@ -100,7 +100,7 @@ module.exports.leave = (member, channel) => {
             });
         });
 
-        Jimp.read(member.user.avatarURL).then(avatar => {
+        Jimp.read(member.user.displayAvatarURL).then(avatar => {
             avatar.cover(280, 280, Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE);
 
             Jimp.read('./utilities/joinLeaveThemes/images/squared-white-border.png').then(border => {

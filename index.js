@@ -3,7 +3,9 @@ const fs = require('fs');
 const config = require('./config.json');
 const messageUtil = require('./utilities/messageUtil.js');
 const mysqlUtil = require('./utilities/mysqlUtil.js');
-const website = require('./website.js');
+
+require('./website.js');
+const socket = require('./socket/client.js').client;
 
 const bot = new Discord.Client();
 const commandsCollection = new Discord.Collection();
@@ -13,10 +15,11 @@ let commandSize = 0;
 bot.login(config.botToken).catch(err => console.log(err));
 
 bot.on('ready', () => {
-    loadGuildInfo();
+    //website.runWebsite(bot);
     setGame();
-    getBotStats();
-    website.runWebsite(bot);
+    loadGuildInfo();
+    setTimeout(() => getBotStats(), 5000);
+    socket.load(bot);
     console.log(`${bot.user.username} is ready in ${bot.guilds.size} guilds, ${bot.users.size} members, and ${commandSize} commands!`);
 });
 
@@ -32,7 +35,7 @@ const loadGuildInfo = module.exports.loadGuildInfo = () => {
     });
 };
 
-bot.on('disconnect', () => getBotStats('Offline'));
+bot.on('disconnect', () => getBotStats(false));
 bot.on('guildCreate', (guild) => {
     mysqlUtil.createGuild(guild);
     getBotStats()
@@ -80,6 +83,8 @@ const loadCommands = module.exports.loadCommands = (dir = "./commands/") => {
 loadCommands();
 
 bot.on('guildMemberAdd', member => {
+    socket.sendMemberJoined(member);
+
     const channelId = mysqlUtil.joinLeaveChannels.get(member.guild.id);
     const channel = member.guild.channels.get(channelId);
     if (!channel) return;
@@ -89,6 +94,8 @@ bot.on('guildMemberAdd', member => {
 });
 
 bot.on('guildMemberRemove', member => {
+    socket.sendMemberLeft(member);
+
     const channelId = mysqlUtil.joinLeaveChannels.get(member.guild.id);
     const channel = member.guild.channels.get(channelId);
     if (!channel) return;
@@ -106,6 +113,8 @@ bot.on('channelCreate', channel => {
 
 bot.on('message', message => {
     if (message.author.bot) return;
+
+    if (message.channel.type !== 'dm') socket.sendGuildMessages(message);
 
     let prefix = message.channel.type !== "dm" ? mysqlUtil.getPrefix(message.guild.id) : '-';
     let commandChannel = message.channel.type !== "dm" ? mysqlUtil.getCommandChannel(message.guild.id) : "ALL";
@@ -162,22 +171,27 @@ function setGame() {
     bot.user.setStatus("dnd").catch(console.error);
 }
 
-function getBotStats(status) {
-    const stats = {
+function getBotStats(status = true) {
+    let stats = {
         guilds: bot.guilds.size,
-        users: bot.users.filter(f => !f.bot).size,
+        users: bot.users.size,
         commands: commandSize,
-        status: !status ? 'Online' : status
+        status: status ? 'Online' : 'Offline'
     };
 
-    fs.writeFile('./botstats.json', JSON.stringify(stats, null, 2), null, err => {
+    /*fs.writeFile('./botstats.json', JSON.stringify(stats, null, 2), null, err => {
         if (err) console.log(err)
+    });*/
+
+    socket.on('app:bot:data:retrieve', () => {
+        socket.emit('app:bot:data:send', stats);
     });
+    socket.emit('app:bot:data:send', stats);
 }
 
 function closeApp() {
     console.log("Closing App");
-    getBotStats('Offline');
+    getBotStats(false);
 
     setTimeout(() => process.exit(), 2 * 1000);
 }
@@ -193,3 +207,8 @@ process.on('SIGHUP', () => {
 process.on('SIGTERM', () => {
     closeApp();
 });
+
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.replace(new RegExp(search, 'g'), replacement);
+};

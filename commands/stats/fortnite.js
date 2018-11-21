@@ -25,6 +25,7 @@ function getFortniteStats(channel, platform, username, mode) {
 
         if (err) return console.log(err);
         if (!data) return messageUtil.sendError(channel, 'Please try again later...');
+        if (!data.startsWith('<')) return messageUtil.sendError(channel, 'Please try again later...');
 
         try {
             let jsonData = JSON.parse(data);
