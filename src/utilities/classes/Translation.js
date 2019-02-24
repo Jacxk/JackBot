@@ -24,7 +24,7 @@ class Translation {
     }
 
     static getCategory(category, lang) {
-        return this.get(`words.categories.${category}`, lang)
+        return this.get(`categories.${category}`, lang)
     }
 
     static getCommand(command, lang) {

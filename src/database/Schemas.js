@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 const guildPunishments = new Discord.Collection();
+const guildAnnouncements = new Discord.Collection();
 
 const Prefix = new Schema({
     guild_id: String,
@@ -57,10 +58,27 @@ function punishments(guildId) {
     return guildPunishments.get(guildId);
 }
 
+function announcements(guildId) {
+    if (guildAnnouncements.get(guildId)) return guildAnnouncements.get(guildId);
+    const Announcements = new Schema({
+        guild_id: String,
+        announcement_name: String,
+        announcement_text: String,
+        announce_rate: Number,
+        created_by: String,
+        date: Date,
+        last_edited: Date
+    });
+
+    guildAnnouncements.set(guildId, guildAnnouncements.model(guildId, Announcements));
+    return guildAnnouncements.get(guildId);
+}
+
 module.exports = {
     Prefix: configurationsConnection.model('prefixes', Prefix),
     Commands: configurationsConnection.model('commands', Commands),
     Music: configurationsConnection.model('music', Music),
     TicTacToe: usersConnection.model('tictactoe', TicTacToe),
-    punishments
+    punishments,
+    announcements
 };

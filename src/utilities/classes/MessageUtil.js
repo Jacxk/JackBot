@@ -31,7 +31,8 @@ class MessageUtil {
     }
 
     static sendWrongUsage(channel, usage, example) {
-        this.sendError(`${Translation.getError('wrong_usage')}\n\n${Translation.get('usage')}: ${usage}\n${Translation.get('example')}: ${example}`, channel);
+        this.sendError(`${Translation.getError('wrong_usage')}\n\n${Translation.get('usage')}: ${channel.guild.prefix} ${usage}` +
+            `\n${Translation.get('example')}: ${channel.guild.prefix} ${example}`, channel);
     }
 }
 

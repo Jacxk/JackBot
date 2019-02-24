@@ -5,11 +5,20 @@ const fs = require('fs');
 
 const incidents = new Discord.Collection();
 
+const aliases = new Discord.Collection();
+const commands = new Discord.Collection();
+
 const Database = require('../database/Database.js');
 const CachedData = require('../database/CachedData.js');
 
 const Incidents = require('./classes/Incidents.js');
 const Translation = require('./classes/Translation.js');
+
+const defaultRegions = {
+    asia: ["sydney", "singapore", "japan", "hongkong"],
+    eu: ["london", "frankfurt", "amsterdam", "russia", "eu-central", "eu-west"],
+    us: ["us-central", "us-west", "us-east", "us-south", "brazil"]
+};
 
 function loadCommands(dir = '/commands/') {
     fs.readdir('./src' + dir, null, function (err, files) {
@@ -92,6 +101,25 @@ async function load(config, client) {
         if (!res) return {error: "There was an error, try again"};
         if (res.body.length < 1) return {error: "No tracks found"};
         return res.body;
+    };
+
+    function getRegion(region) {
+        region = region.replace("vip-", "");
+        for (const key in defaultRegions) {
+            const nodes = client.player.nodes.filter(node => node.connected && node.region === key);
+            if (!nodes) continue;
+            for (const id of defaultRegions[key]) {
+                if (id === region || region.startsWith(id) || region.includes(id)) return key;
+            }
+        }
+        return "us";
+    }
+
+    client.getIdealHost = function (region) {
+        region = getRegion(region);
+        const foundNode = client.player.nodes.find(node => node.ready && node.region === region);
+        if (foundNode) return foundNode.host;
+        return client.player.nodes.first().host;
     };
 
     client.getLocale = function (guildId) {

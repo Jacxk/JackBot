@@ -1,6 +1,7 @@
 const MessageUtil = require('../utilities/classes/MessageUtil.js');
 const Translation = require('../utilities/classes/Translation.js');
 const CachedData = require('../database/CachedData.js');
+const fs = require('fs');
 
 class Message {
     constructor() {
@@ -56,7 +57,22 @@ class Message {
         if ((command.getPermission() !== "N/A") && !member.hasPermission(command.getPermission()))
             return MessageUtil.sendNoPermission(channel);
 
-        command.execute(message, args, client).catch(error => MessageUtil.sendError(error.toString() + '\nPlease contact the developer', channel));
+        command.execute(message, args, client).catch(error => {
+            const date = `${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`;
+
+            console.log(date + ": There was an error... Please check the logs.");
+            MessageUtil.sendError(error.toString() + '\nPlease contact the developer', channel);
+
+/*
+            const path = __dirname + `/../../logs/${date}.txt`;
+
+
+            fs.writeFile(path, `${date}: ${error.stack.split('\n').join(`\n ${date}: `)}`, (e) => {
+                if (e) return console.log(e);
+            });
+*/
+
+        });
     }
 
     getEventName() {

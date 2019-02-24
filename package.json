@@ -17,6 +17,7 @@
     "discord.js": "^11.4.2",
     "discord.js-lavalink": "github:MrJacz/discord.js-lavalink",
     "escape-string-regexp": "^1.0.5",
+    "ffmpeg-binaries": "^4.0.0",
     "google-translate-api": "^2.3.0",
     "got": "latest",
     "is-url": "^1.2.4",
@@ -24,6 +25,7 @@
     "mongoose": "^5.3.4",
     "ms": "^2.1.1",
     "node-time-ago": "^1.0.0",
+    "opusscript": "0.0.6",
     "pretty-ms": "^4.0.0",
     "profanity-util": "^0.2.0",
     "uws": "^99.0.0"

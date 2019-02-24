@@ -85,12 +85,12 @@ module.exports.getPunishment = function (user, amount = 1, type, cb) {
     });
 };
 
-module.exports.getPunishmentCount = function (user, type) {
+module.exports.getPunishmentCount = async function (user, type) {
     const punishSchema = Punishments.punishments(user.guild.id);
     let find = {punished: user.id};
     if (type) find = Object.assign(find, {type});
 
-    const query = punishSchema.countDocuments(find);
+    const query = await punishSchema.countDocuments(find);
 
-    return query.exec();
+    return await query.exec();
 };

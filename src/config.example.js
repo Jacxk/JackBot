@@ -25,7 +25,8 @@ module.exports = {
         database: {
             configurations: "configurations",
             punishments: "punishments",
-            users: "users"
+            users: "users",
+            announcements: "announcements"
         }
     },
     music: {
@@ -36,6 +37,7 @@ module.exports = {
     api: {
         youtube: "👀 👀",
         hypixel: "👀 👀",
-        fortnite: "👀 👀"
+        fortnite: "👀 👀",
+        apex: "👀 👀"
     }
 };

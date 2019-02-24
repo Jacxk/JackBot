@@ -52,7 +52,7 @@ class Play extends Command {
             if (song["loadType"] === 'PLAYLIST_LOADED') {
                 // add check if user has a role to play a playlist
                 tracks = tracksAvailable.trackList.tracks;
-                tracks.forEach(track => track.requestedBy = member.displayName);
+                await tracks.forEach(track => track.requestedBy = member.displayName);
                 queueArray = queueArray.concat(tracks);
 
                 tracks = tracks[0];
@@ -133,7 +133,7 @@ function playSong(song, client, message, queueArray, embed) {
     if (!player) player = client.playerManager.join({
         guild: message.guild.id,
         channel: message.member.voiceChannelID,
-        host: 'localhost'
+        host: client.getIdealHost(message.guild.region)
     }, {selfdeaf: true});
 
     if (queueArray.length === 1) {

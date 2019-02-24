@@ -74,6 +74,9 @@
         "title": "Showing {0}'s information!",
         "footer": "Made by {0}"
       }
+    },
+    "chuck": {
+      "description": "Get a random Chuck Norris joke"
     }
   },
   "errors": {
